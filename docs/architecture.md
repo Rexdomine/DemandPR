@@ -2,7 +2,7 @@
 
 ## Current slice
 
-Demand PR is a static-first Next.js App Router application. The initial scope contains one homepage, shared header/footer, a not-found route and framework-generated metadata routes. There is no CMS, analytics, contact-processing backend or deployment configuration.
+Demand PR is a static-first Next.js App Router application deployed through its dedicated Vercel project. The initial scope contains one homepage, shared header/footer, a not-found route and framework-generated metadata routes. There is no CMS, analytics, or contact-processing backend. Deployment ownership and safety controls are documented in `docs/deployment.md`.
 
 - `src/app`: route UI, global styles and metadata routes.
 - `src/components`: shared presentation and interactive navigation.

@@ -4,7 +4,7 @@
   "private": true,
   "description": "Demand PR Ltd public website",
   "engines": {
-    "node": ">=22.22.3 <23"
+    "node": ">=22.22.0 <23"
   },
   "packageManager": "npm@10.9.8",
   "scripts": {

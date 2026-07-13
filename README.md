@@ -4,7 +4,7 @@ Official web platform repository for Demand PR Ltd. This foundation is a static-
 
 ## Scope
 
-The current vertical slice includes the responsive homepage, shared navigation and footer, local typed content, metadata/robots/sitemap/404 handling, preview indexing controls, security headers and automated quality gates. It intentionally excludes the remaining site pages, enquiry processing, CMS, analytics and deployment.
+The current vertical slice includes the responsive homepage, shared navigation and footer, local typed content, metadata/robots/sitemap/404 handling, preview indexing controls, security headers, automated quality gates, and a dedicated Vercel deployment. It intentionally excludes the remaining site pages, enquiry processing, CMS, and analytics.
 
 ## Requirements
 
