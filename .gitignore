@@ -1,0 +1,19 @@
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Dependencies and generated output
+node_modules/
+.next/
+out/
+coverage/
+playwright-report/
+test-results/
+
+# Logs and local tooling
+*.log
+.DS_Store
+.vscode/
+.idea/
+.vercel/
