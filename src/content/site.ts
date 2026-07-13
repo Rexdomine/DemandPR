@@ -15,7 +15,7 @@ export const site = {
     subheading:
       "Demand PR helps international businesses, investors, governments and organisations successfully enter African markets through strategic market entry advisory, investor support, government engagement and high-level commercial connections.",
     primaryCta: {
-      label: "Book a Strategy Consultation",
+      label: "Strategy Consultation Details",
       href: "/#consultation",
     },
     secondaryCta: { label: "Explore Our Services", href: "/#services" },
@@ -132,20 +132,20 @@ export const commercialOutcomes = [
 
 export const successStories: readonly ContentBlock[] = [
   {
-    title: "International Trade Delegation",
-    text: "For client review: Planning and coordination of cross-border commercial delegations.",
+    title: "Trade Delegation Planning",
+    text: "An illustrative capability scenario showing how Demand PR can shape cross-border agendas, stakeholder preparation and delegation logistics.",
   },
   {
-    title: "Investment Summits",
-    text: "For client review: Strategic programme design and stakeholder convening for investment forums.",
+    title: "Investment Forum Design",
+    text: "An illustrative capability scenario for programme strategy, speaker and stakeholder coordination, and investor-focused convening.",
   },
   {
-    title: "Government Engagement",
-    text: "For client review: Structured engagement between organisations and relevant public-sector stakeholders.",
+    title: "Sector Entry Advisory",
+    text: "An illustrative capability scenario combining market intelligence, stakeholder mapping and a practical entry roadmap for a growth sector.",
   },
   {
-    title: "Executive Summits",
-    text: "For client review: Senior-level forums shaped around dialogue, relationships and commercial priorities.",
+    title: "Regulatory Navigation",
+    text: "An illustrative capability scenario for structured engagement, local context and informed preparation around evolving requirements.",
   },
 ];
 

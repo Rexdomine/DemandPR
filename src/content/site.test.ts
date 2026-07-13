@@ -15,7 +15,7 @@ describe("approved site content", () => {
   it("preserves the approved identity and homepage hero", () => {
     expect(site.name).toBe("Demand PR Ltd");
     expect(site.hero.heading).toBe("Expand into Africa with Confidence");
-    expect(site.hero.primaryCta.label).toBe("Book a Strategy Consultation");
+    expect(site.hero.primaryCta.label).toBe("Strategy Consultation Details");
   });
 
   it("provides unique, internal navigation targets", () => {
@@ -36,11 +36,18 @@ describe("approved site content", () => {
   });
 
   it("does not fabricate metrics or named success-story clients", () => {
-    expect(JSON.stringify(featuredServices)).not.toMatch(
-      /\d+%|clients served|years of/i,
+    const content = JSON.stringify({
+      clientReasons,
+      commercialOutcomes,
+      featuredServices,
+      successStories,
+      whyDemandPr,
+    });
+    expect(content).not.toMatch(
+      /\d+%|clients served|years of|15\+|Est\. 2014|accredited advisors|12 hubs|24 nations|For client review/i,
     );
-    expect(
-      successStories.every(({ text }) => text.startsWith("For client review:")),
-    ).toBe(true);
+    expect(successStories.every(({ text }) => /capability/i.test(text))).toBe(
+      true,
+    );
   });
 });
