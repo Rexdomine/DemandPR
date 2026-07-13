@@ -16,7 +16,7 @@
    ```
 
 5. Use Conventional Commits, for example `feat: add market entry overview`.
-6. Complete the pull request checklist and obtain review before merging.
+6. Complete the pull request checklist and obtain review. Do not merge, enable auto-merge, or issue a production deployment without Rex's recorded approval.
 
 ## Accessibility and content
 

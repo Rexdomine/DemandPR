@@ -3,9 +3,11 @@
 Demand PR is hosted only in the dedicated Vercel team `demandprltd-8340s-projects` under the project `demandpr`.
 
 - Project URL: `https://demandpr.vercel.app`
+- Project ID: `prj_HggbtLdbdaJcuvDu89kGscjs5AlT`
+- Team ID: `team_M5iRNyEcNZHaREmgnyWgJgI1`
 - Framework: Next.js
 - Runtime: Node.js 22.x
-- Production branch: `main`
+- Production branch policy: `main` after Rex-approved merge; automatic Git enforcement is pending the GitHub connection
 - Canonical custom domain: pending stakeholder approval
 
 ## Access and secret handling
@@ -22,16 +24,46 @@ Do not set `SITE_INDEXABLE=true` until `NEXT_PUBLIC_SITE_URL` is configured as t
 
 ## Manual deployment
 
-From the repository root, with the dedicated token available in the environment:
+Use the tested Vercel CLI version `55.0.0`. From a fresh checkout, explicitly link and verify the existing dedicated project before deploying; `--scope` alone does not select the project.
 
 ```bash
-npx vercel@latest deploy \
+npx vercel@55.0.0 link \
   --yes \
+  --project demandpr \
   --scope demandprltd-8340s-projects \
   --token "$DEMANDPR_VERCEL_TOKEN"
+
+node -e '
+  const project = require("./.vercel/project.json");
+  if (
+    project.projectId !== "prj_HggbtLdbdaJcuvDu89kGscjs5AlT" ||
+    project.orgId !== "team_M5iRNyEcNZHaREmgnyWgJgI1"
+  ) process.exit(1);
+'
 ```
 
-Use `--prod` only for an approved production release. Verify the deployment URL, `/robots.txt`, `/sitemap.xml`, response security headers, browser console, and responsive layout after each production-facing deployment.
+Deploy only committed source from a clean tree. Until the GitHub connection is enabled, use an exact Git archive so an unrelated Git author/team-membership check cannot block an otherwise authorised CLI deployment:
+
+```bash
+test -z "$(git status --porcelain)"
+DEPLOY_COMMIT="$(git rev-parse HEAD)"
+DEPLOY_DIR="$(mktemp -d)"
+trap 'rm -rf "$DEPLOY_DIR"' EXIT
+
+git archive "$DEPLOY_COMMIT" | tar -x -C "$DEPLOY_DIR"
+mkdir -p "$DEPLOY_DIR/.vercel"
+cp .vercel/project.json "$DEPLOY_DIR/.vercel/project.json"
+
+npx vercel@55.0.0 deploy \
+  --yes \
+  --cwd "$DEPLOY_DIR" \
+  --scope demandprltd-8340s-projects \
+  --token "$DEMANDPR_VERCEL_TOKEN"
+
+printf 'Deployed commit: %s\n' "$DEPLOY_COMMIT"
+```
+
+A production deployment additionally requires Rex's recorded approval, a clean `main` checkout at the approved merged commit, and the explicit `--prod` flag. Do not merge or issue a production deployment without that approval. Verify the deployment URL, `/robots.txt`, `/sitemap.xml`, response security headers, browser console, and responsive layout after every production-facing deployment.
 
 ## GitHub integration
 
