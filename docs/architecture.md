@@ -9,11 +9,11 @@ Demand PR is a static-first Next.js App Router application deployed through its 
 - `src/content`: typed, locally reviewed website copy.
 - `src/test`: shared Vitest setup.
 
-React Server Components are the default. The header is the only Client Component because its mobile dialog owns UI state and focus behaviour. Abstract hero artwork is CSS-only, avoiding remote or unlicensed media.
+React Server Components are the default. The header is the only Client Component because its mobile dialog owns UI state and focus behaviour. Homepage photography is derived from the approved Stitch design, sanitised where required, stored under `public/images/home`, and served locally through Next Image. The application does not hotlink remote media.
 
 ## Design system
 
-Tailwind scans authored components and exposes the approved palette. CSS custom properties in `globals.css` are the canonical design tokens and are also used by bespoke component styles. Sora and Inter are represented by graceful system-font fallback stacks; adding hosted font files later requires licence and performance review.
+Tailwind scans authored components and exposes the approved palette. CSS custom properties in `globals.css` are the canonical design tokens and are also used by bespoke component styles. The Stitch design's Sora and Inter typefaces are bundled locally under `public/fonts` with their OFL licences, while system-font fallbacks remain available for resilience. No external font service is required at runtime.
 
 ## Indexing and metadata
 
