@@ -126,7 +126,7 @@ export function Header() {
             ))}
           </nav>
           <Link className="button" href="/#consultation" onClick={close}>
-            Book a Strategy Consultation
+            {site.hero.primaryCta.label}
           </Link>
         </div>
       ) : null}

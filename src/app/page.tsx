@@ -1,93 +1,143 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import {
   clientReasons,
-  commercialOutcomes,
   featuredServices,
   retainerServices,
   site,
   successStories,
-  trustAreas,
-  whyDemandPr,
 } from "@/content/site";
+
+const serviceIcons = ["◇", "▦", "⚖", "◎", "⌖", "□", "✦"] as const;
+const outcomeCards = [
+  {
+    icon: "◴",
+    title: "Accelerated Market Entry",
+    text: "Practical support designed to reduce complexity and shorten the route from market assessment to informed action.",
+  },
+  {
+    icon: "◇",
+    title: "Resilient Partnerships",
+    text: "Build durable, high-trust relationships with carefully assessed local organisations and stakeholders.",
+  },
+  {
+    icon: "⬡",
+    title: "Enhanced Risk Mitigation",
+    text: "Surface political, reputational and operational considerations early enough to make better-informed decisions.",
+  },
+  {
+    icon: "◉",
+    title: "Stronger Stakeholder Positioning",
+    text: "Contribute constructively to sector dialogue through credible engagement and clear strategic communications.",
+  },
+] as const;
+
+const storyImages = [
+  {
+    src: "/images/home/trade-delegation.jpg",
+    alt: "Business leaders in discussion around a boardroom table",
+    label: "Trade delegation capability",
+  },
+  {
+    src: "/images/home/investment-summit.jpg",
+    alt: "Delegates attending an investment conference",
+    label: "Investment forum capability",
+  },
+  {
+    src: "/images/home/renewable-infrastructure.jpg",
+    alt: "Renewable energy infrastructure in an African landscape",
+    label: "Sector-entry capability",
+  },
+  {
+    src: "/images/home/innovation-team-neutral.jpg",
+    alt: "A diverse team collaborating in a contemporary workspace",
+    label: "Advisory capability",
+  },
+] as const;
+
+const storyCards = successStories.map((story, index) => ({
+  ...story,
+  image: storyImages[index]!,
+}));
 
 export default function Home() {
   return (
     <main id="main-content">
-      <section className="hero">
-        <div className="hero-glow" aria-hidden="true" />
-        <div className="shell hero-grid">
-          <div className="hero-copy">
-            <p className="eyebrow gold">
-              Africa market entry & business growth
-            </p>
-            <h1>{site.hero.heading}</h1>
-            <p className="hero-lede">{site.hero.subheading}</p>
-            <div className="button-row">
-              <Link className="button" href={site.hero.primaryCta.href}>
-                {site.hero.primaryCta.label}
-                <span aria-hidden="true">↗</span>
-              </Link>
-              <Link
-                className="button button-ghost"
-                href={site.hero.secondaryCta.href}
-              >
-                {site.hero.secondaryCta.label}
-              </Link>
-            </div>
+      <section className="hero" aria-labelledby="hero-heading">
+        <Image
+          className="hero-image"
+          src="/images/home/african-city-twilight.jpg"
+          alt="African city skyline illuminated at twilight"
+          fill
+          priority
+          sizes="100vw"
+        />
+        <div className="hero-overlay" aria-hidden="true" />
+        <div className="shell hero-content">
+          <p className="eyebrow hero-eyebrow">
+            Global strategy · African opportunity
+          </p>
+          <h1 id="hero-heading">{site.hero.heading}</h1>
+          <p className="hero-lede">{site.hero.subheading}</p>
+          <div className="button-row">
+            <Link className="button" href={site.hero.primaryCta.href}>
+              {site.hero.primaryCta.label}
+            </Link>
+            <Link
+              className="button button-ghost"
+              href={site.hero.secondaryCta.href}
+            >
+              {site.hero.secondaryCta.label}
+            </Link>
           </div>
-          <div
-            className="bridge-art"
-            aria-label="Abstract composition representing connected markets"
-            role="img"
-          >
-            <div className="orbit orbit-one" />
-            <div className="orbit orbit-two" />
-            <div className="art-card art-card-a">
-              <span>International ambition</span>
-              <b>Strategy</b>
-            </div>
-            <div className="art-card art-card-b">
-              <span>African opportunity</span>
-              <b>Connection</b>
-            </div>
-            <div className="art-line" />
-          </div>
-        </div>
-        <div className="shell trust-strip" aria-label="Areas of expertise">
-          {trustAreas.map((area) => (
-            <span key={area}>{area}</span>
-          ))}
         </div>
       </section>
 
-      <section className="section intro" id="about">
-        <div className="shell editorial-grid">
-          <div>
-            <p className="eyebrow">Why Demand PR</p>
-            <h2>Your Strategic Partner for Growth Across Africa</h2>
+      <section className="section philosophy" id="about">
+        <div className="shell philosophy-grid">
+          <div className="philosophy-copy">
+            <p className="eyebrow">Our philosophy</p>
+            <h2>The Sophisticated Navigator for African Markets</h2>
+            <p className="lead">
+              Market entry is not just about data; it requires nuance, cultural
+              intelligence and trusted relationships. Africa&apos;s landscape is
+              diverse, and a one-size-fits-all approach creates avoidable
+              friction.
+            </p>
+            <p>
+              Demand PR helps organisations navigate complex commercial and
+              stakeholder environments, identify credible opportunities and
+              build a practical route to sustainable growth.
+            </p>
+            <blockquote>
+              “We connect strategy with the relationships and local
+              understanding needed to move forward with confidence.”
+            </blockquote>
           </div>
-          <div className="prose">
-            {whyDemandPr.map((paragraph, index) => (
-              <p className={index === 0 ? "lead" : undefined} key={paragraph}>
-                {paragraph}
-              </p>
-            ))}
+          <div className="portrait-wrap">
+            <Image
+              src="/images/home/strategic-adviser.jpg"
+              alt="Strategic adviser seated in a modern city office"
+              fill
+              sizes="(min-width: 960px) 42vw, 100vw"
+            />
+            <div className="portrait-note">
+              <strong>Relationship-led</strong>
+              <span>
+                Strategic support shaped around each organisation, sector and
+                market.
+              </span>
+            </div>
           </div>
         </div>
       </section>
 
       <section className="section services-section" id="services">
         <div className="shell">
-          <div className="section-heading">
-            <div>
-              <p className="eyebrow">Core services</p>
-              <h2>Core Services</h2>
-            </div>
-            <p>
-              For client review: Relationship-led support from initial market
-              thinking to ongoing representation.
-            </p>
+          <div className="section-heading centred">
+            <p className="eyebrow">Expertise</p>
+            <h2>Strategic Solutions for Seamless Entry</h2>
           </div>
           <div className="service-grid">
             {featuredServices.map((service, index) => (
@@ -98,35 +148,41 @@ export default function Home() {
                 id={service.featured ? "market-entry" : undefined}
                 key={service.title}
               >
-                <span className="card-index" aria-hidden="true">
-                  0{index + 1}
+                <span className="service-icon" aria-hidden="true">
+                  {serviceIcons[index]}
                 </span>
+                {service.featured ? (
+                  <span className="programme-label">Flagship programme</span>
+                ) : null}
                 <h3>{service.title}</h3>
                 <p>{service.description}</p>
-                <Link
-                  className="card-link"
-                  href={service.href}
-                  aria-label={`Discuss ${service.title}`}
-                >
-                  Discuss this service <span aria-hidden="true">→</span>
-                </Link>
+                {service.featured ? (
+                  <Link className="card-link" href={service.href}>
+                    Learn more <span aria-hidden="true">→</span>
+                  </Link>
+                ) : null}
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section reasons-section">
-        <div className="shell">
-          <div className="section-heading">
-            <div>
-              <h2>Why Clients Choose Demand PR</h2>
-            </div>
+      <section className="section advantage-section">
+        <div className="shell advantage-grid">
+          <div className="advantage-intro">
+            <p className="eyebrow">Why Demand PR</p>
+            <h2>The Competitive Advantage</h2>
+            <p>
+              Our relationship-led model combines international business
+              standards with practical understanding of African markets.
+            </p>
+            <Link className="button button-light" href="#capabilities">
+              Explore capabilities
+            </Link>
           </div>
           <div className="reason-grid">
-            {clientReasons.map((reason, index) => (
+            {clientReasons.map((reason) => (
               <article key={reason.title}>
-                <span aria-hidden="true">0{index + 1}</span>
                 <h3>{reason.title}</h3>
                 <p>{reason.text}</p>
               </article>
@@ -136,38 +192,54 @@ export default function Home() {
       </section>
 
       <section className="section outcomes-section">
-        <div className="shell outcomes-grid">
-          <div>
-            <h2>Delivering Commercial Outcomes</h2>
+        <div className="shell">
+          <div className="outcomes-heading">
+            <div>
+              <p className="eyebrow">Impact</p>
+              <h2>Delivering Tangible Commercial Outcomes</h2>
+            </div>
+            <span aria-hidden="true" />
           </div>
-          <ul>
-            {commercialOutcomes.map((outcome) => (
-              <li key={outcome}>
-                <span aria-hidden="true">↗</span>
-                {outcome}
-              </li>
+          <div className="outcome-grid">
+            {outcomeCards.map((outcome) => (
+              <article key={outcome.title}>
+                <span className="outcome-icon" aria-hidden="true">
+                  {outcome.icon}
+                </span>
+                <div>
+                  <h3>{outcome.title}</h3>
+                  <p>{outcome.text}</p>
+                </div>
+              </article>
             ))}
-          </ul>
+          </div>
         </div>
       </section>
 
-      <section className="section stories-section">
+      <section className="section stories-section" id="capabilities">
         <div className="shell">
-          <div className="section-heading">
+          <div className="stories-heading">
             <div>
-              <h2>Featured Success Stories</h2>
+              <p className="eyebrow">Illustrative capability</p>
+              <h2>Capabilities in Action</h2>
             </div>
             <p>
-              Capability-led examples only; named engagements and outcomes will
-              be added after client approval.
+              Representative service scenarios, not claims about named client
+              engagements.
             </p>
           </div>
           <div className="story-grid">
-            {successStories.map((story) => (
+            {storyCards.map((story) => (
               <article key={story.title}>
-                <div className="story-visual" aria-hidden="true">
-                  <span>Demand PR</span>
+                <div className="story-image">
+                  <Image
+                    src={story.image.src}
+                    alt={story.image.alt}
+                    fill
+                    sizes="(min-width: 1100px) 25vw, (min-width: 640px) 50vw, 100vw"
+                  />
                 </div>
+                <span className="story-label">{story.image.label}</span>
                 <h3>{story.title}</h3>
                 <p>{story.text}</p>
               </article>
@@ -177,43 +249,53 @@ export default function Home() {
       </section>
 
       <section className="section retainer-section" id="retainers">
-        <div className="shell retainer-grid">
-          <div>
-            <p className="eyebrow gold">Strategic partnership retainers</p>
-            <h2>Ongoing Representation Across Africa</h2>
-            <p>
-              Many organisations require ongoing strategic support rather than
-              one-off consultancy.
-            </p>
-            <p>
-              Demand PR provides retained advisory services that give clients a
-              trusted partner on the ground, supporting long-term growth across
-              African markets.
-            </p>
-            <Link className="button" href={site.hero.primaryCta.href}>
-              {site.hero.primaryCta.label}
-            </Link>
-          </div>
-          <ul className="retainer-list" aria-label="Retainer services">
-            {retainerServices.map((service) => (
-              <li key={service}>{service}</li>
+        <div className="shell retainer-content">
+          <p className="eyebrow">Ongoing representation</p>
+          <h2>Strategic Continuity Across African Markets</h2>
+          <div className="retainer-pills" aria-label="Retainer services">
+            {retainerServices.slice(0, 5).map((service) => (
+              <span key={service}>{service}</span>
             ))}
-          </ul>
+          </div>
+          <div className="retainer-cards">
+            {[
+              [
+                "01",
+                "Strategic representation",
+                "Ongoing counsel and representation aligned with your leadership team and commercial priorities.",
+              ],
+              [
+                "02",
+                "Market intelligence",
+                "Regular briefings on relevant policy, stakeholder and commercial developments.",
+              ],
+              [
+                "03",
+                "Stakeholder engagement",
+                "Planned liaison and relationship support appropriate to your market-entry objectives.",
+              ],
+            ].map(([number, title, text]) => (
+              <article key={number}>
+                <span>{number}</span>
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
       <section className="section cta-section" id="consultation">
-        <div className="shell cta-panel">
-          <p className="eyebrow gold">Begin the conversation</p>
+        <div className="shell cta-content">
           <h2>Ready to Expand into Africa?</h2>
           <p>
-            Partner with Demand PR to access trusted expertise, influential
-            networks and practical market-entry support that delivers measurable
-            commercial outcomes.
+            Start a focused conversation about your target market, commercial
+            priorities and the practical support your organisation needs.
           </p>
-          <p className="launch-contact" role="status">
-            Consultation booking will be connected to the approved client
-            contact route during launch configuration.
+          <p className="consultation-status">
+            Strategy consultations are available by arrangement. Demand PR works
+            with qualified organisations to clarify market priorities,
+            stakeholder needs and the appropriate engagement scope.
           </p>
         </div>
       </section>
