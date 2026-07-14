@@ -18,14 +18,14 @@ export const site = {
       label: "Strategy Consultation Details",
       href: "/#consultation",
     },
-    secondaryCta: { label: "Explore Our Services", href: "/#services" },
+    secondaryCta: { label: "Explore Our Services", href: "/services" },
   },
 } as const;
 
 export const navigation: readonly NavigationItem[] = [
   { label: "Home", href: "/" },
   { label: "Market Entry Programme", href: "/africa-market-entry-programme" },
-  { label: "Services", href: "/#services" },
+  { label: "Services", href: "/services" },
   { label: "About", href: "/#about" },
   { label: "Contact", href: "/#consultation" },
 ];

@@ -26,6 +26,11 @@ describe("approved site content", () => {
       label: "Market Entry Programme",
       href: "/africa-market-entry-programme",
     });
+    expect(navigation).toContainEqual({ label: "Services", href: "/services" });
+    expect(site.hero.secondaryCta).toEqual({
+      label: "Explore Our Services",
+      href: "/services",
+    });
     expect(featuredServices[0]?.href).toBe("/africa-market-entry-programme");
   });
 
