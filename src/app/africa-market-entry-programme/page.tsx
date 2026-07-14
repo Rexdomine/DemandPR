@@ -153,7 +153,7 @@ export default function AfricaMarketEntryProgramme() {
             African markets.
           </p>
           <div className="button-row">
-            <Link className="button" href="/#consultation">
+            <Link className="button" href="/contact">
               Strategy Consultation Details <span aria-hidden="true">→</span>
             </Link>
             <Link
@@ -384,7 +384,7 @@ export default function AfricaMarketEntryProgramme() {
             Start a focused conversation about your target market, commercial
             priorities and the practical support your organisation needs.
           </p>
-          <Link className="button button-light" href="/#consultation">
+          <Link className="button button-light" href="/contact">
             Strategy Consultation Details <span aria-hidden="true">→</span>
           </Link>
         </div>

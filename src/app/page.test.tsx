@@ -60,6 +60,17 @@ describe("homepage", () => {
     ).toBeGreaterThan(0);
   });
 
+  it("preserves the consultation bridge with a real contact destination", () => {
+    const { container } = render(<Home />);
+    expect(container.querySelector("#consultation")).toBeInTheDocument();
+    expect(
+      screen.getAllByRole("link", { name: "Strategy Consultation Details" }),
+    ).not.toHaveLength(0);
+    screen
+      .getAllByRole("link", { name: "Strategy Consultation Details" })
+      .forEach((link) => expect(link).toHaveAttribute("href", "/contact"));
+  });
+
   it("has no detectable automated accessibility violations", async () => {
     const { container } = render(<Home />);
     const results = await axe(container);

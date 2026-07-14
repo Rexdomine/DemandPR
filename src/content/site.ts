@@ -16,7 +16,7 @@ export const site = {
       "Demand PR helps international businesses, investors, governments and organisations successfully enter African markets through strategic market entry advisory, investor support, government engagement and high-level commercial connections.",
     primaryCta: {
       label: "Strategy Consultation Details",
-      href: "/#consultation",
+      href: "/contact",
     },
     secondaryCta: { label: "Explore Our Services", href: "/services" },
   },
@@ -27,7 +27,7 @@ export const navigation: readonly NavigationItem[] = [
   { label: "Market Entry Programme", href: "/africa-market-entry-programme" },
   { label: "Services", href: "/services" },
   { label: "About", href: "/#about" },
-  { label: "Contact", href: "/#consultation" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export const trustAreas = [
@@ -59,36 +59,36 @@ export const featuredServices: readonly Service[] = [
     title: "Investor Concierge",
     description:
       "Supporting investors throughout every stage of the investment journey.",
-    href: "/#consultation",
+    href: "/contact",
   },
   {
     title: "Government Relations",
     description:
       "Building productive relationships with governments, regulators and strategic stakeholders.",
-    href: "/#consultation",
+    href: "/contact",
   },
   {
     title: "Trade Missions & Business Delegations",
     description:
       "Connecting organisations directly with governments, investors and commercial opportunities.",
-    href: "/#consultation",
+    href: "/contact",
   },
   {
     title: "Strategic Introductions",
     description:
       "Facilitating carefully selected introductions to influential decision-makers and commercial partners.",
-    href: "/#consultation",
+    href: "/contact",
   },
   {
     title: "Visa & Executive Mobility",
     description: "Business visas, work permits and executive travel support.",
-    href: "/#consultation",
+    href: "/contact",
   },
   {
     title: "Investment Forums & Executive Events",
     description:
       "Delivering world-class conferences, investment summits and executive networking programmes.",
-    href: "/#consultation",
+    href: "/contact",
   },
 ];
 

@@ -185,7 +185,7 @@ export default function ServicesPage() {
             engagement and practical market coordination.
           </p>
           <div className="button-row">
-            <Link className="button" href="/#consultation">
+            <Link className="button" href="/contact">
               Strategy Consultation Details <span aria-hidden="true">→</span>
             </Link>
             <Link
@@ -325,7 +325,7 @@ export default function ServicesPage() {
             support appropriate to your organisation.
           </p>
           <div className="button-row">
-            <Link className="button" href="/#consultation">
+            <Link className="button" href="/contact">
               Strategy Consultation Details
             </Link>
             <Link

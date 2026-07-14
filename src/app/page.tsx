@@ -297,6 +297,9 @@ export default function Home() {
             with qualified organisations to clarify market priorities,
             stakeholder needs and the appropriate engagement scope.
           </p>
+          <Link className="button button-light" href="/contact">
+            Strategy Consultation Details <span aria-hidden="true">→</span>
+          </Link>
         </div>
       </section>
     </main>

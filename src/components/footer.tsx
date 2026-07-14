@@ -53,7 +53,7 @@ export function Footer() {
             Tell us about your market-entry priorities and the support your
             organisation needs.
           </p>
-          <Link className="footer-email" href="/#consultation">
+          <Link className="footer-email" href="/contact">
             Strategy Consultation Details <span aria-hidden="true">→</span>
           </Link>
         </div>

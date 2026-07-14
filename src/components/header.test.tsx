@@ -76,5 +76,22 @@ describe("Header mobile navigation", () => {
     expect(
       within(navigation).getByRole("link", { name: "Services" }),
     ).toHaveAttribute("href", "/services");
+    expect(
+      within(navigation).getByRole("link", { name: "Contact" }),
+    ).toHaveAttribute("href", "/contact");
+  });
+
+  it("uses the central consultation destination on desktop and mobile", async () => {
+    render(<Header />);
+    expect(
+      screen.getByRole("link", { name: "Strategy Consultation Details" }),
+    ).toHaveAttribute("href", "/contact");
+    await openMenu();
+    expect(
+      within(screen.getByRole("dialog", { name: "Site navigation" })).getByRole(
+        "link",
+        { name: "Strategy Consultation Details" },
+      ),
+    ).toHaveAttribute("href", "/contact");
   });
 });

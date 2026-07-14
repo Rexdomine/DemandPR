@@ -105,9 +105,7 @@ describe("Services page", () => {
     ).toHaveLength(2);
     screen
       .getAllByRole("link", { name: "Strategy Consultation Details" })
-      .forEach((link) =>
-        expect(link).toHaveAttribute("href", "/#consultation"),
-      );
+      .forEach((link) => expect(link).toHaveAttribute("href", "/contact"));
     expect(
       screen.getByRole("link", { name: "Explore Service Pillars" }),
     ).toHaveAttribute("href", "/services#service-pillars");

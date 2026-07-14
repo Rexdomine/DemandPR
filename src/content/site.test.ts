@@ -31,7 +31,12 @@ describe("approved site content", () => {
       label: "Explore Our Services",
       href: "/services",
     });
+    expect(site.hero.primaryCta.href).toBe("/contact");
+    expect(navigation).toContainEqual({ label: "Contact", href: "/contact" });
     expect(featuredServices[0]?.href).toBe("/africa-market-entry-programme");
+    expect(
+      featuredServices.slice(1).every(({ href }) => href === "/contact"),
+    ).toBe(true);
   });
 
   it("preserves the complete approved homepage content model", () => {
