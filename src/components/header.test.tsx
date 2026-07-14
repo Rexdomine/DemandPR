@@ -73,5 +73,8 @@ describe("Header mobile navigation", () => {
     expect(
       within(navigation).getByRole("link", { name: "Market Entry Programme" }),
     ).toHaveAttribute("href", "/africa-market-entry-programme");
+    expect(
+      within(navigation).getByRole("link", { name: "About" }),
+    ).toHaveAttribute("href", "/about");
   });
 });
