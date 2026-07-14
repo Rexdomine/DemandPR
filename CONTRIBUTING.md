@@ -5,18 +5,22 @@
 1. Create a short-lived branch from `main` using a clear prefix such as `feat/`, `fix/` or `docs/`.
 2. Keep changes focused. Do not add claims, metrics, client names, testimonials, addresses or imagery without approval and provenance.
 3. Add meaningful tests for authored behaviour and content rules. Generated framework configuration does not need artificial test-first coverage.
-4. Run every local quality gate before opening a pull request:
+4. During iteration, run affected tests and targeted checks only. When a coherent implementation checkpoint is complete, run:
 
    ```sh
-   npm run format:check
-   npm run lint
-   npm run typecheck
-   npm test
-   npm run build
+   npm run verify:checkpoint
    ```
 
-5. Use Conventional Commits, for example `feat: add market entry overview`.
-6. Complete the pull request checklist and obtain review. Do not merge, enable auto-merge, or issue a production deployment without Rex's recorded approval.
+5. Once the tree is stable and ready for independent review or pull-request handoff, run the complete local release gate:
+
+   ```sh
+   npm run verify:release
+   ```
+
+   Responsive browser and hosted-preview checks remain required when relevant. Do not repeatedly run the full release gate after minor edits; use focused regression checks and run it once after all review blockers are resolved. See `docs/development-workflow.md`.
+
+6. Use Conventional Commits, for example `feat: add market entry overview`.
+7. Complete the pull request checklist and obtain review. Do not merge, enable auto-merge, or issue a production deployment without Rex's recorded approval.
 
 ## Accessibility and content
 
