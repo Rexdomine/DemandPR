@@ -68,7 +68,10 @@ describe("Header mobile navigation", () => {
       name: "Primary navigation",
     });
     for (const link of navigation.querySelectorAll("a")) {
-      expect(link.getAttribute("href")).toMatch(/^\/(?:#.*)?$/);
+      expect(link.getAttribute("href")).toMatch(/^\/(?:#.*|[^#].*)?$/);
     }
+    expect(
+      within(navigation).getByRole("link", { name: "Market Entry Programme" }),
+    ).toHaveAttribute("href", "/africa-market-entry-programme");
   });
 });

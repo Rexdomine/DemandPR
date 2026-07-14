@@ -7,6 +7,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const siteUrl = getSiteUrl();
   return siteUrl
-    ? [{ url: siteUrl.toString(), changeFrequency: "monthly", priority: 1 }]
+    ? [
+        { url: siteUrl.toString(), changeFrequency: "monthly", priority: 1 },
+        {
+          url: new URL("/africa-market-entry-programme", siteUrl).toString(),
+          changeFrequency: "monthly",
+          priority: 0.9,
+        },
+      ]
     : [];
 }

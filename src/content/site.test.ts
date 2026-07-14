@@ -22,6 +22,11 @@ describe("approved site content", () => {
     const hrefs = navigation.map(({ href }) => href);
     expect(new Set(hrefs).size).toBe(hrefs.length);
     expect(hrefs.every((href) => href.startsWith("/"))).toBe(true);
+    expect(navigation).toContainEqual({
+      label: "Market Entry Programme",
+      href: "/africa-market-entry-programme",
+    });
+    expect(featuredServices[0]?.href).toBe("/africa-market-entry-programme");
   });
 
   it("preserves the complete approved homepage content model", () => {
@@ -44,7 +49,7 @@ describe("approved site content", () => {
       whyDemandPr,
     });
     expect(content).not.toMatch(
-      /\d+%|clients served|years of|15\+|Est\. 2014|accredited advisors|12 hubs|24 nations|For client review/i,
+      /\d+%|clients served|years of|15\+|Est\. 2014|accredited advisors|12 hubs|24 nations|For client review|Series B|proprietary data|premier|unrivalled|world's last frontier/i,
     );
     expect(successStories.every(({ text }) => /capability/i.test(text))).toBe(
       true,

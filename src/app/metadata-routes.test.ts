@@ -38,6 +38,11 @@ describe("metadata routes", () => {
         changeFrequency: "monthly",
         priority: 1,
       },
+      {
+        url: "https://demand.example/africa-market-entry-programme",
+        changeFrequency: "monthly",
+        priority: 0.9,
+      },
     ]);
   });
 

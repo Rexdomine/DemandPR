@@ -24,7 +24,7 @@ export const site = {
 
 export const navigation: readonly NavigationItem[] = [
   { label: "Home", href: "/" },
-  { label: "Market Entry Programme", href: "/#market-entry" },
+  { label: "Market Entry Programme", href: "/africa-market-entry-programme" },
   { label: "Services", href: "/#services" },
   { label: "About", href: "/#about" },
   { label: "Contact", href: "/#consultation" },
@@ -52,7 +52,7 @@ export const featuredServices: readonly Service[] = [
     title: "Africa Market Entry Programme",
     description:
       "Helping international organisations establish and expand successfully across African markets.",
-    href: "/#market-entry",
+    href: "/africa-market-entry-programme",
     featured: true,
   },
   {
