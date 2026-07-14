@@ -43,6 +43,11 @@ describe("metadata routes", () => {
         changeFrequency: "monthly",
         priority: 0.9,
       },
+      {
+        url: "https://demand.example/services",
+        changeFrequency: "monthly",
+        priority: 0.8,
+      },
     ]);
   });
 

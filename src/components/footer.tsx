@@ -7,10 +7,11 @@ const expertise = [
   "Trade Missions",
 ] as const;
 const sectors = [
-  "Energy & Power",
   "Infrastructure",
-  "Technology",
   "Financial Services",
+  "Energy",
+  "Agriculture",
+  "Technology",
 ] as const;
 
 export function Footer() {
@@ -31,7 +32,7 @@ export function Footer() {
           <ul>
             {expertise.map((item) => (
               <li key={item}>
-                <Link href="/#services">{item}</Link>
+                <Link href="/services">{item}</Link>
               </li>
             ))}
           </ul>
@@ -53,7 +54,7 @@ export function Footer() {
             organisation needs.
           </p>
           <Link className="footer-email" href="/#consultation">
-            Consultation information <span aria-hidden="true">→</span>
+            Strategy Consultation Details <span aria-hidden="true">→</span>
           </Link>
         </div>
       </div>
