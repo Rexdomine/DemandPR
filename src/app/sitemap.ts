@@ -20,6 +20,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
           priority: 0.8,
         },
         {
+          url: new URL("/about", siteUrl).toString(),
+          changeFrequency: "monthly",
+          priority: 0.8,
+        },
+        {
           url: new URL("/contact", siteUrl).toString(),
           changeFrequency: "monthly",
           priority: 0.8,

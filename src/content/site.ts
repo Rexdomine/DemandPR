@@ -26,7 +26,7 @@ export const navigation: readonly NavigationItem[] = [
   { label: "Home", href: "/" },
   { label: "Market Entry Programme", href: "/africa-market-entry-programme" },
   { label: "Services", href: "/services" },
-  { label: "About", href: "/#about" },
+  { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
 
