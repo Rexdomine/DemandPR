@@ -129,8 +129,8 @@ export default function AfricaMarketEntryProgramme() {
       >
         <Image
           className="market-entry-hero-image"
-          src="/images/market-entry/market-entry-hero.jpg"
-          alt="Professionals walking through a modern business district"
+          src="/images/market-entry/market-entry-guided-arrival.webp"
+          alt="African market adviser guiding business leaders through a waterfront commercial district"
           fill
           priority
           sizes="100vw"
@@ -189,16 +189,16 @@ export default function AfricaMarketEntryProgramme() {
           <div className="market-entry-image-pair">
             <div>
               <Image
-                src="/images/home/innovation-team-neutral.jpg"
-                alt="A diverse team collaborating in a contemporary workspace"
+                src="/images/market-entry/market-entry-local-intelligence.webp"
+                alt="African business founder sharing manufacturing insight with a market adviser"
                 fill
                 sizes="(min-width: 960px) 22vw, 45vw"
               />
             </div>
             <div>
               <Image
-                src="/images/market-entry/market-entry-infrastructure.jpg"
-                alt="Modern transport infrastructure supporting regional connectivity"
+                src="/images/market-entry/market-entry-logistics-execution.webp"
+                alt="African logistics manager coordinating activity at an intermodal freight terminal"
                 fill
                 sizes="(min-width: 960px) 22vw, 45vw"
               />
@@ -334,8 +334,8 @@ export default function AfricaMarketEntryProgramme() {
         <div className="shell market-entry-edge-grid">
           <div className="market-entry-edge-image">
             <Image
-              src="/images/market-entry/strategic-partnership.jpg"
-              alt="Senior professionals building a strategic partnership"
+              src="/images/market-entry/market-entry-partnership-in-practice.webp"
+              alt="African strategic adviser connecting local and international business leaders"
               fill
               sizes="(min-width: 960px) 48vw, 100vw"
             />

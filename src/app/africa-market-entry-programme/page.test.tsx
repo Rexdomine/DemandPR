@@ -41,10 +41,10 @@ describe("Africa Market Entry Programme page", () => {
       image.getAttribute("src"),
     ).join(" ");
 
-    expect(sources).toContain("market-entry-hero.jpg");
-    expect(sources).toContain("market-entry-infrastructure.jpg");
-    expect(sources).toContain("strategic-partnership.jpg");
-    expect(sources).toContain("innovation-team-neutral.jpg");
+    expect(sources).toContain("market-entry-guided-arrival.webp");
+    expect(sources).toContain("market-entry-local-intelligence.webp");
+    expect(sources).toContain("market-entry-logistics-execution.webp");
+    expect(sources).toContain("market-entry-partnership-in-practice.webp");
     expect(container.textContent).not.toMatch(prohibitedClaims);
     expect(container.querySelector('a[href="#"]')).not.toBeInTheDocument();
     expect(
