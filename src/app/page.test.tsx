@@ -46,15 +46,16 @@ describe("homepage", () => {
         )
         .getAttribute("src"),
     ).toContain("demand-pr-influence-in-motion.webp");
-    expect(
-      screen
-        .getByAltText(
-          "A diverse team collaborating in a contemporary workspace",
-        )
-        .getAttribute("src"),
-    ).toBe(
-      "/_next/image?url=%2Fimages%2Fhome%2Finnovation-team-neutral.jpg&w=3840&q=75",
-    );
+    const sources = images.map((image) => image.getAttribute("src") ?? "");
+    for (const filename of [
+      "navigator-cultural-intelligence.webp",
+      "trade-delegation-access.webp",
+      "investment-forum-orchestration.webp",
+      "sector-entry-field-advisory.webp",
+      "regulatory-navigation-guidance.webp",
+    ]) {
+      expect(sources.some((source) => source.includes(filename))).toBe(true);
+    }
   });
 
   it("does not publish unsupported claims or review placeholders", () => {

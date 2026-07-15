@@ -408,6 +408,7 @@ blockquote {
 }
 .portrait-wrap img {
   object-fit: cover;
+  object-position: center 34%;
 }
 .portrait-note {
   position: absolute;
