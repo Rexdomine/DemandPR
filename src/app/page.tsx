@@ -35,23 +35,23 @@ const outcomeCards = [
 
 const storyImages = [
   {
-    src: "/images/home/trade-delegation.jpg",
-    alt: "Business leaders in discussion around a boardroom table",
+    src: "/images/home/trade-delegation-access.webp",
+    alt: "African adviser leading an international business delegation through a trade venue",
     label: "Trade delegation capability",
   },
   {
-    src: "/images/home/investment-summit.jpg",
-    alt: "Delegates attending an investment conference",
+    src: "/images/home/investment-forum-orchestration.webp",
+    alt: "Communications producer coordinating an investment forum backstage",
     label: "Investment forum capability",
   },
   {
-    src: "/images/home/renewable-infrastructure.jpg",
-    alt: "Renewable energy infrastructure in an African landscape",
+    src: "/images/home/sector-entry-field-advisory.webp",
+    alt: "Infrastructure adviser briefing an investor during an African site visit",
     label: "Sector-entry capability",
   },
   {
-    src: "/images/home/innovation-team-neutral.jpg",
-    alt: "A diverse team collaborating in a contemporary workspace",
+    src: "/images/home/regulatory-navigation-guidance.webp",
+    alt: "Policy adviser guiding an executive through a civic institution",
     label: "Advisory capability",
   },
 ] as const;
@@ -118,8 +118,8 @@ export default function Home() {
           </div>
           <div className="portrait-wrap">
             <Image
-              src="/images/home/strategic-adviser.jpg"
-              alt="Strategic adviser seated in a modern city office"
+              src="/images/home/navigator-cultural-intelligence.webp"
+              alt="Senior African market adviser listening during a strategic briefing"
               fill
               sizes="(min-width: 960px) 42vw, 100vw"
             />
