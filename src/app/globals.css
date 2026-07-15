@@ -337,7 +337,7 @@ img {
 .hero-image {
   z-index: -3;
   object-fit: cover;
-  object-position: center;
+  object-position: 50% center;
 }
 .hero-overlay {
   position: absolute;
@@ -346,11 +346,11 @@ img {
   background:
     linear-gradient(
       90deg,
-      rgba(7, 26, 43, 0.96) 0%,
-      rgba(7, 26, 43, 0.72) 48%,
-      rgba(7, 26, 43, 0.22) 100%
+      rgba(7, 26, 43, 0.56) 0%,
+      rgba(7, 26, 43, 0.24) 48%,
+      rgba(7, 26, 43, 0.06) 100%
     ),
-    linear-gradient(0deg, rgba(7, 26, 43, 0.45), transparent 55%);
+    linear-gradient(0deg, rgba(7, 26, 43, 0.32), transparent 55%);
 }
 .hero-content {
   padding-block: clamp(5rem, 10vw, 8rem);
@@ -826,6 +826,32 @@ blockquote {
   }
 }
 
+@media (max-width: 800px) {
+  .hero {
+    min-height: auto;
+    align-items: stretch;
+  }
+  .hero-image {
+    bottom: auto !important;
+    height: 15rem !important;
+    object-position: 72% 30%;
+  }
+  .hero-overlay {
+    height: 18rem;
+    bottom: auto;
+    background: linear-gradient(
+      0deg,
+      var(--navy) 0%,
+      rgba(7, 26, 43, 0.12) 44%,
+      rgba(7, 26, 43, 0.04) 100%
+    );
+  }
+  .hero-content {
+    padding-top: 17.5rem;
+    padding-bottom: 4.5rem;
+  }
+}
+
 @media (max-width: 640px) {
   .shell {
     width: calc(100% - 2.5rem);
@@ -842,13 +868,15 @@ blockquote {
   .brand {
     font-size: 1.25rem;
   }
-  .hero {
-    min-height: calc(100svh - 5rem);
+  .hero-image {
+    height: 12.5rem !important;
   }
   .hero-overlay {
-    background:
-      linear-gradient(90deg, rgba(7, 26, 43, 0.9), rgba(7, 26, 43, 0.45)),
-      linear-gradient(0deg, rgba(7, 26, 43, 0.82), transparent 70%);
+    height: 15rem;
+  }
+  .hero-content {
+    padding-top: 14.5rem;
+    padding-bottom: 4rem;
   }
   .button-row {
     flex-direction: column;

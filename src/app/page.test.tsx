@@ -42,6 +42,13 @@ describe("homepage", () => {
     expect(
       screen
         .getByAltText(
+          "African and international business advisers in conversation at a trade forum",
+        )
+        .getAttribute("src"),
+    ).toContain("demand-pr-influence-in-motion.webp");
+    expect(
+      screen
+        .getByAltText(
           "A diverse team collaborating in a contemporary workspace",
         )
         .getAttribute("src"),
