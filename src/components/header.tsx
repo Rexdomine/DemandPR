@@ -125,7 +125,11 @@ export function Header() {
               </Link>
             ))}
           </nav>
-          <Link className="button" href="/#consultation" onClick={close}>
+          <Link
+            className="button"
+            href={site.hero.primaryCta.href}
+            onClick={close}
+          >
             {site.hero.primaryCta.label}
           </Link>
         </div>

@@ -315,7 +315,7 @@ export default function AboutPage() {
               changing priorities.
             </p>
           </div>
-          <Link className="button button-light" href="/#consultation">
+          <Link className="button button-light" href="/contact">
             Discuss a Retained Partnership
           </Link>
         </div>
@@ -331,7 +331,7 @@ export default function AboutPage() {
             markets.
           </p>
           <div className="button-row">
-            <Link className="button" href="/#consultation">
+            <Link className="button" href="/contact">
               Strategy Consultation Details
             </Link>
             <Link

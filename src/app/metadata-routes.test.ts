@@ -53,6 +53,11 @@ describe("metadata routes", () => {
         changeFrequency: "monthly",
         priority: 0.8,
       },
+      {
+        url: "https://demand.example/contact",
+        changeFrequency: "monthly",
+        priority: 0.8,
+      },
     ]);
   });
 

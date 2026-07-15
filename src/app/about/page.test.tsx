@@ -114,8 +114,11 @@ describe("About Demand PR page", () => {
       container.querySelector('a[href="#"], a[href=""]'),
     ).not.toBeInTheDocument();
     expect(
+      screen.getByRole("link", { name: "Discuss a Retained Partnership" }),
+    ).toHaveAttribute("href", "/contact");
+    expect(
       screen.getByRole("link", { name: "Strategy Consultation Details" }),
-    ).toHaveAttribute("href", "/#consultation");
+    ).toHaveAttribute("href", "/contact");
     expect(
       screen.getByRole("link", { name: "Explore the Market Entry Programme" }),
     ).toHaveAttribute("href", "/africa-market-entry-programme");

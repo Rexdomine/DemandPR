@@ -50,6 +50,9 @@ describe("Africa Market Entry Programme page", () => {
     expect(
       screen.getAllByRole("link", { name: /strategy consultation/i }),
     ).not.toHaveLength(0);
+    screen
+      .getAllByRole("link", { name: /strategy consultation/i })
+      .forEach((link) => expect(link).toHaveAttribute("href", "/contact"));
     for (const link of screen.getAllByRole("link")) {
       expect(link.getAttribute("href")).toMatch(/^\/(?:[^#]|#.+)/);
     }
