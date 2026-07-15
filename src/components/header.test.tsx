@@ -76,5 +76,8 @@ describe("Header mobile navigation", () => {
     expect(
       within(navigation).getByRole("link", { name: "Services" }),
     ).toHaveAttribute("href", "/services");
+    expect(
+      within(navigation).getByRole("link", { name: "About" }),
+    ).toHaveAttribute("href", "/about");
   });
 });
