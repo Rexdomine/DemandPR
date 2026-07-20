@@ -82,13 +82,78 @@ const services = [
 ] as const;
 
 const industries = [
-  ["⌁", "Infrastructure"],
-  ["◈", "Financial Services"],
-  ["ϟ", "Energy"],
-  ["♧", "Agriculture"],
-  ["□", "Technology"],
-  ["+", "Healthcare"],
+  { icon: "infrastructure", title: "Infrastructure" },
+  { icon: "financial-services", title: "Financial Services" },
+  { icon: "energy", title: "Energy" },
+  { icon: "agriculture", title: "Agriculture" },
+  { icon: "technology", title: "Technology" },
+  { icon: "healthcare", title: "Healthcare" },
 ] as const;
+
+type SectorIconType = (typeof industries)[number]["icon"];
+
+/**
+ * Draws a sector-specific visual cue using one consistent line-icon language.
+ * The icon is decorative because the adjacent heading provides the accessible name.
+ */
+function SectorIcon({ type }: { type: SectorIconType }) {
+  return (
+    <svg
+      className="market-entry-sector-icon"
+      data-sector-icon={type}
+      viewBox="0 0 64 64"
+      aria-hidden="true"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      {type === "infrastructure" ? (
+        <>
+          <path d="M8 46h48M12 40h40" />
+          <path d="M17 40V19h6v21m18 0V19h6v21M17 23h30" />
+          <path d="M17 23 9 40m14-17 9 17m9-17-9 17m15-17 8 17" />
+          <path d="M27 40h10" />
+        </>
+      ) : null}
+      {type === "financial-services" ? (
+        <>
+          <path d="m10 25 22-12 22 12M13 28h38M10 49h44M14 54h36" />
+          <path d="M17 28v21m10-21v21m10-21v21m10-21v21" />
+          <path d="M28 21h8" />
+        </>
+      ) : null}
+      {type === "energy" ? (
+        <>
+          <path d="M26 8h12l-3 17h10L24 56l4-22H18Z" />
+          <path d="M10 49h10m24 0h10" />
+        </>
+      ) : null}
+      {type === "agriculture" ? (
+        <>
+          <path d="M32 53V30" />
+          <path d="M32 35C20 34 14 27 14 16c12 0 18 7 18 19Z" />
+          <path d="M32 28c11-1 17-7 18-17-11 0-17 6-18 17Z" />
+          <path d="M9 53c6-7 12-7 18 0m10 0c6-7 12-7 18 0" />
+        </>
+      ) : null}
+      {type === "technology" ? (
+        <>
+          <rect x="22" y="22" width="20" height="20" rx="3" />
+          <path d="M27 27h10v10H27ZM26 14v8m12-8v8M26 42v8m12-8v8M14 26h8m-8 12h8m20-12h8m-8 12h8" />
+          <circle cx="14" cy="26" r="2" />
+          <circle cx="50" cy="38" r="2" />
+        </>
+      ) : null}
+      {type === "healthcare" ? (
+        <>
+          <path d="M32 54S13 44 13 27c0-8 5-13 12-13 4 0 7 2 9 6 2-4 5-6 9-6 7 0 12 5 12 13 0 17-23 27-23 27Z" />
+          <path d="M19 33h8l3-7 5 14 4-7h10" />
+        </>
+      ) : null}
+    </svg>
+  );
+}
 
 const edge = [
   [
@@ -320,10 +385,23 @@ export default function AfricaMarketEntryProgramme() {
             <h2>Sector Specialisation</h2>
           </div>
           <div className="market-entry-industry-grid">
-            {industries.map(([icon, industry]) => (
-              <article key={industry}>
-                <span aria-hidden="true">{icon}</span>
-                <h3>{industry}</h3>
+            {industries.map((industry, index) => (
+              <article key={industry.title}>
+                <div className="market-entry-industry-visual">
+                  <span
+                    className="market-entry-industry-number"
+                    aria-hidden="true"
+                  >
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span
+                    className="market-entry-industry-icon"
+                    aria-hidden="true"
+                  >
+                    <SectorIcon type={industry.icon} />
+                  </span>
+                </div>
+                <h3>{industry.title}</h3>
               </article>
             ))}
           </div>

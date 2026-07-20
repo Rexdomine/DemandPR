@@ -58,6 +58,34 @@ describe("Africa Market Entry Programme page", () => {
     }
   });
 
+  it("pairs every specialist sector with a meaningful custom line icon", () => {
+    const { container } = render(<MarketEntryPage />);
+    const section = screen
+      .getByRole("heading", { name: "Sector Specialisation" })
+      .closest("section");
+    expect(section).not.toBeNull();
+
+    const expectedIcons = {
+      Infrastructure: "infrastructure",
+      "Financial Services": "financial-services",
+      Energy: "energy",
+      Agriculture: "agriculture",
+      Technology: "technology",
+      Healthcare: "healthcare",
+    } as const;
+
+    for (const [sector, icon] of Object.entries(expectedIcons)) {
+      const heading = within(section!).getByRole("heading", { name: sector });
+      const card = heading.closest("article");
+      expect(card).not.toBeNull();
+      expect(
+        card!.querySelector(`svg[data-sector-icon="${icon}"]`),
+      ).toBeInTheDocument();
+    }
+
+    expect(container.textContent).not.toMatch(/[⌁◈ϟ♧]/);
+  });
+
   it("uses keyboard-operable disclosure semantics and exposes FAQ state", async () => {
     const user = userEvent.setup();
     render(<MarketEntryPage />);
