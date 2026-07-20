@@ -63,8 +63,8 @@ export default function ContactPage() {
       <section className="contact-hero" aria-labelledby="contact-title">
         <Image
           className="contact-hero-image"
-          src="/images/home/african-city-twilight.jpg"
-          alt="African city skyline illuminated at twilight"
+          src="/images/contact/purposeful-conversation.webp"
+          alt="An African business adviser in conversation with an executive in a contemporary terrace setting"
           fill
           priority
           sizes="100vw"

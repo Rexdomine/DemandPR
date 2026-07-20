@@ -44,17 +44,22 @@ describe("Contact & Consultation page", () => {
     ).toBeVisible();
   });
 
-  it("uses one approved local non-Stitch hero and safe public copy", () => {
+  it("uses one publication-reviewed local consultation hero and safe public copy", () => {
     const { container } = render(<ContactPage />);
     const images = Array.from(container.querySelectorAll("img"));
     expect(images).toHaveLength(1);
     expect(decodeURIComponent(images[0]?.getAttribute("src") ?? "")).toContain(
-      "/images/home/african-city-twilight.jpg",
+      "/images/contact/purposeful-conversation.webp",
     );
+    expect(images[0]).toHaveClass("contact-hero-image");
     expect(images[0]).toHaveAttribute(
       "alt",
-      "African city skyline illuminated at twilight",
+      "An African business adviser in conversation with an executive in a contemporary terrace setting",
     );
+    expect(images[0]).toHaveAttribute("sizes", "100vw");
+    expect(
+      decodeURIComponent(images[0]?.getAttribute("src") ?? ""),
+    ).not.toMatch(/african-city-twilight|googleusercontent|https?:|data:/i);
     expect(container.textContent).not.toMatch(prohibited);
     expect(container.innerHTML).not.toMatch(
       /googleusercontent|contact-hero-source|https?:\/\//i,
