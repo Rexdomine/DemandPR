@@ -166,8 +166,8 @@ export default function ServicesPage() {
       <section className="services-hero" aria-labelledby="services-title">
         <Image
           className="services-hero-image"
-          src="/images/home/african-city-twilight.jpg"
-          alt="African city skyline illuminated at twilight"
+          src="/images/services/strategy-in-motion.webp"
+          alt="African market adviser briefing business leaders at a logistics corridor"
           fill
           priority
           sizes="100vw"
@@ -289,10 +289,10 @@ export default function ServicesPage() {
           </div>
           <div className="services-retained-visual">
             <Image
-              src="/images/home/strategic-adviser.jpg"
-              alt="Strategic adviser preparing for an executive discussion"
+              src="/images/services/retained-advisory-partnership.webp"
+              alt="Senior African adviser leading a focused market planning discussion"
               fill
-              sizes="(min-width: 960px) 44vw, 100vw"
+              sizes="(min-width: 961px) 44vw, 100vw"
             />
             <p>Ongoing representation across Africa</p>
           </div>
