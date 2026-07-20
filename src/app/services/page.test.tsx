@@ -1,3 +1,7 @@
+import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+
 import { render, screen, within } from "@testing-library/react";
 import { axe } from "jest-axe";
 import { describe, expect, it } from "vitest";
@@ -36,6 +40,37 @@ const serviceNames = [
 
 const prohibitedClaims =
   /Aerra|15\+|(?:regional )?(?:hub|office)s?|Nairobi|Lagos|Johannesburg|London|proprietary network|exclusive (?:or off-market )?deal flow|off-market|guaranteed|proven|profitable|accredit(?:ed|ation)|award(?:ed|s)|legal advice|legal presence|crisis management|strategy@|\+\d[\d\s()-]{7,}|WhatsApp|testimonial|credentials package/i;
+
+function webpContract(buffer: Buffer) {
+  expect(buffer.subarray(0, 4).toString("ascii")).toBe("RIFF");
+  expect(buffer.subarray(8, 12).toString("ascii")).toBe("WEBP");
+
+  const chunks: string[] = [];
+  let offset = 12;
+
+  while (offset + 8 <= buffer.length) {
+    const type = buffer.subarray(offset, offset + 4).toString("ascii");
+    const length = buffer.readUInt32LE(offset + 4);
+    chunks.push(type);
+
+    if (type === "VP8 ") {
+      const payload = offset + 8;
+      expect(buffer.subarray(payload + 3, payload + 6).toString("hex")).toBe(
+        "9d012a",
+      );
+
+      return {
+        chunks,
+        width: buffer.readUInt16LE(payload + 6) & 0x3fff,
+        height: buffer.readUInt16LE(payload + 8) & 0x3fff,
+      };
+    }
+
+    offset += 8 + length + (length % 2);
+  }
+
+  throw new Error("WebP VP8 dimensions could not be read");
+}
 
 describe("Services page", () => {
   it("renders exactly six ordered sections, one H1 and a named main landmark", () => {
@@ -88,14 +123,49 @@ describe("Services page", () => {
     );
 
     expect(images).toHaveLength(2);
-    expect(sources).toContain("/images/home/african-city-twilight.jpg");
-    expect(sources).toContain("/images/home/strategic-adviser.jpg");
+    expect(sources).toContain("/images/services/strategy-in-motion.webp");
+    expect(sources).toContain(
+      "/images/services/retained-advisory-partnership.webp",
+    );
     expect(sources).not.toMatch(
-      /01-full|02-full|googleusercontent|https?:|data:/i,
+      /african-city-twilight|strategic-adviser|01-full|02-full|googleusercontent|https?:|data:/i,
     );
-    images.forEach((image) =>
-      expect(image.getAttribute("alt")?.trim()).toBeTruthy(),
+    expect(images[0]).toHaveAttribute(
+      "alt",
+      "African market adviser briefing business leaders at a logistics corridor",
     );
+    expect(images[1]).toHaveAttribute(
+      "alt",
+      "Senior African adviser leading a focused market planning discussion",
+    );
+  });
+
+  it("bundles the exact optimized Services media without metadata chunks", () => {
+    const assets = [
+      {
+        file: "strategy-in-motion.webp",
+        dimensions: { width: 1672, height: 941 },
+        hash: "e2dfaca5869b061bdb7318f8636284c6f6005579056c80bbb417d4408f0ae616",
+      },
+      {
+        file: "retained-advisory-partnership.webp",
+        dimensions: { width: 1254, height: 1254 },
+        hash: "a7007723c971ebd2b7b5b4ba6cca3db27c7db7801bf8b52cb02fed9d8e845c2e",
+      },
+    ] as const;
+
+    for (const asset of assets) {
+      const image = readFileSync(
+        join(process.cwd(), "public/images/services", asset.file),
+      );
+
+      expect(webpContract(image)).toEqual({
+        chunks: ["VP8 "],
+        ...asset.dimensions,
+      });
+      expect(createHash("sha256").update(image).digest("hex")).toBe(asset.hash);
+      expect(image.byteLength).toBeLessThan(100_000);
+    }
   });
 
   it("uses the required safe CTA destinations and no placeholder or fabricated links", () => {

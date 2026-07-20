@@ -1941,24 +1941,27 @@ blockquote {
   color: white;
 }
 .services-hero-image {
-  z-index: -3;
+  z-index: 10;
   object-fit: cover;
-  object-position: center 58%;
+  object-position: center;
 }
 .services-hero-overlay {
   position: absolute;
-  z-index: -2;
+  z-index: 11;
   inset: 0;
   background:
     linear-gradient(
       90deg,
-      rgba(7, 26, 43, 0.98) 0%,
-      rgba(7, 26, 43, 0.84) 52%,
-      rgba(7, 26, 43, 0.3) 100%
+      rgba(7, 26, 43, 0.9) 0%,
+      rgba(7, 26, 43, 0.72) 42%,
+      rgba(7, 26, 43, 0.18) 58%,
+      rgba(7, 26, 43, 0) 100%
     ),
-    linear-gradient(0deg, rgba(7, 26, 43, 0.55), transparent 55%);
+    linear-gradient(0deg, rgba(7, 26, 43, 0.28), transparent 42%);
 }
 .services-hero-content {
+  position: relative;
+  z-index: 12;
   padding-block: clamp(5rem, 10vw, 8rem);
 }
 .services-hero .eyebrow,
@@ -2184,17 +2187,20 @@ blockquote {
   border-radius: 12px;
 }
 .services-retained-visual img {
+  z-index: 10;
   object-fit: cover;
+  object-position: center 44%;
 }
 .services-retained-visual::after {
   position: absolute;
+  z-index: 11;
   inset: 50% 0 0;
   background: linear-gradient(transparent, rgba(7, 26, 43, 0.88));
   content: "";
 }
 .services-retained-visual p {
   position: absolute;
-  z-index: 1;
+  z-index: 12;
   right: 1.5rem;
   bottom: 1.5rem;
   left: 1.5rem;
@@ -2283,7 +2289,27 @@ blockquote {
 
 @media (max-width: 960px) {
   .services-hero {
-    min-height: min(42rem, calc(100svh - 5rem));
+    display: block;
+    min-height: auto;
+    padding-top: 19rem;
+  }
+  .services-hero-image {
+    height: 20rem !important;
+    bottom: auto !important;
+    object-position: center;
+  }
+  .services-hero-overlay {
+    height: 20rem;
+    bottom: auto;
+    background: linear-gradient(
+      0deg,
+      var(--navy) 0%,
+      rgba(7, 26, 43, 0.2) 18%,
+      rgba(7, 26, 43, 0.02) 38%
+    );
+  }
+  .services-hero-content {
+    padding-block: 3rem 4rem;
   }
   .services-pillar-grid {
     gap: 3rem 1.5rem;
@@ -2333,17 +2359,17 @@ blockquote {
 @media (max-width: 640px) {
   .services-hero {
     display: block;
-    min-height: calc(100svh - 5rem);
-    padding-top: 7.5rem;
+    min-height: auto;
+    padding-top: 10rem;
     background: var(--navy);
   }
   .services-hero-image {
-    height: 8rem !important;
+    height: 11rem !important;
     bottom: auto !important;
-    object-position: center 58%;
+    object-position: center;
   }
   .services-hero-overlay {
-    height: 8rem;
+    height: 11rem;
     bottom: auto;
     background: linear-gradient(
       0deg,
