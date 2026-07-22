@@ -1,10 +1,10 @@
 import Link from "next/link";
 
-const expertise = [
-  "Market Entry",
-  "Government Relations",
-  "Investor Advisory",
-  "Trade Missions",
+const explore = [
+  { label: "Africa Market Entry", href: "/africa-market-entry-programme" },
+  { label: "Our Services", href: "/services" },
+  { label: "About Demand PR", href: "/about" },
+  { label: "Contact & Consultation", href: "/contact" },
 ] as const;
 const sectors = [
   "Infrastructure",
@@ -27,26 +27,30 @@ export function Footer() {
             engagement for organisations expanding across African markets.
           </p>
         </div>
-        <div>
-          <h2>Expertise</h2>
+        <nav aria-labelledby="footer-explore-heading">
+          <h2 id="footer-explore-heading">Explore</h2>
           <ul>
-            {expertise.map((item) => (
-              <li key={item}>
-                <Link href="/services">{item}</Link>
+            {explore.map((item) => (
+              <li key={item.label}>
+                <Link href={item.href}>{item.label}</Link>
               </li>
             ))}
           </ul>
-        </div>
-        <div>
-          <h2>Sectors</h2>
+        </nav>
+        <section aria-labelledby="footer-sectors-heading">
+          <h2 id="footer-sectors-heading">Sectors</h2>
           <ul>
             {sectors.map((item) => (
-              <li key={item}>
-                <Link href="/#capabilities">{item}</Link>
-              </li>
+              <li key={item}>{item}</li>
             ))}
           </ul>
-        </div>
+          <Link
+            className="footer-sector-link"
+            href="/services#sector-expertise"
+          >
+            Explore our sector expertise <span aria-hidden="true">→</span>
+          </Link>
+        </section>
         <div>
           <h2>Connect</h2>
           <p>
@@ -60,7 +64,7 @@ export function Footer() {
       </div>
       <div className="shell footer-base">
         <p>© Demand PR Ltd. All rights reserved.</p>
-        <Link href="/#main-content">Back to top ↑</Link>
+        <Link href="#main-content">Back to top ↑</Link>
       </div>
     </footer>
   );

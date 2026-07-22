@@ -299,7 +299,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <section className="services-sectors">
+      <section className="services-sectors" id="sector-expertise">
         <div className="shell services-sector-row">
           <h2>Our Sector Expertise</h2>
           <div className="services-sector-chips" aria-label="Supported sectors">

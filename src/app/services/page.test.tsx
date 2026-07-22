@@ -193,6 +193,7 @@ describe("Services page", () => {
     const sectorSection = screen
       .getByRole("heading", { name: "Our Sector Expertise" })
       .closest("section");
+    expect(sectorSection).toHaveAttribute("id", "sector-expertise");
     expect(container.textContent).not.toMatch(prohibitedClaims);
     [
       "Infrastructure",
