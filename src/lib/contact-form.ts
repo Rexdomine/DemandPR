@@ -49,7 +49,14 @@ export type ContactSubmitResult =
   | { status: "success"; receiptMessage: string }
   | {
       status: "error";
-      code: "not_configured" | "provider_error";
+      code:
+        | "not_configured"
+        | "validation_error"
+        | "spam_detected"
+        | "rate_limited"
+        | "configuration_error"
+        | "provider_error"
+        | "network_error";
       message: string;
     };
 export type ContactSubmitter = (
@@ -160,3 +167,68 @@ export const notConfiguredContactSubmitter: ContactSubmitter = async () => ({
   message:
     "This form is not connected yet, so your enquiry has not been sent or stored. Please keep this page open if you want to retain your details.",
 });
+
+type Fetcher = (
+  input: RequestInfo | URL,
+  init?: RequestInit,
+) => Promise<Response>;
+
+export function createContactApiSubmitter({
+  fetcher = fetch,
+  startedAt = Date.now(),
+}: {
+  fetcher?: Fetcher;
+  startedAt?: number;
+} = {}): ContactSubmitter {
+  return async (payload) => {
+    try {
+      const response = await fetcher("/api/contact", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ ...payload, website: "", startedAt }),
+      });
+      if (response.ok) {
+        const body = (await response.json()) as { message?: unknown };
+        if (typeof body.message !== "string")
+          throw new Error("Invalid response");
+        return { status: "success", receiptMessage: body.message };
+      }
+      return mapContactApiError(response.status);
+    } catch {
+      return {
+        status: "error",
+        code: "network_error",
+        message:
+          "We could not send your enquiry. Your details remain in the form; please try again.",
+      };
+    }
+  };
+}
+
+function mapContactApiError(status: number): ContactSubmitResult {
+  if (status === 400)
+    return {
+      status: "error",
+      code: "validation_error",
+      message: "Check the highlighted information and try again.",
+    };
+  if (status === 429)
+    return {
+      status: "error",
+      code: "rate_limited",
+      message: "Please wait, then try again before sending another enquiry.",
+    };
+  if (status === 503)
+    return {
+      status: "error",
+      code: "configuration_error",
+      message:
+        "The enquiry service is temporarily unavailable. Your details remain in the form.",
+    };
+  return {
+    status: "error",
+    code: "provider_error",
+    message:
+      "The submission service could not confirm your enquiry. Your details remain in the form so you can try again.",
+  };
+}

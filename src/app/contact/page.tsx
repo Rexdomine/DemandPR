@@ -41,7 +41,7 @@ const preparation = [
   ],
   [
     "Preferred Follow-up",
-    "How you would prefer to continue the conversation once enquiry delivery is connected.",
+    "How you would prefer Demand PR to continue the conversation after reviewing your enquiry.",
   ],
 ] as const;
 
@@ -113,10 +113,11 @@ export default function ContactPage() {
               className="contact-connection-note"
               aria-label="Form connection status"
             >
-              <strong>Current form status</strong>
+              <strong>Secure enquiry delivery</strong>
               <p>
-                This review form validates locally but is not yet connected. It
-                does not send or store the information you enter.
+                Submissions are delivered securely to Demand PR. After a
+                successful submission, this page confirms receipt and an email
+                acknowledgement is sent to the address provided.
               </p>
             </aside>
           </div>
@@ -130,8 +131,8 @@ export default function ContactPage() {
             <p className="eyebrow">Prepare the context</p>
             <h2>What Helps Us Prepare</h2>
             <p>
-              Concise, practical context helps shape a more focused first
-              conversation when enquiry delivery becomes available.
+              Concise, practical context helps Demand PR review your priorities
+              and shape a more focused first conversation.
             </p>
           </div>
           <div className="contact-prepare-grid">

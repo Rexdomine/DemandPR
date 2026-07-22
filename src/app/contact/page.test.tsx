@@ -30,7 +30,7 @@ describe("Contact & Consultation page", () => {
     ).toBeVisible();
   });
 
-  it("explains the truthful three-step process and disconnected form boundary", () => {
+  it("explains the truthful three-step process and connected delivery boundary", () => {
     render(<ContactPage />);
     for (const name of [
       "Share Your Objectives",
@@ -39,9 +39,11 @@ describe("Contact & Consultation page", () => {
     ]) {
       expect(screen.getByRole("heading", { level: 3, name })).toBeVisible();
     }
+    expect(screen.getByText(/sent securely.*acknowledgement/i)).toBeVisible();
     expect(
-      screen.getByText(/validates locally.*not.*send or store/i),
+      screen.getByText(/submissions are delivered securely to Demand PR/i),
     ).toBeVisible();
+    expect(screen.queryByText(/not yet connected|does not send/i)).toBeNull();
   });
 
   it("uses one publication-reviewed local consultation hero and safe public copy", () => {

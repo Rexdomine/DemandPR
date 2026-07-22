@@ -16,6 +16,19 @@ Use a Vercel Access Token scoped to the dedicated Demand PR account/team. Supply
 
 Do not use an AI Gateway API key for deployments. Vercel REST API and CLI deployment operations require a Vercel Access Token.
 
+### Contact delivery environment
+
+The contact form posts only to the same-origin `/api/contact` server route. Configure the following encrypted Vercel environment values for Preview and Production; none may use the `NEXT_PUBLIC_` prefix:
+
+- `BREVO_API_KEY`: Brevo transactional API credential.
+- `BREVO_SENDER_EMAIL`: a sender verified in the Demand PR Brevo account.
+- `BREVO_SENDER_NAME`: the public sender name, normally `Demand PR Ltd`.
+- `DEMANDPR_CONTACT_RECIPIENT`: the internal enquiry mailbox, `customercare@demandpr.org`.
+
+The route revalidates all fields, escapes enquiry content before HTML rendering, rejects cross-origin/oversized/fast/honeypot submissions, applies a bounded per-instance rate limit, returns no-store responses and never logs contact data or provider errors. The in-memory limit is defence in depth rather than a globally consistent serverless quota; add a managed distributed limiter or challenge service if abuse volume outgrows this launch profile.
+
+After changing contact delivery configuration, submit a controlled test enquiry and verify both Brevo provider acceptances: the internal notification and the user acknowledgement. Do not print the API key, request body, personal data or raw provider response in deployment logs or CI.
+
 ## Deployment safety
 
 `SITE_INDEXABLE=false` is configured for development, preview, and production. Keep it false until all launch dependencies are approved, including the canonical domain, contact destination, official contact details, legal-page destinations, final content fact-check, and publication approval.
