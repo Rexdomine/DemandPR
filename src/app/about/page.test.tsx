@@ -80,27 +80,40 @@ describe("About Demand PR page", () => {
 
   it("uses only approved local media with meaningful alt text", () => {
     const { container } = render(<AboutPage />);
-    const approved = new Set([
-      "/images/market-entry/market-entry-hero.jpg",
-      "/images/market-entry/market-entry-infrastructure.jpg",
-      "/images/market-entry/strategic-partnership.jpg",
-      "/images/home/strategic-adviser.jpg",
-    ]);
-    const images = Array.from(container.querySelectorAll("img"));
 
-    expect(images.length).toBeGreaterThan(0);
-    for (const image of images) {
+    expect(
+      screen.getByRole("img", {
+        name: /african adviser sharing a city perspective/i,
+      }),
+    ).toBeInTheDocument();
+
+    const images = Array.from(container.querySelectorAll("img"));
+    const sources = images.map((image) => {
       const renderedSource = image.getAttribute("src") ?? "";
-      const source = renderedSource.startsWith("/_next/image")
+      return renderedSource.startsWith("/_next/image")
         ? (new URL(renderedSource, "https://demand.test").searchParams.get(
             "url",
           ) ?? "")
         : (renderedSource.split("?")[0] ?? "");
-      expect(source).toMatch(/^\//);
-      expect(approved.has(source)).toBe(true);
+    });
+
+    expect(images).toHaveLength(1);
+    expect(sources).toEqual(["/images/about/context-made-practical.webp"]);
+    expect(images[0]).toHaveAttribute(
+      "alt",
+      "An African adviser explaining agritech equipment to two business leaders in a greenhouse",
+    );
+    expect(images[0]).toHaveAttribute(
+      "sizes",
+      "(min-width: 961px) 44vw, 100vw",
+    );
+    for (const image of images) {
       expect(image).toHaveAttribute("alt");
       expect(image.getAttribute("alt")?.trim().length).toBeGreaterThan(10);
     }
+    expect(sources.join(" ")).not.toMatch(
+      /market-entry-hero|market-entry-infrastructure|strategic-partnership|strategic-adviser|googleusercontent|https?:|data:/i,
+    );
   });
 
   it("keeps publication-safe copy, capability-led advisory and valid CTA routes", () => {

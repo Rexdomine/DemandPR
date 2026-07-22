@@ -120,13 +120,10 @@ export default function AboutPage() {
   return (
     <main id="main-content" className="about-page">
       <section className="about-hero" aria-labelledby="about-title">
-        <Image
-          className="about-hero-image"
-          src="/images/market-entry/market-entry-hero.jpg"
-          alt="Professionals walking through a modern business district"
-          fill
-          priority
-          sizes="100vw"
+        <span
+          className="about-hero-image-description"
+          role="img"
+          aria-label="An African adviser sharing a city perspective with two business leaders"
         />
         <div className="about-hero-overlay" aria-hidden="true" />
         <div className="shell about-hero-content">
@@ -225,10 +222,10 @@ export default function AboutPage() {
           </div>
           <div className="about-reasons-image">
             <Image
-              src="/images/market-entry/market-entry-infrastructure.jpg"
-              alt="Modern transport infrastructure supporting regional connectivity"
+              src="/images/about/context-made-practical.webp"
+              alt="An African adviser explaining agritech equipment to two business leaders in a greenhouse"
               fill
-              sizes="(min-width: 960px) 44vw, 100vw"
+              sizes="(min-width: 961px) 44vw, 100vw"
             />
           </div>
         </div>

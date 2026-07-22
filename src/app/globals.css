@@ -1547,17 +1547,25 @@ blockquote {
   min-height: min(52rem, calc(100svh - 5rem));
   align-items: center;
   overflow: hidden;
-  background: var(--navy);
+  background-color: var(--navy);
+  background-image: url("/images/about/cross-border-perspective.webp");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   color: white;
 }
-.about-hero-image {
-  z-index: -3;
-  object-fit: cover;
-  object-position: center;
+.about-hero-image-description {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 .about-hero-overlay {
   position: absolute;
-  z-index: -2;
+  z-index: 11;
   inset: 0;
   background:
     linear-gradient(
@@ -1569,6 +1577,8 @@ blockquote {
     linear-gradient(0deg, rgba(7, 26, 43, 0.42), transparent 60%);
 }
 .about-hero-content {
+  position: relative;
+  z-index: 12;
   padding-block: clamp(6rem, 12vw, 10rem);
 }
 .about-hero h1 {
@@ -1815,6 +1825,26 @@ blockquote {
 }
 
 @media (max-width: 960px) {
+  .about-hero {
+    display: block;
+    min-height: auto;
+    padding-top: 26rem;
+    background-position: center top;
+    background-size: auto 27rem;
+  }
+  .about-hero-overlay {
+    height: 27rem;
+    bottom: auto;
+    background: linear-gradient(
+      0deg,
+      var(--navy) 0%,
+      rgba(7, 26, 43, 0.2) 18%,
+      rgba(7, 26, 43, 0.02) 38%
+    );
+  }
+  .about-hero-content {
+    padding-block: 3rem 4rem;
+  }
   .about-story-grid,
   .about-reasons-grid {
     grid-template-columns: 1fr;
@@ -1853,14 +1883,9 @@ blockquote {
     padding-block: 5rem;
   }
   .about-hero {
-    display: block;
-    min-height: auto;
     padding-top: 12rem;
-    background: var(--navy);
-  }
-  .about-hero-image {
-    height: 13rem !important;
-    bottom: auto !important;
+    background-position: center top;
+    background-size: auto 13rem;
   }
   .about-hero-overlay {
     height: 13rem;
@@ -2439,11 +2464,13 @@ blockquote {
   color: white;
 }
 .contact-hero-image {
+  z-index: 10;
   object-fit: cover;
-  object-position: center 56%;
+  object-position: 55% 56%;
 }
 .contact-hero-shade {
   position: absolute;
+  z-index: 11;
   inset: 0;
   background: linear-gradient(
     90deg,
@@ -2454,7 +2481,7 @@ blockquote {
 }
 .contact-hero-content {
   position: relative;
-  z-index: 1;
+  z-index: 12;
   padding-block: 7rem;
 }
 .contact-hero .eyebrow {
@@ -2835,6 +2862,29 @@ blockquote {
 }
 
 @media (max-width: 960px) {
+  .contact-hero {
+    display: block;
+    min-height: auto;
+    padding-top: 26rem;
+  }
+  .contact-hero-image {
+    height: 27rem !important;
+    bottom: auto !important;
+    object-position: center 58%;
+  }
+  .contact-hero-shade {
+    height: 27rem;
+    bottom: auto;
+    background: linear-gradient(
+      0deg,
+      var(--navy) 0%,
+      rgba(7, 26, 43, 0.2) 18%,
+      rgba(7, 26, 43, 0.02) 38%
+    );
+  }
+  .contact-hero-content {
+    padding-block: 3rem 4rem;
+  }
   .contact-consultation-grid {
     grid-template-columns: 1fr;
   }
@@ -2852,16 +2902,16 @@ blockquote {
 @media (max-width: 640px) {
   .contact-hero {
     display: block;
-    min-height: calc(100svh - 5rem);
-    padding-top: 8rem;
+    min-height: auto;
+    padding-top: calc(56.25vw - 1rem);
   }
   .contact-hero-image {
-    height: 9rem !important;
+    height: 56.25vw !important;
     bottom: auto !important;
     object-position: center 58%;
   }
   .contact-hero-shade {
-    height: 9rem;
+    height: 56.25vw;
     bottom: auto;
     background: linear-gradient(0deg, var(--navy), rgba(7, 26, 43, 0.08));
   }
