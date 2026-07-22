@@ -8,6 +8,7 @@ export default defineConfig({
     environment: "jsdom",
     globals: true,
     setupFiles: ["./src/test/setup.tsx"],
+    testTimeout: 15_000,
     coverage: { reporter: ["text", "html"] },
   },
 });

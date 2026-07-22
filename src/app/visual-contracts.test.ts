@@ -119,6 +119,17 @@ describe("site visual contracts", () => {
     expect(contrastRatio("#ffffff", teal!)).toBeGreaterThanOrEqual(4.5);
   });
 
+  it("keeps in-page destinations clear of the sticky site header", () => {
+    const css = readFileSync(
+      join(process.cwd(), "src/app/globals.css"),
+      "utf8",
+    );
+
+    expect(css).toMatch(
+      /\.services-sectors\s*\{[^}]*scroll-margin-top:\s*(?:[7-9]|\d{2,})rem;/s,
+    );
+  });
+
   it("bundles the declared design fonts locally", () => {
     for (const file of [
       "inter-400.ttf",

@@ -761,6 +761,9 @@ blockquote {
 .site-footer li {
   margin-bottom: 0.2rem;
 }
+.site-footer section li {
+  min-height: 32px;
+}
 .site-footer li a,
 .footer-base a {
   display: inline-flex;
@@ -776,6 +779,14 @@ blockquote {
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  color: #66d8d6;
+}
+.footer-sector-link {
+  display: inline-flex;
+  min-height: 44px;
+  margin-top: 0.5rem;
+  align-items: center;
+  gap: 0.45rem;
   color: #66d8d6;
 }
 .footer-base {
@@ -2238,6 +2249,7 @@ blockquote {
   font-weight: 600;
 }
 .services-sectors {
+  scroll-margin-top: 7rem;
   padding-block: 2.75rem;
   border-bottom: 1px solid #d7e4ee;
   background: #eaf5ff;
