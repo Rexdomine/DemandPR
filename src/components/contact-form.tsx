@@ -5,7 +5,7 @@ import { useRef, useState, type FormEvent } from "react";
 import {
   CONTACT_FIELD_LIMITS,
   CONTACT_INTERESTS,
-  notConfiguredContactSubmitter,
+  createContactApiSubmitter,
   validateContactForm,
   type ContactFieldErrors,
   type ContactFormInput,
@@ -27,12 +27,12 @@ const fieldOrder: (keyof ContactFormInput)[] = [
   "website",
 ];
 
-export function ContactForm({
-  submitter = notConfiguredContactSubmitter,
-}: {
-  submitter?: ContactSubmitter;
-}) {
+export function ContactForm({ submitter }: { submitter?: ContactSubmitter }) {
   const formRef = useRef<HTMLFormElement>(null);
+  const apiSubmitterRef = useRef<ContactSubmitter | null>(null);
+  if (!apiSubmitterRef.current)
+    apiSubmitterRef.current = createContactApiSubmitter();
+  const activeSubmitter = submitter ?? apiSubmitterRef.current;
   const pendingRef = useRef(false);
   const [errors, setErrors] = useState<ContactFieldErrors>({});
   const [pending, setPending] = useState(false);
@@ -90,7 +90,7 @@ export function ContactForm({
     pendingRef.current = true;
     setPending(true);
     try {
-      const result = await submitter(validation.payload);
+      const result = await activeSubmitter(validation.payload);
       if (result.status === "success") {
         formRef.current?.reset();
         setContactMethod("");
@@ -278,7 +278,7 @@ export function ContactForm({
       >
         <legend>Preferred contact method *</legend>
         <span className="contact-hint" id="contactMethod-hint">
-          Choose how you would prefer a future connected service to follow up.
+          Choose how you would prefer Demand PR to follow up.
         </span>
         <div className="contact-choice-row">
           {(["email", "telephone", "whatsapp"] as const).map((method) => (
@@ -376,12 +376,13 @@ export function ContactForm({
         type="submit"
         disabled={pending}
       >
-        {pending ? "Submitting…" : "Review enquiry"}
+        {pending ? "Sending…" : "Send enquiry"}
         <span aria-hidden="true">→</span>
       </button>
       <p className="contact-submit-note">
-        Submission is not currently connected. Selecting Review enquiry
-        validates this form; it does not send or store your information.
+        Your enquiry will be sent securely to Demand PR. After successful
+        submission, you will see confirmation here and receive an email
+        acknowledgement.
       </p>
     </form>
   );

@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { axe } from "jest-axe";
 import { describe, expect, it, vi } from "vitest";
@@ -63,7 +63,7 @@ describe("ContactForm", () => {
   it("shows accessible field errors and focuses the first invalid control", async () => {
     const user = userEvent.setup();
     render(<ContactForm />);
-    await user.click(screen.getByRole("button", { name: /review enquiry/i }));
+    await user.click(screen.getByRole("button", { name: /send enquiry/i }));
 
     const fullName = screen.getByLabelText(/full name/i);
     expect(fullName).toHaveFocus();
@@ -83,7 +83,7 @@ describe("ContactForm", () => {
   it("clears a field error as the visitor corrects that field", async () => {
     const user = userEvent.setup();
     render(<ContactForm />);
-    await user.click(screen.getByRole("button", { name: /review enquiry/i }));
+    await user.click(screen.getByRole("button", { name: /send enquiry/i }));
 
     const fullName = screen.getByLabelText(/full name/i);
     await user.type(fullName, "Ada Okafor");
@@ -97,7 +97,7 @@ describe("ContactForm", () => {
     render(<ContactForm />);
     await completeForm(user);
     await user.click(screen.getByRole("radio", { name: "Telephone" }));
-    await user.click(screen.getByRole("button", { name: /review enquiry/i }));
+    await user.click(screen.getByRole("button", { name: /send enquiry/i }));
     expect(screen.getByText(/phone number is required/i)).toBeVisible();
 
     await user.click(screen.getByRole("radio", { name: "Email" }));
@@ -116,7 +116,7 @@ describe("ContactForm", () => {
     render(<ContactForm />);
     await completeForm(user);
     await user.click(screen.getByRole("radio", { name: "Telephone" }));
-    await user.click(screen.getByRole("button", { name: /review enquiry/i }));
+    await user.click(screen.getByRole("button", { name: /send enquiry/i }));
     expect(screen.getByLabelText("Phone (optional)")).toHaveFocus();
     expect(screen.getByText(/phone number is required/i)).toBeVisible();
   });
@@ -129,15 +129,15 @@ describe("ContactForm", () => {
     const user = userEvent.setup();
     render(<ContactForm submitter={submitter} />);
     await completeForm(user);
-    const button = screen.getByRole("button", { name: /review enquiry/i });
+    const button = screen.getByRole("button", { name: /send enquiry/i });
     await user.click(button);
 
     expect(submitter).toHaveBeenCalledTimes(1);
     expect(
       screen.getByRole("form", { name: /consultation enquiry/i }),
     ).toHaveAttribute("aria-busy", "true");
-    expect(screen.getByRole("button", { name: /submitting/i })).toBeDisabled();
-    await user.click(screen.getByRole("button", { name: /submitting/i }));
+    expect(screen.getByRole("button", { name: /sending/i })).toBeDisabled();
+    await user.click(screen.getByRole("button", { name: /sending/i }));
     expect(submitter).toHaveBeenCalledTimes(1);
     resolve({
       status: "error",
@@ -155,7 +155,7 @@ describe("ContactForm", () => {
     const user = userEvent.setup();
     render(<ContactForm submitter={submitter} />);
     await completeForm(user);
-    await user.click(screen.getByRole("button", { name: /review enquiry/i }));
+    await user.click(screen.getByRole("button", { name: /send enquiry/i }));
 
     expect(
       await screen.findByText(/confirmed by the submission service/i),
@@ -168,11 +168,6 @@ describe("ContactForm", () => {
   });
 
   it.each([
-    {
-      name: "default not-configured",
-      submitter: undefined,
-      message: /not connected yet.*not been sent or stored/i,
-    },
     {
       name: "provider error",
       submitter: vi.fn<ContactSubmitter>().mockResolvedValue({
@@ -188,7 +183,7 @@ describe("ContactForm", () => {
       const user = userEvent.setup();
       render(<ContactForm submitter={submitter} />);
       await completeForm(user);
-      await user.click(screen.getByRole("button", { name: /review enquiry/i }));
+      await user.click(screen.getByRole("button", { name: /send enquiry/i }));
       expect(await screen.findByText(message)).toBeVisible();
       expect(screen.getByLabelText(/full name/i)).toHaveValue("Ada Okafor");
       expect(screen.getByLabelText(/target markets/i)).toHaveValue(
@@ -209,14 +204,12 @@ describe("ContactForm", () => {
       container.querySelector<HTMLInputElement>('[name="website"]')!,
       "spam",
     );
-    await user.click(screen.getByRole("button", { name: /review enquiry/i }));
+    await user.click(screen.getByRole("button", { name: /send enquiry/i }));
     expect(submitter).not.toHaveBeenCalled();
   });
 
   it("has no detectable automated accessibility violations", async () => {
     const { container } = render(<ContactForm />);
-    await waitFor(async () =>
-      expect((await axe(container)).violations).toEqual([]),
-    );
+    expect((await axe(container)).violations).toEqual([]);
   });
 });
