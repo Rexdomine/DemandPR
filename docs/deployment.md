@@ -7,7 +7,7 @@ Demand PR is hosted only in the dedicated Vercel team `demandprltd-8340s-project
 - Team ID: `team_M5iRNyEcNZHaREmgnyWgJgI1`
 - Framework: Next.js
 - Runtime: Node.js 22.x
-- Production branch policy: `main` after Rex-approved merge; automatic Git enforcement is pending the GitHub connection
+- Production branch policy: `main` after Rex-approved merge; pull-request previews use the controlled GitHub Actions workflow described below
 - Canonical custom domain: pending stakeholder approval
 
 ## Access and secret handling
@@ -78,6 +78,22 @@ printf 'Deployed commit: %s\n' "$DEPLOY_COMMIT"
 
 A production deployment additionally requires Rex's recorded approval, a clean `main` checkout at the approved merged commit, and the explicit `--prod` flag. Do not merge or issue a production deployment without that approval. Verify the deployment URL, `/robots.txt`, `/sitemap.xml`, response security headers, browser console, and responsive layout after every production-facing deployment.
 
+## Pull-request preview automation
+
+Vercel's native Git-triggered deployment can block a valid commit before build when its contributor-access gate no longer recognizes the Git author as a Vercel team member. Demand PR therefore uses `.github/workflows/vercel-preview.yml` as the authoritative PR-preview path for same-repository, non-draft, non-Dependabot pull requests.
+
+The workflow:
+
+1. checks out the exact pull-request head SHA;
+2. uses the dedicated encrypted `DEMANDPR_VERCEL_TOKEN` GitHub Actions secret;
+3. pins Vercel CLI `55.0.0` and verifies the exact Demand PR team/project IDs;
+4. builds the preview while the exact Git head is still available, then removes `.git` only in the ephemeral runner so Vercel cannot reapply its unstable author-membership gate to the authorized prebuilt artifact;
+5. deploys the verified prebuilt output without `--prod` and publishes the resulting `demandpr-*.vercel.app` URL in the GitHub Actions job summary.
+
+The repository secret must contain only the dedicated Demand PR Vercel access token. Fork and Dependabot pull requests intentionally do not receive it. Production remains outside this workflow and requires Rex's explicit approval.
+
+The native Vercel Git integration is disabled through `vercel.json` (`git.deploymentEnabled: false`) so it cannot emit a second blocked deployment beside the controlled workflow. The authoritative preview readiness signal is the **Vercel Preview** GitHub Actions workflow plus a verified Ready deployment for the exact PR head.
+
 ## GitHub integration
 
-Automatic branch and pull-request deployments require the dedicated Vercel account to connect its GitHub login and grant access to `Rexdomine/DemandPR`. Until that connection is enabled, deployment is manual through the dedicated Vercel project and token.
+The dedicated Vercel project remains connected to `Rexdomine/DemandPR` for deployment metadata. PR preview execution is intentionally owned by the controlled GitHub Actions workflow above rather than relying on Vercel's Git-author membership inference.

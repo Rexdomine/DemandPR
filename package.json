@@ -23,32 +23,38 @@
     "verify:release": "npm run audit:security && npm run verify:checkpoint && NEXT_TELEMETRY_DISABLED=1 NEXT_PUBLIC_SITE_URL=https://example.com SITE_INDEXABLE=false npm run build && npm run verify:diff"
   },
   "dependencies": {
-    "next": "15.5.20",
+    "next": "15.5.22",
     "react": "19.1.1",
     "react-dom": "19.1.1"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "3.3.1",
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "16.3.2",
+    "@eslint/js": "10.0.1",
+    "@next/eslint-plugin-next": "16.1.6",
     "@testing-library/user-event": "14.6.1",
     "@types/jest-axe": "3.5.9",
     "@types/node": "22.18.12",
     "@types/react": "19.1.16",
     "@types/react-dom": "19.1.9",
     "@vitejs/plugin-react": "5.1.1",
-    "eslint": "9.39.1",
-    "eslint-config-next": "15.5.20",
+    "eslint": "10.8.0",
+    "eslint-plugin-react-hooks": "7.1.1",
+    "globals": "16.4.0",
     "jest-axe": "10.0.0",
     "jsdom": "27.2.0",
     "postcss": "8.5.19",
     "prettier": "3.6.2",
     "tailwindcss": "3.4.18",
     "typescript": "5.9.3",
+    "typescript-eslint": "8.65.0",
     "vite-tsconfig-paths": "6.1.1",
     "vitest": "3.2.7"
   },
   "overrides": {
-    "postcss": "8.5.19"
+    "postcss": "8.5.19",
+    "minimatch@10.2.5": {
+      "brace-expansion": "5.0.8"
+    }
   }
 }

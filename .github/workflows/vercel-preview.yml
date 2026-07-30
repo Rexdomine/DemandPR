@@ -1,0 +1,85 @@
+name: Vercel Preview
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: vercel-preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  deploy-preview:
+    if: >-
+      ${{ !github.event.pull_request.draft &&
+          github.actor != 'dependabot[bot]' &&
+          github.event.pull_request.head.repo.full_name == github.repository }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      VERCEL_ORG_ID: team_M5iRNyEcNZHaREmgnyWgJgI1
+      VERCEL_PROJECT_ID: prj_HggbtLdbdaJcuvDu89kGscjs5AlT
+      DEMANDPR_VERCEL_TOKEN: ${{ secrets.DEMANDPR_VERCEL_TOKEN }}
+    steps:
+      - name: Check out exact pull-request head
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Pin npm
+        run: npm install --global npm@10.9.8
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Pull dedicated Demand PR preview settings
+        run: >-
+          npx --yes vercel@55.0.0 pull
+          --yes
+          --environment=preview
+          --scope demandprltd-8340s-projects
+          --token "$DEMANDPR_VERCEL_TOKEN"
+
+      - name: Verify dedicated Vercel project link
+        run: |
+          node - <<'NODE'
+          const project = require("./.vercel/project.json");
+          if (
+            project.projectId !== process.env.VERCEL_PROJECT_ID ||
+            project.orgId !== process.env.VERCEL_ORG_ID
+          ) {
+            throw new Error("Refusing to deploy outside the dedicated Demand PR Vercel project");
+          }
+          NODE
+
+      - name: Build preview artifact
+        run: npx --yes vercel@55.0.0 build --token "$DEMANDPR_VERCEL_TOKEN"
+
+      - name: Remove Git author metadata from the prebuilt runner artifact
+        run: |
+          rm -rf .git
+          test ! -e .git
+
+      - name: Deploy preview artifact
+        id: deploy
+        run: |
+          url="$(npx --yes vercel@55.0.0 deploy \
+            --prebuilt \
+            --yes \
+            --scope demandprltd-8340s-projects \
+            --token "$DEMANDPR_VERCEL_TOKEN")"
+          case "$url" in
+            https://demandpr-*.vercel.app) ;;
+            *) echo "Unexpected deployment URL: $url" >&2; exit 1 ;;
+          esac
+          printf 'url=%s\n' "$url" >> "$GITHUB_OUTPUT"
+          printf '## Demand PR Vercel preview\n\n%s\n' "$url" >> "$GITHUB_STEP_SUMMARY"

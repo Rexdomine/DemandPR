@@ -113,10 +113,14 @@ describe("site visual contracts", () => {
       join(process.cwd(), "src/app/globals.css"),
       "utf8",
     );
-    const teal = css.match(/--teal:\s*(#[\da-f]{6})/i)?.[1];
+    const primaryAction = css.match(
+      /--action-primary-bg:\s*(#[\da-f]{6})/i,
+    )?.[1];
 
-    expect(teal).toBeDefined();
-    expect(contrastRatio("#ffffff", teal!)).toBeGreaterThanOrEqual(4.5);
+    expect(primaryAction?.toUpperCase()).toBe("#6A1B2D");
+    expect(contrastRatio("#ffffff", primaryAction!)).toBeGreaterThanOrEqual(
+      4.5,
+    );
   });
 
   it("keeps in-page destinations clear of the sticky site header", () => {

@@ -30,7 +30,7 @@ const fieldOrder: (keyof ContactFormInput)[] = [
 export function ContactForm({ submitter }: { submitter?: ContactSubmitter }) {
   const formRef = useRef<HTMLFormElement>(null);
   const apiSubmitterRef = useRef<ContactSubmitter | null>(null);
-  if (!apiSubmitterRef.current)
+  if (apiSubmitterRef.current === null)
     apiSubmitterRef.current = createContactApiSubmitter();
   const activeSubmitter = submitter ?? apiSubmitterRef.current;
   const pendingRef = useRef(false);
