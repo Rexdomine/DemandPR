@@ -251,9 +251,12 @@ function parseInput(
 }
 
 function hasUnsafeControls(value: string, allowLineBreaks: boolean) {
-  return allowLineBreaks
-    ? /[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/.test(value)
-    : /[\u0000-\u001f\u007f]/.test(value);
+  return [...value].some((character) => {
+    const codePoint = character.charCodeAt(0);
+    const isAllowedWhitespace =
+      allowLineBreaks && [0x09, 0x0a, 0x0d].includes(codePoint);
+    return codePoint === 0x7f || (codePoint < 0x20 && !isAllowedWhitespace);
+  });
 }
 
 function readConfiguration(env: ContactEnvironment) {
@@ -301,7 +304,7 @@ function escapeHtml(value: string) {
 }
 
 function brandedHtml(title: string, content: string) {
-  return `<!doctype html><html><head><meta name="viewport" content="width=device-width"><style>@media(max-width:600px){.card{padding:24px!important}.brand{font-size:18px!important}}</style></head><body style="margin:0;background:#f4f7f8;font-family:Arial,Helvetica,sans-serif;color:#071a2b"><div style="display:none;max-height:0;overflow:hidden">Demand PR Ltd — ${escapeHtml(title)}</div><table role="presentation" width="100%" cellspacing="0" cellpadding="0"><tr><td align="center" style="padding:24px 12px"><table role="presentation" width="100%" style="max-width:640px;background:#ffffff;border-top:6px solid #007c7c"><tr><td class="card" style="padding:36px"><div class="brand" style="color:#071a2b;font-size:20px;font-weight:800;letter-spacing:.08em">Demand <span style="color:#007c7c">PR</span> <span style="color:#c9a45c">Ltd</span></div><h1 style="color:#071a2b;font-size:26px;line-height:1.25">${escapeHtml(title)}</h1>${content}<p style="margin-top:32px;border-top:1px solid #d8e1e5;padding-top:20px;color:#007c7c;font-weight:700">Connecting Business. Enabling Growth. Delivering Opportunities.</p></td></tr></table></td></tr></table></body></html>`;
+  return `<!doctype html><html><head><meta name="viewport" content="width=device-width"><style>@media(max-width:600px){.card{padding:24px!important}.brand{font-size:18px!important}}</style></head><body style="margin:0;background:#f8f1e8;font-family:Arial,Helvetica,sans-serif;color:#32141b"><div style="display:none;max-height:0;overflow:hidden">Demand PR Ltd — ${escapeHtml(title)}</div><table role="presentation" width="100%" cellspacing="0" cellpadding="0"><tr><td align="center" style="padding:24px 12px"><table role="presentation" width="100%" style="max-width:640px;background:#ffffff;border-top:6px solid #6a1b2d"><tr><td class="card" style="padding:36px"><div class="brand" style="color:#32141b;font-size:20px;font-weight:800;letter-spacing:.08em">Demand <span style="color:#6a1b2d">PR</span> <span style="color:#d4b16a">Ltd</span></div><h1 style="color:#32141b;font-size:26px;line-height:1.25">${escapeHtml(title)}</h1>${content}<p style="margin-top:32px;border-top:1px solid #e3d4c6;padding-top:20px;color:#6a1b2d;font-weight:700">Connecting Business. Enabling Growth. Delivering Opportunities.</p></td></tr></table></td></tr></table></body></html>`;
 }
 
 function buildMessages(
@@ -332,7 +335,7 @@ function buildMessages(
   const internalRows = rows
     .map(
       ([label, value]) =>
-        `<tr><th align="left" valign="top" style="padding:8px;color:#007c7c">${escapeHtml(label)}</th><td style="padding:8px;white-space:pre-wrap">${escapeHtml(value)}</td></tr>`,
+        `<tr><th align="left" valign="top" style="padding:8px;color:#6a1b2d">${escapeHtml(label)}</th><td style="padding:8px;white-space:pre-wrap">${escapeHtml(value)}</td></tr>`,
     )
     .join("");
   const firstName = payload.fullName.split(/\s+/)[0] || payload.fullName;

@@ -124,9 +124,9 @@ describe("contact API boundary", () => {
     expect(internal.message.htmlContent).toContain(
       "Connecting Business. Enabling Growth. Delivering Opportunities.",
     );
-    expect(internal.message.htmlContent).toContain("#071a2b");
-    expect(internal.message.htmlContent).toContain("#007c7c");
-    expect(internal.message.htmlContent).toContain("#c9a45c");
+    expect(internal.message.htmlContent).toContain("#32141b");
+    expect(internal.message.htmlContent).toContain("#6a1b2d");
+    expect(internal.message.htmlContent).toContain("#d4b16a");
     expect(internal.message.htmlContent).toContain("Ada &lt;Okafor&gt;");
     expect(internal.message.htmlContent).toContain("Meridian &amp; Partners");
     expect(internal.message.htmlContent).not.toContain("<regional>");

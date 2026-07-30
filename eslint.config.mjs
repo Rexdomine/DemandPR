@@ -1,22 +1,28 @@
-import path from "node:path";
-import { fileURLToPath } from "node:url";
+import js from "@eslint/js";
+import nextPlugin from "@next/eslint-plugin-next";
+import { defineConfig, globalIgnores } from "eslint/config";
+import reactHooks from "eslint-plugin-react-hooks";
+import globals from "globals";
+import tseslint from "typescript-eslint";
 
-import { FlatCompat } from "@eslint/eslintrc";
-
-const directory = path.dirname(fileURLToPath(import.meta.url));
-const compat = new FlatCompat({ baseDirectory: directory });
-
-const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
+export default defineConfig([
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
+  reactHooks.configs.flat["recommended-latest"],
+  nextPlugin.configs["core-web-vitals"],
   {
-    ignores: [
-      ".next/**",
-      "coverage/**",
-      "node_modules/**",
-      "out/**",
-      "next-env.d.ts",
-    ],
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+      },
+    },
   },
-];
-
-export default eslintConfig;
+  globalIgnores([
+    ".next/**",
+    "coverage/**",
+    "node_modules/**",
+    "out/**",
+    "next-env.d.ts",
+  ]),
+]);
