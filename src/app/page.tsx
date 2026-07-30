@@ -67,11 +67,10 @@ export default function Home() {
       <section className="hero" aria-labelledby="hero-heading">
         <Image
           className="hero-image"
-          src="/images/home/demand-pr-influence-in-motion.webp"
-          alt="African and international business advisers in conversation at a trade forum"
+          src="/images/home/demand-pr-owner-strategic-counsel.webp"
+          alt="Senior African market adviser in a burgundy suit leading a private executive consultation"
           fill
           priority
-          unoptimized
           sizes="100vw"
         />
         <div className="hero-overlay" aria-hidden="true" />

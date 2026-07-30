@@ -1,8 +1,42 @@
+import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+
 import { render, screen } from "@testing-library/react";
 import { axe } from "jest-axe";
 import { describe, expect, it } from "vitest";
 
 import Home from "./page";
+
+function webpContract(buffer: Buffer) {
+  expect(buffer.subarray(0, 4).toString("ascii")).toBe("RIFF");
+  expect(buffer.subarray(8, 12).toString("ascii")).toBe("WEBP");
+
+  const chunks: string[] = [];
+  let offset = 12;
+
+  while (offset + 8 <= buffer.length) {
+    const type = buffer.subarray(offset, offset + 4).toString("ascii");
+    const length = buffer.readUInt32LE(offset + 4);
+    chunks.push(type);
+
+    if (type === "VP8 ") {
+      const payload = offset + 8;
+      expect(buffer.subarray(payload + 3, payload + 6).toString("hex")).toBe(
+        "9d012a",
+      );
+      return {
+        chunks,
+        width: buffer.readUInt16LE(payload + 6) & 0x3fff,
+        height: buffer.readUInt16LE(payload + 8) & 0x3fff,
+      };
+    }
+
+    offset += 8 + length + (length % 2);
+  }
+
+  throw new Error("WebP VP8 dimensions could not be read");
+}
 
 describe("homepage", () => {
   it("uses a clear landmark and heading structure", () => {
@@ -42,10 +76,10 @@ describe("homepage", () => {
     expect(
       screen
         .getByAltText(
-          "African and international business advisers in conversation at a trade forum",
+          "Senior African market adviser in a burgundy suit leading a private executive consultation",
         )
         .getAttribute("src"),
-    ).toContain("demand-pr-influence-in-motion.webp");
+    ).toContain("demand-pr-owner-strategic-counsel.webp");
     const sources = images.map((image) => image.getAttribute("src") ?? "");
     for (const filename of [
       "navigator-cultural-intelligence.webp",
@@ -56,6 +90,25 @@ describe("homepage", () => {
     ]) {
       expect(sources.some((source) => source.includes(filename))).toBe(true);
     }
+  });
+
+  it("bundles the exact approved owner-likeness hero derivative", () => {
+    const image = readFileSync(
+      join(
+        process.cwd(),
+        "public/images/home/demand-pr-owner-strategic-counsel.webp",
+      ),
+    );
+
+    expect(webpContract(image)).toEqual({
+      chunks: ["VP8 "],
+      width: 1280,
+      height: 658,
+    });
+    expect(createHash("sha256").update(image).digest("hex")).toBe(
+      "4db70448731c94ba13f335ce3aa5610a166c8e616dbfa8d2e5090ed8ee7fb0b0",
+    );
+    expect(image.byteLength).toBeLessThan(50_000);
   });
 
   it("does not publish unsupported claims or review placeholders", () => {
