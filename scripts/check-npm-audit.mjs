@@ -216,6 +216,7 @@ export function checkExposureContract({ nextConfig, sourceFiles }) {
       const expression = block.match(/\bsrc\s*=\s*\{([^}]+)\}/)?.[1]?.trim();
       const allowed =
         (literal?.startsWith("/images/") ?? false) ||
+        (literal?.startsWith("/brand/") ?? false) ||
         expression === "story.image.src";
       if (!allowed) {
         fail(`Untrusted image exposure detected in ${path}.`);

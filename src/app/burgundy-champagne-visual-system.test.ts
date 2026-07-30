@@ -128,6 +128,12 @@ describe("Burgundy and Champagne visual system", () => {
     );
   });
 
+  it("keeps the supplied colour logo legible on the dark footer", () => {
+    expect(css).toMatch(
+      /\.footer-brand\s*\{[^}]*background:\s*var\(--surface-raised\)/s,
+    );
+  });
+
   it("keeps route editorial sections light except each route's selected anchor", () => {
     for (const pattern of [
       /\.advantage-section\s*\{[^}]*background:\s*var\(--surface-accent-soft\)/s,
