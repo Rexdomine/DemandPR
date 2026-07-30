@@ -92,23 +92,30 @@ describe("homepage", () => {
     }
   });
 
-  it("bundles the exact approved owner-likeness hero derivative", () => {
+  it("bundles a retina-ready premium-quality owner-likeness hero derivative", () => {
     const image = readFileSync(
       join(
         process.cwd(),
         "public/images/home/demand-pr-owner-strategic-counsel.webp",
       ),
     );
+    const pageSource = readFileSync(
+      join(process.cwd(), "src/app/page.tsx"),
+      "utf8",
+    );
 
     expect(webpContract(image)).toEqual({
       chunks: ["VP8 "],
-      width: 1280,
-      height: 658,
+      width: 3840,
+      height: 1974,
     });
+    expect(image.byteLength).toBeGreaterThan(200_000);
+    expect(image.byteLength).toBeLessThan(400_000);
     expect(createHash("sha256").update(image).digest("hex")).toBe(
-      "4db70448731c94ba13f335ce3aa5610a166c8e616dbfa8d2e5090ed8ee7fb0b0",
+      "0d345c71e0cb617cf972aa40c03c3b70fc96b92d176db7910d9e2af1d4112d22",
     );
-    expect(image.byteLength).toBeLessThan(50_000);
+    expect(pageSource).toContain("unoptimized");
+    expect(pageSource).not.toContain("quality={95}");
   });
 
   it("does not publish unsupported claims or review placeholders", () => {

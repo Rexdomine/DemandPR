@@ -72,6 +72,7 @@ export default function Home() {
           fill
           priority
           sizes="100vw"
+          unoptimized
         />
         <div className="hero-overlay" aria-hidden="true" />
         <div className="shell hero-content">
