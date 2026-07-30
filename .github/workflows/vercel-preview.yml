@@ -64,11 +64,17 @@ jobs:
       - name: Build preview artifact
         run: npx --yes vercel@55.0.0 build --token "$DEMANDPR_VERCEL_TOKEN"
 
+      - name: Remove Git author metadata from the prebuilt runner artifact
+        run: |
+          rm -rf .git
+          test ! -e .git
+
       - name: Deploy preview artifact
         id: deploy
         run: |
           url="$(npx --yes vercel@55.0.0 deploy \
             --prebuilt \
+            --yes \
             --scope demandprltd-8340s-projects \
             --token "$DEMANDPR_VERCEL_TOKEN")"
           case "$url" in

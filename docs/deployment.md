@@ -87,8 +87,8 @@ The workflow:
 1. checks out the exact pull-request head SHA;
 2. uses the dedicated encrypted `DEMANDPR_VERCEL_TOKEN` GitHub Actions secret;
 3. pins Vercel CLI `55.0.0` and verifies the exact Demand PR team/project IDs;
-4. builds a preview artifact and deploys it without `--prod`;
-5. publishes the resulting `demandpr-*.vercel.app` URL in the GitHub Actions job summary.
+4. builds the preview while the exact Git head is still available, then removes `.git` only in the ephemeral runner so Vercel cannot reapply its unstable author-membership gate to the authorized prebuilt artifact;
+5. deploys the verified prebuilt output without `--prod` and publishes the resulting `demandpr-*.vercel.app` URL in the GitHub Actions job summary.
 
 The repository secret must contain only the dedicated Demand PR Vercel access token. Fork and Dependabot pull requests intentionally do not receive it. Production remains outside this workflow and requires Rex's explicit approval.
 
