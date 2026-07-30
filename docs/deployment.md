@@ -92,7 +92,7 @@ The workflow:
 
 The repository secret must contain only the dedicated Demand PR Vercel access token. Fork and Dependabot pull requests intentionally do not receive it. Production remains outside this workflow and requires Rex's explicit approval.
 
-The native Vercel Git integration may still emit a blocked deployment record when its contributor gate changes. The authoritative preview readiness signal is the **Vercel Preview** GitHub Actions workflow plus a verified Ready deployment for the exact PR head.
+The native Vercel Git integration is disabled through `vercel.json` (`git.deploymentEnabled: false`) so it cannot emit a second blocked deployment beside the controlled workflow. The authoritative preview readiness signal is the **Vercel Preview** GitHub Actions workflow plus a verified Ready deployment for the exact PR head.
 
 ## GitHub integration
 
