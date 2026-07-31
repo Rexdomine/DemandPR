@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
@@ -59,12 +60,15 @@ export function Header() {
       <header className="site-header">
         <div className="shell header-inner">
           <Link className="brand" href="/" aria-label="Demand PR home">
-            <span className="brand-mark" aria-hidden="true">
-              D
-            </span>
-            <span>
-              Demand <b>PR</b>
-            </span>
+            <Image
+              className="brand-logo"
+              src="/brand/demandpr-logo.svg"
+              width="1296"
+              height="388"
+              alt=""
+              priority
+              unoptimized
+            />
           </Link>
 
           <nav className="desktop-nav" aria-label="Primary navigation">

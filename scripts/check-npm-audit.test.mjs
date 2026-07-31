@@ -298,6 +298,8 @@ describe("temporary exception exposure contract", () => {
   const safeSources = {
     "src/app/page.tsx":
       'import Image from "next/image"; <Image src="/images/home/a.webp" alt="A" />',
+    "src/components/header.tsx":
+      'import Image from "next/image"; <Image src="/brand/demandpr-logo.svg" alt="" unoptimized />',
     "src/content/site.ts":
       'export const stories = [{ image: { src: "/images/home/b.webp" } }];',
   };

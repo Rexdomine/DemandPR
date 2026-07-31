@@ -12,6 +12,17 @@ const sectors = [
 ] as const;
 
 describe("Footer navigation", () => {
+  it("uses the approved logo asset on a home link", () => {
+    render(<Footer />);
+    const brand = screen.getByRole("link", { name: "Demand PR home" });
+
+    expect(brand.querySelector("img")).toHaveAttribute(
+      "src",
+      "/brand/demandpr-logo.svg",
+    );
+    expect(brand.querySelector("img")).toHaveAttribute("alt", "");
+  });
+
   it("uses the existing public pages as meaningful Explore destinations", () => {
     render(<Footer />);
     const explore = screen.getByRole("navigation", { name: "Explore" });

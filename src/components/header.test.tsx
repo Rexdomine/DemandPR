@@ -1,3 +1,7 @@
+import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
@@ -63,7 +67,13 @@ describe("Header mobile navigation", () => {
 
   it("exposes the brand and valid same-page navigation targets", () => {
     render(<Header />);
-    expect(screen.getByRole("link", { name: "Demand PR home" })).toBeVisible();
+    const brand = screen.getByRole("link", { name: "Demand PR home" });
+    expect(brand).toBeVisible();
+    expect(brand.querySelector("img")).toHaveAttribute(
+      "src",
+      "/brand/demandpr-logo.svg",
+    );
+    expect(brand.querySelector("img")).toHaveAttribute("alt", "");
     const navigation = screen.getByRole("navigation", {
       name: "Primary navigation",
     });
@@ -82,6 +92,24 @@ describe("Header mobile navigation", () => {
     expect(
       within(navigation).getByRole("link", { name: "Contact" }),
     ).toHaveAttribute("href", "/contact");
+  });
+
+  it("ships the exact approved outlined SVG without active or external content", () => {
+    const logo = readFileSync(
+      join(process.cwd(), "public/brand/demandpr-logo.svg"),
+    );
+    const source = logo.toString("utf8");
+
+    expect(createHash("sha256").update(logo).digest("hex")).toBe(
+      "68a6bb9350d1b7ebd9324e5fe23acf5c2ff3a58a4de40e1759d30aa90b561fd2",
+    );
+    expect(source).toContain('viewBox="0 0 1296 388"');
+    expect(source).toContain('fill="#6A1B2D"');
+    expect(source).toContain('fill="#D4B16A"');
+    expect(source).not.toMatch(
+      /<script\b|<foreignObject\b|\son\w+\s*=|javascript:|(?:href|xlink:href)\s*=\s*["'](?:https?:|data:)/i,
+    );
+    expect(source).not.toMatch(/<(?:text|image|filter)\b/i);
   });
 
   it("uses the central consultation destination on desktop and mobile", async () => {

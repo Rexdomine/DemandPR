@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const explore = [
@@ -20,7 +21,14 @@ export function Footer() {
       <div className="shell footer-grid">
         <div className="footer-intro">
           <Link className="footer-brand" href="/" aria-label="Demand PR home">
-            Demand PR
+            <Image
+              className="footer-brand-logo"
+              src="/brand/demandpr-logo.svg"
+              width="1296"
+              height="388"
+              alt=""
+              unoptimized
+            />
           </Link>
           <p>
             Strategic market-entry advisory, investor support and stakeholder
