@@ -9,7 +9,7 @@ import { describe, expect, it } from "vitest";
 import ServicesPage, { metadata } from "./page";
 
 const sectionHeadings = [
-  "Strategic Support for Market Entry, Investment and Growth Across Africa",
+  "One strategic partner. Six connected service areas.",
   "Our Six Core Service Areas",
   "The Methodology",
   "The Power of Retained Advisory",
@@ -126,14 +126,25 @@ describe("Services page", () => {
     );
   });
 
+  it("uses the client-approved Services hero headline and supporting copy", () => {
+    render(<ServicesPage />);
+
+    expect(
+      screen.getByRole("heading", {
+        level: 1,
+        name: "One strategic partner. Six connected service areas.",
+      }),
+    ).toBeVisible();
+    expect(
+      screen.getByText(
+        "Demand PR combines PR, events, market access, leadership, investment and executive business support to help organisations build visibility, enter markets, connect with decision-makers and turn opportunities into action.",
+      ),
+    ).toBeVisible();
+  });
+
   it("publishes the client PDF descriptions, practical bullets and service anchors", () => {
     const { container } = render(<ServicesPage />);
 
-    expect(
-      screen.getByText(
-        /One strategic partner\. Six connected service areas\./i,
-      ),
-    ).toBeVisible();
     for (const id of [
       "pr-strategic-communications",
       "events-conference-management",

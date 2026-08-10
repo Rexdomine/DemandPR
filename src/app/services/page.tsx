@@ -117,15 +117,13 @@ export default function ServicesPage() {
         <div className="shell services-hero-content">
           <p className="eyebrow">Strategic Advisory</p>
           <h1 id="services-title">
-            Strategic Support for <span>Market Entry</span>, Investment and
-            Growth Across Africa
+            One strategic partner. <span>Six connected service areas.</span>
           </h1>
           <p>
-            One strategic partner. Six connected service areas. Demand PR
-            combines PR, events, market access, leadership, investment and
-            executive business support to help organisations build visibility,
-            enter markets, connect with decision-makers and turn opportunities
-            into action.
+            Demand PR combines PR, events, market access, leadership, investment
+            and executive business support to help organisations build
+            visibility, enter markets, connect with decision-makers and turn
+            opportunities into action.
           </p>
           <div className="button-row">
             <Link className="button" href="/contact">
