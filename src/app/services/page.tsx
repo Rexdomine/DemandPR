@@ -2,63 +2,14 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-import { PremiumIcon, type PremiumIconName } from "@/components/premium-icon";
-import { featuredServices, supportedIndustries } from "@/content/site";
+import { serviceAreas, supportedIndustries } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "Strategic advisory, representation and practical market support for organisations entering, investing and growing across African markets.",
+    "Six connected strategic service areas spanning communications, events, market access, leadership, investment and executive business support.",
   alternates: { canonical: "/services" },
 };
-
-const pillars = [
-  {
-    title: "Strategic Communications & Events",
-    services: [
-      {
-        ...featuredServices[0],
-        text: featuredServices[0].description,
-        icon: "communications",
-      },
-      {
-        ...featuredServices[1],
-        text: featuredServices[1].description,
-        icon: "events",
-      },
-    ],
-  },
-  {
-    title: "Market Access & Leadership",
-    services: [
-      {
-        ...featuredServices[2],
-        text: featuredServices[2].description,
-        icon: "market-entry",
-      },
-      {
-        ...featuredServices[3],
-        text: featuredServices[3].description,
-        icon: "leadership-training",
-      },
-    ],
-  },
-  {
-    title: "Investment & Executive Support",
-    services: [
-      {
-        ...featuredServices[4],
-        text: featuredServices[4].description,
-        icon: "investor-hub",
-      },
-      {
-        ...featuredServices[5],
-        text: featuredServices[5].description,
-        icon: "concierge",
-      },
-    ],
-  },
-] as const;
 
 const methodology = [
   [
@@ -98,6 +49,58 @@ const retainedThemes = [
   ],
 ] as const;
 
+function ServiceAreaImage({
+  id,
+  alt,
+}: {
+  id: (typeof serviceAreas)[number]["id"];
+  alt: string;
+}) {
+  const sharedProps = {
+    alt,
+    fill: true,
+    sizes: "(min-width: 961px) 42vw, 100vw",
+  } as const;
+
+  if (id === "pr-strategic-communications") {
+    return (
+      <Image src="/images/services/strategy-in-motion.webp" {...sharedProps} />
+    );
+  }
+  if (id === "events-conference-management") {
+    return (
+      <Image
+        src="/images/home/investment-forum-orchestration.webp"
+        {...sharedProps}
+      />
+    );
+  }
+  if (id === "trade-delegations-market-entry") {
+    return (
+      <Image src="/images/home/trade-delegation-access.webp" {...sharedProps} />
+    );
+  }
+  if (id === "leadership-parliamentary-training") {
+    return (
+      <Image src="/images/about/context-made-practical.webp" {...sharedProps} />
+    );
+  }
+  if (id === "investor-hub") {
+    return (
+      <Image
+        src="/images/market-entry/market-entry-partnership-in-practice.webp"
+        {...sharedProps}
+      />
+    );
+  }
+  return (
+    <Image
+      src="/images/market-entry/market-entry-guided-arrival.webp"
+      {...sharedProps}
+    />
+  );
+}
+
 export default function ServicesPage() {
   return (
     <main id="main-content" className="services-page">
@@ -118,9 +121,11 @@ export default function ServicesPage() {
             Growth Across Africa
           </h1>
           <p>
-            Demand PR supports international organisations, investors and
-            institutions through strategic advisory, representation, stakeholder
-            engagement and practical market coordination.
+            One strategic partner. Six connected service areas. Demand PR
+            combines PR, events, market access, leadership, investment and
+            executive business support to help organisations build visibility,
+            enter markets, connect with decision-makers and turn opportunities
+            into action.
           </p>
           <div className="button-row">
             <Link className="button" href="/contact">
@@ -130,7 +135,7 @@ export default function ServicesPage() {
               className="button services-outline-button"
               href="/services#service-pillars"
             >
-              Explore Service Pillars
+              Explore Core Services
             </Link>
           </div>
         </div>
@@ -142,33 +147,43 @@ export default function ServicesPage() {
       >
         <div className="shell">
           <div className="services-heading">
-            <p className="eyebrow">Integrated capabilities</p>
-            <h2>Service Pillars</h2>
+            <p className="eyebrow">Demand PR — six service areas</p>
+            <h2>Our Six Core Service Areas</h2>
             <p>
-              Six connected core services, tailored to each organisation’s
-              objectives, sector and market context.
+              From strategic communications and corporate events to trade
+              delegations, market entry, investor connections and executive
+              support, we provide the relationships, access and practical
+              expertise needed to operate successfully across Africa and
+              international markets.
             </p>
           </div>
-          <div className="services-pillar-grid">
-            {pillars.map((pillar, pillarIndex) => (
-              <div className="services-pillar" key={pillar.title}>
-                <span className="services-pillar-number" aria-hidden="true">
-                  {String(pillarIndex + 1).padStart(2, "0")}
-                </span>
-                <h3>{pillar.title}</h3>
-                <div className="services-card-stack">
-                  {pillar.services.map((service) => (
-                    <article key={service.title}>
-                      <PremiumIcon
-                        name={service.icon as PremiumIconName}
-                        className="services-icon"
-                      />
-                      <h4>{service.title}</h4>
-                      <p>{service.text}</p>
-                    </article>
-                  ))}
+          <div className="services-area-list">
+            {serviceAreas.map((service, index) => (
+              <article
+                className="services-area"
+                id={service.id}
+                key={service.id}
+              >
+                <div className="services-area-image">
+                  <ServiceAreaImage id={service.id} alt={service.alt} />
+                  <span aria-hidden="true">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
                 </div>
-              </div>
+                <div className="services-area-copy">
+                  <p className="services-area-group">{service.group}</p>
+                  <h3>{service.title}</h3>
+                  <p className="services-area-lead">{service.lead}</p>
+                  <p>{service.description}</p>
+                  <h4>What we do</h4>
+                  <ul>
+                    {service.bullets.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                  <p className="services-area-closing">{service.closing}</p>
+                </div>
+              </article>
             ))}
           </div>
         </div>

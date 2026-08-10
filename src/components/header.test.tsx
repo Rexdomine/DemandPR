@@ -77,6 +77,15 @@ describe("Header mobile navigation", () => {
     const navigation = screen.getByRole("navigation", {
       name: "Primary navigation",
     });
+    expect(
+      Array.from(navigation.querySelectorAll("a"), (link) => link.textContent),
+    ).toEqual([
+      "Home",
+      "Services",
+      "Market Entry Programme",
+      "About",
+      "Contact",
+    ]);
     for (const link of navigation.querySelectorAll("a")) {
       expect(link.getAttribute("href")).toMatch(/^\/(?:#.*|[^#].*)?$/);
     }

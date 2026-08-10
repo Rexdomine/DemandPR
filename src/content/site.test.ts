@@ -22,7 +22,7 @@ describe("approved site content", () => {
       "We Help Organisations Enter, Grow and Succeed in Africa",
     );
     expect(site.hero.subheading).toBe(
-      "Strategic communications, market entry, investor support and government engagement solutions that open doors and deliver measurable results.",
+      "We connect international organisations doing business in Africa with the market, the people and opportunities they need to thrive across Africa.",
     );
     expect(site.hero.primaryCta).toEqual({
       label: "Explore Our Services",
@@ -49,9 +49,9 @@ describe("approved site content", () => {
     });
     expect(site.hero.secondaryCta.href).toBe("/contact");
     expect(navigation).toContainEqual({ label: "Contact", href: "/contact" });
-    expect(featuredServices.every(({ href }) => href === "/services")).toBe(
-      true,
-    );
+    expect(
+      featuredServices.every(({ href }) => href.startsWith("/services#")),
+    ).toBe(true);
   });
 
   it("preserves the complete approved homepage content model", () => {
@@ -66,37 +66,37 @@ describe("approved site content", () => {
         title: "PR & Strategic Communications",
         description:
           "Building powerful brands and managing reputations that drive impact.",
-        href: "/services",
+        href: "/services#pr-strategic-communications",
       },
       {
         title: "Events & Conference Management",
         description:
           "Delivering high-impact events, summits and executive gatherings.",
-        href: "/services",
+        href: "/services#events-conference-management",
       },
       {
         title: "Trade Delegations & Market Entry",
         description:
           "Leading trade missions and facilitating market entry across Africa.",
-        href: "/services",
+        href: "/services#trade-delegations-market-entry",
       },
       {
         title: "Leadership & Parliamentary Training",
         description:
           "Executive training programmes for leaders and institutions.",
-        href: "/services",
+        href: "/services#leadership-parliamentary-training",
       },
       {
         title: "Investor Hub",
         description:
           "Connecting investors with opportunities, partners and key stakeholders.",
-        href: "/services",
+        href: "/services#investor-hub",
       },
       {
         title: "Business Concierge",
         description:
           "Bespoke support services for executives, investors and delegations.",
-        href: "/services",
+        href: "/services#business-concierge",
       },
     ]);
     expect(whyDemandPr.at(-1)).toMatch(/long-term strategic partner/i);

@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { axe } from "jest-axe";
 import { describe, expect, it } from "vitest";
 
@@ -49,7 +49,7 @@ describe("homepage", () => {
       }),
     ).toBeVisible();
     for (const name of [
-      "Core Services",
+      "Our Core Services",
       "Industries We Support",
       "Why Demand PR",
       "Featured Solutions",
@@ -62,7 +62,7 @@ describe("homepage", () => {
       document.querySelectorAll("main > section h2"),
     ).map((heading) => heading.textContent);
     expect(sectionHeadings).toEqual([
-      "Core Services",
+      "Our Core Services",
       "Industries We Support",
       "Why Demand PR",
       "Featured Solutions",
@@ -75,7 +75,7 @@ describe("homepage", () => {
   it("uses a balanced desktop service grid and one semantic premium icon language", () => {
     const { container } = render(<Home />);
     const serviceSection = screen
-      .getByRole("heading", { name: "Core Services" })
+      .getByRole("heading", { name: "Our Core Services" })
       .closest("section");
     const industrySection = screen
       .getByRole("heading", { name: "Industries We Support" })
@@ -232,6 +232,42 @@ describe("homepage", () => {
     expect(
       screen.getAllByText("International delegation leadership"),
     ).toHaveLength(7);
+  });
+
+  it("publishes the approved hero and core-services copy with direct service links", () => {
+    render(<Home />);
+
+    expect(
+      screen.getByText(
+        "We connect international organisations doing business in Africa with the market, the people and opportunities they need to thrive across Africa.",
+      ),
+    ).toBeVisible();
+    expect(
+      screen.getByText(
+        /international business growth and market-entry specialist/i,
+      ),
+    ).toBeVisible();
+    expect(screen.getByText(/business visa support/i)).toBeVisible();
+
+    const expectedLinks = [
+      "pr-strategic-communications",
+      "events-conference-management",
+      "trade-delegations-market-entry",
+      "leadership-parliamentary-training",
+      "investor-hub",
+      "business-concierge",
+    ];
+    const servicesSection = screen
+      .getByRole("heading", { name: "Our Core Services" })
+      .closest("section");
+    within(servicesSection!)
+      .getAllByRole("link", { name: /Learn more/i })
+      .forEach((link, index) =>
+        expect(link).toHaveAttribute(
+          "href",
+          `/services#${expectedLinks[index]}`,
+        ),
+      );
   });
 
   it("preserves the consultation bridge with a real contact destination", () => {

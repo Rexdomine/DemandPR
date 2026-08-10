@@ -140,11 +140,13 @@ export default function Home() {
         <div className="shell">
           <div className="section-heading centred">
             <p className="eyebrow">Expertise</p>
-            <h2>Core Services</h2>
+            <h2>Our Core Services</h2>
             <p>
-              Connected strategic, relationship and delivery support for
-              organisations entering, investing and growing across African
-              markets.
+              Demand PR is your international business growth and market-entry
+              specialist—from PR and strategic communications, investment
+              summits and business visa support to investor and business
+              concierge services, trade delegations, partnerships and
+              international conferences.
             </p>
           </div>
           <div className="service-grid">

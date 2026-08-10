@@ -17,7 +17,7 @@ export const site = {
   hero: {
     heading: "We Help Organisations Enter, Grow and Succeed in Africa",
     subheading:
-      "Strategic communications, market entry, investor support and government engagement solutions that open doors and deliver measurable results.",
+      "We connect international organisations doing business in Africa with the market, the people and opportunities they need to thrive across Africa.",
     primaryCta: {
       label: "Explore Our Services",
       href: "/services",
@@ -28,8 +28,8 @@ export const site = {
 
 export const navigation: readonly NavigationItem[] = [
   { label: "Home", href: "/" },
-  { label: "Market Entry Programme", href: "/africa-market-entry-programme" },
   { label: "Services", href: "/services" },
+  { label: "Market Entry Programme", href: "/africa-market-entry-programme" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
@@ -56,38 +56,155 @@ export const featuredServices = [
     title: "PR & Strategic Communications",
     description:
       "Building powerful brands and managing reputations that drive impact.",
-    href: "/services",
+    href: "/services#pr-strategic-communications",
   },
   {
     title: "Events & Conference Management",
     description:
       "Delivering high-impact events, summits and executive gatherings.",
-    href: "/services",
+    href: "/services#events-conference-management",
   },
   {
     title: "Trade Delegations & Market Entry",
     description:
       "Leading trade missions and facilitating market entry across Africa.",
-    href: "/services",
+    href: "/services#trade-delegations-market-entry",
   },
   {
     title: "Leadership & Parliamentary Training",
     description: "Executive training programmes for leaders and institutions.",
-    href: "/services",
+    href: "/services#leadership-parliamentary-training",
   },
   {
     title: "Investor Hub",
     description:
       "Connecting investors with opportunities, partners and key stakeholders.",
-    href: "/services",
+    href: "/services#investor-hub",
   },
   {
     title: "Business Concierge",
     description:
       "Bespoke support services for executives, investors and delegations.",
-    href: "/services",
+    href: "/services#business-concierge",
   },
 ] as const satisfies readonly Service[];
+
+export const serviceAreas = [
+  {
+    id: "pr-strategic-communications",
+    group: "01 — Strategic Communications & Events",
+    title: "PR & Strategic Communications",
+    lead: "Building powerful brands, strengthening reputation and creating visibility with the right audiences.",
+    description:
+      "Demand PR develops and delivers strategic communications that help organisations build credibility, communicate effectively and strengthen their position in their markets.",
+    bullets: [
+      "PR strategy and communications planning",
+      "Corporate positioning and brand messaging",
+      "Media relations and press engagement",
+      "Press releases, corporate announcements and media materials",
+    ],
+    closing:
+      "Our focus: making sure the right people know who you are, what you do and why you matter.",
+    image: "/images/services/strategy-in-motion.webp",
+    alt: "African market adviser briefing business leaders during a strategic communications session",
+  },
+  {
+    id: "events-conference-management",
+    group: "01 — Strategic Communications & Events",
+    title: "Events & Conference Management",
+    lead: "Designing and delivering high-impact events that bring the right people into the room.",
+    description:
+      "From corporate meetings to international conferences and executive gatherings, Demand PR manages the planning, coordination and delivery of professional, purpose-driven events.",
+    bullets: [
+      "Corporate events and business receptions",
+      "Conferences, summits and executive forums",
+      "Venue sourcing and event logistics",
+      "Delegate management",
+      "Stakeholder and media engagement",
+    ],
+    closing:
+      "We help create the connections and opportunities that make every event worthwhile.",
+    image: "/images/home/investment-forum-orchestration.webp",
+    alt: "Event professional coordinating an international investment forum",
+  },
+  {
+    id: "trade-delegations-market-entry",
+    group: "02 — Market Access & Leadership",
+    title: "Trade Delegations & Market Entry",
+    lead: "Helping organisations understand, access and build relationships within African markets.",
+    description:
+      "Demand PR supports international organisations, businesses and delegations looking to enter, explore or expand within African markets. We provide practical support before, during and after a market visit—helping clients identify the right people, arrange the right meetings and navigate the local business environment.",
+    bullets: [
+      "Plan and coordinate trade missions",
+      "Host international business delegations",
+      "Develop tailored business visit programmes",
+      "Identify relevant companies, institutions and potential partners",
+      "Arrange B2B meetings and introductions",
+    ],
+    closing:
+      "Our role is to help clients move from simply wanting to enter Africa to having the right conversations with the right people.",
+    image: "/images/home/trade-delegation-access.webp",
+    alt: "African adviser leading an international business delegation through a trade venue",
+  },
+  {
+    id: "leadership-parliamentary-training",
+    group: "02 — Market Access & Leadership",
+    title: "Leadership & Parliamentary Training",
+    lead: "Preparing leaders and institutions to communicate, engage and operate effectively at senior levels.",
+    description:
+      "Demand PR develops and coordinates tailored training and development programmes for leaders, executives, parliamentarians and institutions.",
+    bullets: [
+      "Leadership development programmes",
+      "Parliamentary and political engagement training",
+      "Public speaking and presentation skills",
+      "Media and interview preparation",
+    ],
+    closing:
+      "The objective is practical: giving leaders the knowledge, confidence and communication skills to operate effectively in high-level environments.",
+    image: "/images/about/context-made-practical.webp",
+    alt: "Senior adviser guiding executives through a focused leadership session",
+  },
+  {
+    id: "investor-hub",
+    group: "03 — Investment & Executive Support",
+    title: "Investor Hub",
+    lead: "Connecting investors with credible opportunities, partners and key decision-makers.",
+    description:
+      "Demand PR’s Investor Hub provides a bridge between international investors seeking opportunities in Africa and businesses, institutions and stakeholders on the ground. We help create the introductions, conversations and relationships that can support informed investment decisions and long-term commercial opportunities.",
+    bullets: [
+      "Support market-entry conversations",
+      "Identify relevant business and investment opportunities",
+      "Facilitate B2B and stakeholder meetings",
+      "Connect investors with professional and business networks",
+      "Coordinate site visits and investment missions",
+      "Coordinate follow-up after meetings and introductions",
+    ],
+    closing:
+      "We connect the right people, opportunities and conversations to help turn investment interest into meaningful opportunities.",
+    image: "/images/market-entry/market-entry-partnership-in-practice.webp",
+    alt: "International investors and African partners in a focused commercial discussion",
+  },
+  {
+    id: "business-concierge",
+    group: "03 — Investment & Executive Support",
+    title: "Business Concierge",
+    lead: "Bespoke support for executives, investors and international delegations operating across Africa.",
+    description:
+      "Demand PR provides practical, end-to-end support for clients who need more than introductions—they need someone on the ground to help make things happen.",
+    bullets: [
+      "Secure business visas and provide travel support",
+      "Airport arrival and departure protocols",
+      "VIP meet-and-greet coordination",
+      "Accommodation and transport arrangements",
+      "Business meeting coordination",
+      "Executive itinerary planning",
+      "Local business introductions",
+    ],
+    closing: "One point of contact. Local knowledge. Practical support.",
+    image: "/images/market-entry/market-entry-guided-arrival.webp",
+    alt: "Executive receiving coordinated arrival support for an African business visit",
+  },
+] as const;
 
 export const supportedIndustries = [
   "International Businesses",
