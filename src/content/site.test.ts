@@ -44,13 +44,13 @@ describe("approved site content", () => {
     expect(featuredServices).toHaveLength(7);
     expect(clientReasons).toHaveLength(6);
     expect(commercialOutcomes).toHaveLength(8);
-    expect(successStories).toHaveLength(4);
+    expect(successStories).toHaveLength(12);
     expect(retainerServices).toHaveLength(7);
     expect(featuredServices[0]?.title).toBe("Africa Market Entry Programme");
     expect(whyDemandPr.at(-1)).toMatch(/long-term strategic partner/i);
   });
 
-  it("does not fabricate metrics or named success-story clients", () => {
+  it("publishes only the client-supplied recent projects without fabricated metrics", () => {
     const content = JSON.stringify({
       clientReasons,
       commercialOutcomes,
@@ -61,8 +61,20 @@ describe("approved site content", () => {
     expect(content).not.toMatch(
       /\d+%|clients served|years of|15\+|Est\. 2014|accredited advisors|12 hubs|24 nations|For client review|Series B|proprietary data|premier|unrivalled|world's last frontier/i,
     );
-    expect(successStories.every(({ text }) => /capability/i.test(text))).toBe(
-      true,
-    );
+    expect(successStories.map(({ title }) => title)).toEqual([
+      "GESA Summit",
+      "World Travel Market (WTM) London",
+      "UK–Nigeria Trade Summits",
+      "British–Nigerian Law Forum",
+      "Air Peace Trade Expo",
+      "African Tourism Board (ATB)",
+      "World Petroleum Congress",
+      "Royal Norfolk Agricultural Show",
+      "US–Africa Trade Congress",
+      "Farnborough International Airshow",
+      "InfoSecurity Europe",
+      "UK Cyber Week",
+    ]);
+    expect(successStories.every(({ text }) => text.length > 60)).toBe(true);
   });
 });

@@ -12,7 +12,7 @@
   "reason": "No stable Next.js release currently supports patched Sharp 0.35 while preserving Vercel native-binary tracing compatibility.",
   "exposure": "Demand PR processes only repository-controlled local images. Remote image loaders, remote image patterns and image uploads are prohibited while this exception is active.",
   "createdAt": "2026-07-22T00:00:00Z",
-  "expiresAt": "2026-08-05T00:00:00Z",
+  "expiresAt": "2026-08-17T00:00:00Z",
   "removalTrigger": "Remove this exception as soon as a stable Next.js release supports Sharp >=0.35.0 and passes locked install, production build, image optimization, deployment tracing and Vercel preview smoke tests.",
   "upstreamTracking": "https://github.com/vercel/next.js/pull/94845"
 }

@@ -624,6 +624,9 @@ blockquote {
   gap: 1.5rem;
   grid-template-columns: repeat(4, 1fr);
 }
+.featured-solution-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
 .story-image {
   position: relative;
   aspect-ratio: 1;
@@ -664,6 +667,12 @@ blockquote {
 }
 .retainer-section .eyebrow {
   color: var(--brand-accent);
+}
+.recent-projects-intro {
+  max-width: 52rem;
+  margin: 1.25rem auto 0;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.05rem;
 }
 .retainer-pills {
   display: flex;
@@ -706,6 +715,14 @@ blockquote {
 .retainer-cards h3 {
   margin-top: 1rem;
   color: white;
+}
+.retainer-cards .success-story-label {
+  margin: 1rem 0 -0.25rem;
+  color: var(--brand-accent);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .cta-section {

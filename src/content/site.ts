@@ -130,24 +130,68 @@ export const commercialOutcomes = [
   "Sustainable Commercial Growth",
 ] as const;
 
-export const successStories: readonly ContentBlock[] = [
+export const successStories = [
   {
-    title: "Trade Delegation Planning",
-    text: "An illustrative capability scenario showing how Demand PR can shape cross-border agendas, stakeholder preparation and delegation logistics.",
+    title: "GESA Summit",
+    text: "Supported stakeholder engagement and strategic partnerships at a leading diplomacy, investment and business summit.",
+    delegationLeadership: false,
   },
   {
-    title: "Investment Forum Design",
-    text: "An illustrative capability scenario for programme strategy, speaker and stakeholder coordination, and investor-focused convening.",
+    title: "World Travel Market (WTM) London",
+    text: "Delivered B2B matchmaking, exhibition support and partnership development for tourism and hospitality organisations.",
+    delegationLeadership: true,
   },
   {
-    title: "Sector Entry Advisory",
-    text: "An illustrative capability scenario combining market intelligence, stakeholder mapping and a practical entry roadmap for a growth sector.",
+    title: "UK–Nigeria Trade Summits",
+    text: "Facilitated trade, investment and business collaboration between UK and Nigerian organisations.",
+    delegationLeadership: true,
   },
   {
-    title: "Regulatory Navigation",
-    text: "An illustrative capability scenario for structured engagement, local context and informed preparation around evolving requirements.",
+    title: "British–Nigerian Law Forum",
+    text: "Supported business networking and cross-border commercial partnerships between legal and corporate professionals.",
+    delegationLeadership: false,
   },
-];
+  {
+    title: "Air Peace Trade Expo",
+    text: "Facilitated stakeholder engagement, business networking and partnership opportunities.",
+    delegationLeadership: false,
+  },
+  {
+    title: "African Tourism Board (ATB)",
+    text: "Supported tourism promotion and strategic partnerships to enhance Africa’s global tourism profile.",
+    delegationLeadership: true,
+  },
+  {
+    title: "World Petroleum Congress",
+    text: "Facilitated international networking and partnership opportunities within the global energy sector.",
+    delegationLeadership: true,
+  },
+  {
+    title: "Royal Norfolk Agricultural Show",
+    text: "Supported business networking and international trade within the agriculture and agritech sectors.",
+    delegationLeadership: false,
+  },
+  {
+    title: "US–Africa Trade Congress",
+    text: "Promoted trade, investment and strategic business partnerships between Africa and the United States.",
+    delegationLeadership: false,
+  },
+  {
+    title: "Farnborough International Airshow",
+    text: "Supported international business development across the aerospace, aviation and defence industries.",
+    delegationLeadership: true,
+  },
+  {
+    title: "InfoSecurity Europe",
+    text: "Connected technology companies with key stakeholders through business networking and partnership opportunities.",
+    delegationLeadership: true,
+  },
+  {
+    title: "UK Cyber Week",
+    text: "Supported organisations in building strategic partnerships and expanding market opportunities within cybersecurity.",
+    delegationLeadership: true,
+  },
+] as const;
 
 export const retainerServices = [
   "Investor Representation",

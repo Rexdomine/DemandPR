@@ -49,24 +49,34 @@ describe("homepage", () => {
       }),
     ).toBeVisible();
     for (const name of [
-      "The Sophisticated Navigator for African Markets",
-      "Strategic Solutions for Seamless Entry",
+      "Core Services",
+      "Industries We Support",
       "The Competitive Advantage",
-      "Delivering Tangible Commercial Outcomes",
-      "Capabilities in Action",
-      "Strategic Continuity Across African Markets",
+      "Featured Solutions",
+      "Recent Projects",
       "Ready to Expand into Africa?",
     ]) {
       expect(screen.getByRole("heading", { level: 2, name })).toBeVisible();
     }
-    expect(document.querySelectorAll("main > section")).toHaveLength(8);
+    const sectionHeadings = Array.from(
+      document.querySelectorAll("main > section h2"),
+    ).map((heading) => heading.textContent);
+    expect(sectionHeadings).toEqual([
+      "Core Services",
+      "Industries We Support",
+      "The Competitive Advantage",
+      "Featured Solutions",
+      "Recent Projects",
+      "Ready to Expand into Africa?",
+    ]);
+    expect(document.querySelectorAll("main > section")).toHaveLength(7);
   });
 
   it("uses local Stitch imagery with useful alternative text", () => {
     const { container } = render(<Home />);
     const images = Array.from(container.querySelectorAll("img"));
 
-    expect(images).toHaveLength(6);
+    expect(images).toHaveLength(4);
     expect(
       images.every((image) => image.getAttribute("src")?.startsWith("/")),
     ).toBe(true);
@@ -82,11 +92,9 @@ describe("homepage", () => {
     ).toContain("demand-pr-owner-strategic-counsel.webp");
     const sources = images.map((image) => image.getAttribute("src") ?? "");
     for (const filename of [
-      "navigator-cultural-intelligence.webp",
       "trade-delegation-access.webp",
       "investment-forum-orchestration.webp",
       "sector-entry-field-advisory.webp",
-      "regulatory-navigation-guidance.webp",
     ]) {
       expect(sources.some((source) => source.includes(filename))).toBe(true);
     }
@@ -123,9 +131,47 @@ describe("homepage", () => {
     expect(container.textContent).not.toMatch(
       /15\+|Est\. 2014|accredited advis(?:e|o)rs|12 (?:key )?(?:regional )?hubs|24 (?:African )?nations|elite network access|For client review|launch configuration/i,
     );
+    expect(container.textContent).not.toMatch(/illustrative capability/i);
+  });
+
+  it("uses approved existing sectors and client-supplied recent projects", () => {
+    render(<Home />);
+
+    for (const sector of [
+      "Infrastructure",
+      "Financial Services",
+      "Energy",
+      "Agriculture",
+      "Technology",
+      "Healthcare",
+    ]) {
+      expect(
+        screen.getByRole("heading", { level: 3, name: sector }),
+      ).toBeVisible();
+    }
+
+    for (const project of [
+      "GESA Summit",
+      "World Travel Market (WTM) London",
+      "UK–Nigeria Trade Summits",
+      "British–Nigerian Law Forum",
+      "Air Peace Trade Expo",
+      "African Tourism Board (ATB)",
+      "World Petroleum Congress",
+      "Royal Norfolk Agricultural Show",
+      "US–Africa Trade Congress",
+      "Farnborough International Airshow",
+      "InfoSecurity Europe",
+      "UK Cyber Week",
+    ]) {
+      expect(
+        screen.getByRole("heading", { level: 3, name: project }),
+      ).toBeVisible();
+    }
+
     expect(
-      screen.getAllByText(/illustrative capability/i).length,
-    ).toBeGreaterThan(0);
+      screen.getAllByText("International delegation leadership"),
+    ).toHaveLength(7);
   });
 
   it("preserves the consultation bridge with a real contact destination", () => {
