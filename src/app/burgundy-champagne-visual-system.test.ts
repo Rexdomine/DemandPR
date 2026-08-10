@@ -37,6 +37,12 @@ function contrast(foreground: string, background: string) {
 }
 
 describe("Burgundy and Champagne visual system", () => {
+  it("locks the six homepage services to a balanced three-by-two desktop grid", () => {
+    expect(css).toMatch(
+      /\.service-grid\s*\{[^}]*grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/s,
+    );
+    expect(css).not.toMatch(/\.service-card:nth-last-child\(-n \+ 2\)/);
+  });
   it("declares the locked brands and complete semantic roles", () => {
     expect(token("brand-primary").toUpperCase()).toBe("#6A1B2D");
     expect(token("brand-accent").toUpperCase()).toBe("#D4B16A");

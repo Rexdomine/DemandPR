@@ -14,6 +14,10 @@ import {
 describe("approved site content", () => {
   it("preserves the approved identity and homepage hero", () => {
     expect(site.name).toBe("Demand PR Ltd");
+    expect(site.headerCta).toEqual({
+      label: "Book a Consultation",
+      href: "/contact",
+    });
     expect(site.hero.heading).toBe(
       "We Help Organisations Enter, Grow and Succeed in Africa",
     );

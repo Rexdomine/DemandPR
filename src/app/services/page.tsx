@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
+import { PremiumIcon, type PremiumIconName } from "@/components/premium-icon";
 import { featuredServices, supportedIndustries } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -18,12 +19,12 @@ const pillars = [
       {
         ...featuredServices[0],
         text: featuredServices[0].description,
-        icon: "people",
+        icon: "communications",
       },
       {
         ...featuredServices[1],
         text: featuredServices[1].description,
-        icon: "calendar",
+        icon: "events",
       },
     ],
   },
@@ -33,12 +34,12 @@ const pillars = [
       {
         ...featuredServices[2],
         text: featuredServices[2].description,
-        icon: "route",
+        icon: "market-entry",
       },
       {
         ...featuredServices[3],
         text: featuredServices[3].description,
-        icon: "columns",
+        icon: "leadership-training",
       },
     ],
   },
@@ -48,7 +49,7 @@ const pillars = [
       {
         ...featuredServices[4],
         text: featuredServices[4].description,
-        icon: "briefcase",
+        icon: "investor-hub",
       },
       {
         ...featuredServices[5],
@@ -96,41 +97,6 @@ const retainedThemes = [
     "Practical relationship and market-development coordination aligned with long-term goals.",
   ],
 ] as const;
-
-function ServiceIcon({ type }: { type: string }) {
-  return (
-    <svg className="services-icon" viewBox="0 0 32 32" aria-hidden="true">
-      <rect x="5" y="5" width="22" height="22" rx="4" />
-      {type === "chart" ? <path d="M10 21v-5m6 5V11m6 10v-8" /> : null}
-      {type === "people" ? (
-        <path d="M10 21c1-4 11-4 12 0M13 12a3 3 0 1 0 6 0 3 3 0 0 0-6 0Z" />
-      ) : null}
-      {type === "columns" ? (
-        <path d="m9 12 7-4 7 4M10 14v7m6-7v7m6-7v7M8 23h16" />
-      ) : null}
-      {type === "calendar" ? (
-        <path d="M9 13h14M12 8v5m8-5v5m-8 5h3m3 0h2" />
-      ) : null}
-      {type === "link" ? (
-        <path d="m13 19-2 2a3 3 0 0 1-4-4l4-4a3 3 0 0 1 4 0m2 0 2-2a3 3 0 0 1 4 4l-4 4a3 3 0 0 1-4 0m-3-3h8" />
-      ) : null}
-      {type === "document" ? (
-        <path d="M11 8h7l4 4v12H11Zm7 0v5h4m-8 4h5m-5 3h5" />
-      ) : null}
-      {type === "route" ? (
-        <path d="M10 11a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM10 11c0 7 12 3 12 10" />
-      ) : null}
-      {type === "briefcase" ? (
-        <path d="M9 13h14v10H9Zm4 0v-3h6v3m-10 5h14" />
-      ) : null}
-      {type === "forum" ? <path d="M9 10h14v9H15l-4 3v-3H9Z" /> : null}
-      {type === "concierge" ? (
-        <path d="M8 21h16M10 21a6 6 0 0 1 12 0m-6-8v-2" />
-      ) : null}
-      {type === "compass" ? <path d="m20 11-2.5 6.5L11 20l2.5-6.5Z" /> : null}
-    </svg>
-  );
-}
 
 export default function ServicesPage() {
   return (
@@ -193,7 +159,10 @@ export default function ServicesPage() {
                 <div className="services-card-stack">
                   {pillar.services.map((service) => (
                     <article key={service.title}>
-                      <ServiceIcon type={service.icon} />
+                      <PremiumIcon
+                        name={service.icon as PremiumIconName}
+                        className="services-icon"
+                      />
                       <h4>{service.title}</h4>
                       <p>{service.text}</p>
                     </article>

@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { PremiumIcon, type PremiumIconName } from "@/components/premium-icon";
+
 import {
   clientReasons,
   featuredServices,
@@ -9,9 +11,24 @@ import {
   supportedIndustries,
 } from "@/content/site";
 
-const serviceIcons = ["◇", "▦", "⚖", "◎", "⌖", "□"] as const;
+const serviceIcons = [
+  "communications",
+  "events",
+  "market-entry",
+  "leadership-training",
+  "investor-hub",
+  "concierge",
+] as const satisfies readonly PremiumIconName[];
 
-const industryIcons = ["◇", "▦", "◉", "◎", "⌖", "✦", "□"] as const;
+const industryIcons = [
+  "international-business",
+  "private-equity",
+  "development-partners",
+  "tourism",
+  "trade-associations",
+  "universities",
+  "event-organisers",
+] as const satisfies readonly PremiumIconName[];
 
 const featuredSolutions = [
   {
@@ -115,7 +132,11 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section services-section" id="services">
+      <section
+        className="section services-section"
+        id="services"
+        data-layout="three-by-two"
+      >
         <div className="shell">
           <div className="section-heading centred">
             <p className="eyebrow">Expertise</p>
@@ -130,7 +151,7 @@ export default function Home() {
             {featuredServices.map((service, index) => (
               <article className="service-card" key={service.title}>
                 <span className="service-icon" aria-hidden="true">
-                  {serviceIcons[index]}
+                  <PremiumIcon name={serviceIcons[index]!} />
                 </span>
                 <h3>{service.title}</h3>
                 <p>{service.description}</p>
@@ -160,7 +181,7 @@ export default function Home() {
             {supportedIndustries.map((industry, index) => (
               <article key={industry}>
                 <span className="outcome-icon" aria-hidden="true">
-                  {industryIcons[index]}
+                  <PremiumIcon name={industryIcons[index]!} />
                 </span>
                 <div>
                   <h3>{industry}</h3>
@@ -175,8 +196,8 @@ export default function Home() {
       <section className="section advantage-section" id="why-demand-pr">
         <div className="shell advantage-grid">
           <div className="advantage-intro">
-            <p className="eyebrow">Why Demand PR</p>
-            <h2>The Competitive Advantage</h2>
+            <p className="eyebrow">Competitive Advantage</p>
+            <h2>Why Demand PR</h2>
             <p>
               Our relationship-led model combines international business
               standards with practical understanding of African markets.

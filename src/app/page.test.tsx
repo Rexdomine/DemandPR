@@ -51,7 +51,7 @@ describe("homepage", () => {
     for (const name of [
       "Core Services",
       "Industries We Support",
-      "The Competitive Advantage",
+      "Why Demand PR",
       "Featured Solutions",
       "Recent Projects",
       "Ready to Expand into Africa?",
@@ -64,12 +64,68 @@ describe("homepage", () => {
     expect(sectionHeadings).toEqual([
       "Core Services",
       "Industries We Support",
-      "The Competitive Advantage",
+      "Why Demand PR",
       "Featured Solutions",
       "Recent Projects",
       "Ready to Expand into Africa?",
     ]);
     expect(document.querySelectorAll("main > section")).toHaveLength(7);
+  });
+
+  it("uses a balanced desktop service grid and one semantic premium icon language", () => {
+    const { container } = render(<Home />);
+    const serviceSection = screen
+      .getByRole("heading", { name: "Core Services" })
+      .closest("section");
+    const industrySection = screen
+      .getByRole("heading", { name: "Industries We Support" })
+      .closest("section");
+
+    expect(serviceSection).toHaveAttribute("data-layout", "three-by-two");
+    expect(
+      Array.from(
+        serviceSection!.querySelectorAll("[data-premium-icon]"),
+        (icon) => icon.getAttribute("data-premium-icon"),
+      ),
+    ).toEqual([
+      "communications",
+      "events",
+      "market-entry",
+      "leadership-training",
+      "investor-hub",
+      "concierge",
+    ]);
+    expect(
+      Array.from(
+        industrySection!.querySelectorAll("[data-premium-icon]"),
+        (icon) => icon.getAttribute("data-premium-icon"),
+      ),
+    ).toEqual([
+      "international-business",
+      "private-equity",
+      "development-partners",
+      "tourism",
+      "trade-associations",
+      "universities",
+      "event-organisers",
+    ]);
+    expect(container.querySelectorAll("svg[data-premium-icon]")).toHaveLength(
+      13,
+    );
+  });
+
+  it("makes Why Demand PR the heading and Competitive Advantage the overline", () => {
+    render(<Home />);
+    const heading = screen.getByRole("heading", {
+      level: 2,
+      name: "Why Demand PR",
+    });
+    const section = heading.closest("section");
+
+    expect(section).toHaveAttribute("id", "why-demand-pr");
+    expect(section?.querySelector(".eyebrow")).toHaveTextContent(
+      "Competitive Advantage",
+    );
   });
 
   it("uses local Stitch imagery with useful alternative text", () => {

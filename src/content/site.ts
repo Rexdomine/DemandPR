@@ -11,7 +11,7 @@ export const site = {
   name: "Demand PR Ltd",
   tagline: "Connecting Business. Enabling Growth. Delivering Opportunities.",
   headerCta: {
-    label: "Strategy Consultation Details",
+    label: "Book a Consultation",
     href: "/contact",
   },
   hero: {

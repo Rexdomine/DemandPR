@@ -443,7 +443,7 @@ blockquote {
 .service-grid {
   display: grid;
   gap: 1.5rem;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 .service-card {
   min-height: 19rem;
@@ -451,7 +451,6 @@ blockquote {
   border: 1px solid var(--border-subtle);
   border-radius: 8px;
   background: var(--surface-subtle);
-  grid-column: span 2;
 }
 .service-card.featured {
   display: flex;
@@ -478,11 +477,21 @@ blockquote {
   text-transform: uppercase;
 }
 .service-icon {
-  display: block;
+  display: grid;
+  width: 3.5rem;
+  height: 3.5rem;
   margin-bottom: 1.5rem;
+  place-items: center;
+  border: 1px solid rgba(106, 27, 45, 0.16);
+  border-radius: 50%;
+  background: linear-gradient(145deg, #fff 0%, var(--surface-accent-soft) 100%);
   color: var(--action-primary-bg);
-  font-size: 2.1rem;
-  line-height: 1;
+  box-shadow: 0 0.75rem 1.6rem rgba(72, 16, 31, 0.07);
+}
+.service-icon svg,
+.outcome-icon svg {
+  width: 1.85rem;
+  height: 1.85rem;
 }
 .featured .service-icon {
   display: none;
@@ -502,9 +511,6 @@ blockquote {
 }
 .service-card p {
   color: var(--text-muted);
-}
-.service-card:nth-last-child(-n + 2) {
-  grid-column: span 3;
 }
 .featured p {
   max-width: 40rem;
@@ -856,8 +862,7 @@ blockquote {
   .service-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  .service-card,
-  .service-card:nth-last-child(-n + 2) {
+  .service-card {
     grid-column: auto;
   }
   .service-card.featured {

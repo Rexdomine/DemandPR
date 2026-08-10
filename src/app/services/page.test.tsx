@@ -93,6 +93,18 @@ describe("Services page", () => {
       expect(within(pillars!).getByRole("heading", { name })).toBeVisible(),
     );
     expect(within(pillars!).getAllByRole("article")).toHaveLength(6);
+    expect(
+      Array.from(pillars!.querySelectorAll("[data-premium-icon]"), (icon) =>
+        icon.getAttribute("data-premium-icon"),
+      ),
+    ).toEqual([
+      "communications",
+      "events",
+      "market-entry",
+      "leadership-training",
+      "investor-hub",
+      "concierge",
+    ]);
   });
 
   it("uses only approved local media with meaningful alternative text", () => {
