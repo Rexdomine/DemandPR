@@ -45,7 +45,7 @@ describe("homepage", () => {
     expect(screen.getAllByRole("heading", { level: 1 })).toHaveLength(1);
     expect(
       screen.getByRole("heading", {
-        name: "Expand into Africa with Confidence",
+        name: "We Help Organisations Enter, Grow and Succeed in Africa",
       }),
     ).toBeVisible();
     for (const name of [
@@ -138,17 +138,21 @@ describe("homepage", () => {
     render(<Home />);
 
     for (const sector of [
-      "Infrastructure",
-      "Financial Services",
-      "Energy",
-      "Agriculture",
-      "Technology",
-      "Healthcare",
+      "International Businesses",
+      "Investors & Private Equity",
+      "NGOs & Development Partners",
+      "Tourism Boards & Destinations",
+      "Chambers & Trade Associations",
+      "Universities & Institutions",
+      "Event Organisers",
     ]) {
       expect(
         screen.getByRole("heading", { level: 3, name: sector }),
       ).toBeVisible();
     }
+    expect(
+      screen.queryByRole("heading", { level: 3, name: "Government Agencies" }),
+    ).not.toBeInTheDocument();
 
     for (const project of [
       "GESA Summit",

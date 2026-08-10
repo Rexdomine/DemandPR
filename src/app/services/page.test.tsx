@@ -17,29 +17,17 @@ const sectionHeadings = [
   "Ready to Navigate the African Opportunity?",
 ] as const;
 
-const pillarGroups = [
-  "Market Entry & Intelligence",
-  "Representation & Relationships",
-  "Missions, Forums & Events",
-  "Executive & Corporate Support",
-] as const;
-
 const serviceNames = [
-  "Africa Market Entry",
-  "Market Intelligence",
-  "Investor Representation",
-  "Government Relations",
-  "PR & Stakeholder Engagement",
-  "Trade Missions",
-  "Investment Forums",
-  "Executive Events",
-  "Corporate Concierge",
-  "Strategic Introductions",
-  "Visa & Immigration",
+  "PR & Strategic Communications",
+  "Events & Conference Management",
+  "Trade Delegations & Market Entry",
+  "Leadership & Parliamentary Training",
+  "Investor Hub",
+  "Business Concierge",
 ] as const;
 
 const prohibitedClaims =
-  /Aerra|15\+|(?:regional )?(?:hub|office)s?|Nairobi|Lagos|Johannesburg|London|proprietary network|exclusive (?:or off-market )?deal flow|off-market|guaranteed|proven|profitable|accredit(?:ed|ation)|award(?:ed|s)|legal advice|legal presence|crisis management|strategy@|\+\d[\d\s()-]{7,}|WhatsApp|testimonial|credentials package/i;
+  /Aerra|15\+|regional (?:hub|office)s?|offices?|Nairobi|Lagos|Johannesburg|London|proprietary network|exclusive (?:or off-market )?deal flow|off-market|guaranteed|proven|profitable|accredit(?:ed|ation)|award(?:ed|s)|legal advice|legal presence|crisis management|strategy@|\+\d[\d\s()-]{7,}|WhatsApp|testimonial|credentials package/i;
 
 function webpContract(buffer: Buffer) {
   expect(buffer.subarray(0, 4).toString("ascii")).toBe("RIFF");
@@ -93,7 +81,7 @@ describe("Services page", () => {
     ).toHaveLength(6);
   });
 
-  it("presents all four pillar groups and all eleven approved service topics", () => {
+  it("presents the six client-approved core services", () => {
     render(<ServicesPage />);
     const pillars = screen
       .getByRole("heading", { name: "Service Pillars" })
@@ -101,18 +89,10 @@ describe("Services page", () => {
     expect(pillars).not.toBeNull();
     expect(pillars).toHaveAttribute("id", "service-pillars");
 
-    pillarGroups.forEach((name) =>
-      expect(within(pillars!).getByRole("heading", { name })).toBeVisible(),
-    );
     serviceNames.forEach((name) =>
       expect(within(pillars!).getByRole("heading", { name })).toBeVisible(),
     );
-    expect(within(pillars!).getAllByRole("article")).toHaveLength(11);
-    expect(
-      within(pillars!).getByRole("link", {
-        name: /Africa Market Entry programme details/i,
-      }),
-    ).toHaveAttribute("href", "/africa-market-entry-programme");
+    expect(within(pillars!).getAllByRole("article")).toHaveLength(6);
   });
 
   it("uses only approved local media with meaningful alternative text", () => {
@@ -196,14 +176,19 @@ describe("Services page", () => {
     expect(sectorSection).toHaveAttribute("id", "sector-expertise");
     expect(container.textContent).not.toMatch(prohibitedClaims);
     [
-      "Infrastructure",
-      "Financial Services",
-      "Energy",
-      "Agriculture",
-      "Technology",
+      "International Businesses",
+      "Investors & Private Equity",
+      "NGOs & Development Partners",
+      "Tourism Boards & Destinations",
+      "Chambers & Trade Associations",
+      "Universities & Institutions",
+      "Event Organisers",
     ].forEach((sector) =>
       expect(within(sectorSection!).getByText(sector)).toBeVisible(),
     );
+    expect(
+      within(sectorSection!).queryByText("Government Agencies"),
+    ).toBeNull();
     expect(within(sectorSection!).queryAllByRole("link")).toHaveLength(0);
   });
 

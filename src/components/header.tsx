@@ -80,9 +80,9 @@ export function Header() {
           </nav>
           <Link
             className="button button-small header-cta"
-            href={site.hero.primaryCta.href}
+            href={site.headerCta.href}
           >
-            {site.hero.primaryCta.label}
+            {site.headerCta.label}
           </Link>
 
           <button
@@ -129,12 +129,8 @@ export function Header() {
               </Link>
             ))}
           </nav>
-          <Link
-            className="button"
-            href={site.hero.primaryCta.href}
-            onClick={close}
-          >
-            {site.hero.primaryCta.label}
+          <Link className="button" href={site.headerCta.href} onClick={close}>
+            {site.headerCta.label}
           </Link>
         </div>
       ) : null}

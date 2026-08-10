@@ -10,15 +10,19 @@ export type ContentBlock = Readonly<{ title: string; text: string }>;
 export const site = {
   name: "Demand PR Ltd",
   tagline: "Connecting Business. Enabling Growth. Delivering Opportunities.",
+  headerCta: {
+    label: "Strategy Consultation Details",
+    href: "/contact",
+  },
   hero: {
-    heading: "Expand into Africa with Confidence",
+    heading: "We Help Organisations Enter, Grow and Succeed in Africa",
     subheading:
-      "Demand PR helps international businesses, investors, governments and organisations successfully enter African markets through strategic market entry advisory, investor support, government engagement and high-level commercial connections.",
+      "Strategic communications, market entry, investor support and government engagement solutions that open doors and deliver measurable results.",
     primaryCta: {
-      label: "Strategy Consultation Details",
-      href: "/contact",
+      label: "Explore Our Services",
+      href: "/services",
     },
-    secondaryCta: { label: "Explore Our Services", href: "/services" },
+    secondaryCta: { label: "Book a Consultation", href: "/contact" },
   },
 } as const;
 
@@ -47,50 +51,53 @@ export const whyDemandPr = [
   "At Demand PR, we don’t simply help organisations enter Africa—we become their long-term strategic partner for success on the continent.",
 ] as const;
 
-export const featuredServices: readonly Service[] = [
+export const featuredServices = [
   {
-    title: "Africa Market Entry Programme",
+    title: "PR & Strategic Communications",
     description:
-      "Helping international organisations establish and expand successfully across African markets.",
-    href: "/africa-market-entry-programme",
-    featured: true,
+      "Building powerful brands and managing reputations that drive impact.",
+    href: "/services",
   },
   {
-    title: "Investor Concierge",
+    title: "Events & Conference Management",
     description:
-      "Supporting investors throughout every stage of the investment journey.",
-    href: "/contact",
+      "Delivering high-impact events, summits and executive gatherings.",
+    href: "/services",
   },
   {
-    title: "Government Relations",
+    title: "Trade Delegations & Market Entry",
     description:
-      "Building productive relationships with governments, regulators and strategic stakeholders.",
-    href: "/contact",
+      "Leading trade missions and facilitating market entry across Africa.",
+    href: "/services",
   },
   {
-    title: "Trade Missions & Business Delegations",
+    title: "Leadership & Parliamentary Training",
+    description: "Executive training programmes for leaders and institutions.",
+    href: "/services",
+  },
+  {
+    title: "Investor Hub",
     description:
-      "Connecting organisations directly with governments, investors and commercial opportunities.",
-    href: "/contact",
+      "Connecting investors with opportunities, partners and key stakeholders.",
+    href: "/services",
   },
   {
-    title: "Strategic Introductions",
+    title: "Business Concierge",
     description:
-      "Facilitating carefully selected introductions to influential decision-makers and commercial partners.",
-    href: "/contact",
+      "Bespoke support services for executives, investors and delegations.",
+    href: "/services",
   },
-  {
-    title: "Visa & Executive Mobility",
-    description: "Business visas, work permits and executive travel support.",
-    href: "/contact",
-  },
-  {
-    title: "Investment Forums & Executive Events",
-    description:
-      "Delivering world-class conferences, investment summits and executive networking programmes.",
-    href: "/contact",
-  },
-];
+] as const satisfies readonly Service[];
+
+export const supportedIndustries = [
+  "International Businesses",
+  "Investors & Private Equity",
+  "NGOs & Development Partners",
+  "Tourism Boards & Destinations",
+  "Chambers & Trade Associations",
+  "Universities & Institutions",
+  "Event Organisers",
+] as const;
 
 export const clientReasons: readonly ContentBlock[] = [
   {

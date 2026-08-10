@@ -6,18 +6,12 @@ import {
   featuredServices,
   site,
   successStories,
+  supportedIndustries,
 } from "@/content/site";
 
-const serviceIcons = ["◇", "▦", "⚖", "◎", "⌖", "□", "✦"] as const;
+const serviceIcons = ["◇", "▦", "⚖", "◎", "⌖", "□"] as const;
 
-const industries = [
-  { icon: "◇", title: "Infrastructure" },
-  { icon: "▦", title: "Financial Services" },
-  { icon: "◉", title: "Energy" },
-  { icon: "◎", title: "Agriculture" },
-  { icon: "⌖", title: "Technology" },
-  { icon: "✦", title: "Healthcare" },
-] as const;
+const industryIcons = ["◇", "▦", "◉", "◎", "⌖", "✦", "□"] as const;
 
 const featuredSolutions = [
   {
@@ -134,26 +128,15 @@ export default function Home() {
           </div>
           <div className="service-grid">
             {featuredServices.map((service, index) => (
-              <article
-                className={
-                  service.featured ? "service-card featured" : "service-card"
-                }
-                id={service.featured ? "market-entry" : undefined}
-                key={service.title}
-              >
+              <article className="service-card" key={service.title}>
                 <span className="service-icon" aria-hidden="true">
                   {serviceIcons[index]}
                 </span>
-                {service.featured ? (
-                  <span className="programme-label">Flagship programme</span>
-                ) : null}
                 <h3>{service.title}</h3>
                 <p>{service.description}</p>
-                {service.featured ? (
-                  <Link className="card-link" href={service.href}>
-                    Learn more <span aria-hidden="true">→</span>
-                  </Link>
-                ) : null}
+                <Link className="card-link" href={service.href}>
+                  Learn more <span aria-hidden="true">→</span>
+                </Link>
               </article>
             ))}
           </div>
@@ -174,13 +157,13 @@ export default function Home() {
             <span aria-hidden="true" />
           </div>
           <div className="outcome-grid industry-grid">
-            {industries.map((industry) => (
-              <article key={industry.title}>
+            {supportedIndustries.map((industry, index) => (
+              <article key={industry}>
                 <span className="outcome-icon" aria-hidden="true">
-                  {industry.icon}
+                  {industryIcons[index]}
                 </span>
                 <div>
-                  <h3>{industry.title}</h3>
+                  <h3>{industry}</h3>
                   <p>Strategic market, stakeholder and partnership support.</p>
                 </div>
               </article>

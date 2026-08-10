@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
+import { featuredServices, supportedIndustries } from "@/content/site";
+
 export const metadata: Metadata = {
   title: "Services",
   description:
@@ -11,77 +13,47 @@ export const metadata: Metadata = {
 
 const pillars = [
   {
-    title: "Market Entry & Intelligence",
+    title: "Strategic Communications & Events",
     services: [
       {
-        title: "Africa Market Entry",
-        text: "Tailored strategy, stakeholder mapping and practical coordination for organisations establishing or expanding their market presence.",
-        icon: "compass",
-      },
-      {
-        title: "Market Intelligence",
-        text: "Focused market and sector insight that supports informed priorities, positioning and risk-aware decisions.",
-        icon: "chart",
-      },
-    ],
-  },
-  {
-    title: "Representation & Relationships",
-    services: [
-      {
-        title: "Investor Representation",
-        text: "Strategic representation and ongoing market support aligned with investor objectives.",
-        icon: "briefcase",
-      },
-      {
-        title: "Government Relations",
-        text: "Constructive engagement with governments, regulators and relevant public stakeholders.",
-        icon: "columns",
-      },
-      {
-        title: "PR & Stakeholder Engagement",
-        text: "Clear communications and engagement strategies connecting organisational goals with relevant stakeholder context.",
+        ...featuredServices[0],
+        text: featuredServices[0].description,
         icon: "people",
       },
-    ],
-  },
-  {
-    title: "Missions, Forums & Events",
-    services: [
       {
-        title: "Trade Missions",
-        text: "Planning and coordination for focused trade missions and business delegations.",
-        icon: "route",
-      },
-      {
-        title: "Investment Forums",
-        text: "Strategy and delivery support for investment-focused convening and stakeholder programmes.",
-        icon: "forum",
-      },
-      {
-        title: "Executive Events",
-        text: "Purpose-led executive programmes shaped around dialogue, relationships and commercial priorities.",
+        ...featuredServices[1],
+        text: featuredServices[1].description,
         icon: "calendar",
       },
     ],
   },
   {
-    title: "Executive & Corporate Support",
+    title: "Market Access & Leadership",
     services: [
       {
-        title: "Corporate Concierge",
-        text: "Practical coordination for organisations and leadership teams undertaking market activity.",
+        ...featuredServices[2],
+        text: featuredServices[2].description,
+        icon: "route",
+      },
+      {
+        ...featuredServices[3],
+        text: featuredServices[3].description,
+        icon: "columns",
+      },
+    ],
+  },
+  {
+    title: "Investment & Executive Support",
+    services: [
+      {
+        ...featuredServices[4],
+        text: featuredServices[4].description,
+        icon: "briefcase",
+      },
+      {
+        ...featuredServices[5],
+        text: featuredServices[5].description,
         icon: "concierge",
-      },
-      {
-        title: "Strategic Introductions",
-        text: "Carefully selected introductions to relevant decision-makers and potential commercial partners.",
-        icon: "link",
-      },
-      {
-        title: "Visa & Immigration",
-        text: "Coordination and practical mobility support, subject to applicable requirements and specialist guidance where needed.",
-        icon: "document",
       },
     ],
   },
@@ -207,7 +179,7 @@ export default function ServicesPage() {
             <p className="eyebrow">Integrated capabilities</p>
             <h2>Service Pillars</h2>
             <p>
-              Four connected areas of support, tailored to each organisation’s
+              Six connected core services, tailored to each organisation’s
               objectives, sector and market context.
             </p>
           </div>
@@ -224,12 +196,6 @@ export default function ServicesPage() {
                       <ServiceIcon type={service.icon} />
                       <h4>{service.title}</h4>
                       <p>{service.text}</p>
-                      {service.title === "Africa Market Entry" ? (
-                        <Link href="/africa-market-entry-programme">
-                          Africa Market Entry programme details{" "}
-                          <span aria-hidden="true">→</span>
-                        </Link>
-                      ) : null}
                     </article>
                   ))}
                 </div>
@@ -303,13 +269,7 @@ export default function ServicesPage() {
         <div className="shell services-sector-row">
           <h2>Our Sector Expertise</h2>
           <div className="services-sector-chips" aria-label="Supported sectors">
-            {[
-              "Infrastructure",
-              "Financial Services",
-              "Energy",
-              "Agriculture",
-              "Technology",
-            ].map((sector) => (
+            {supportedIndustries.map((sector) => (
               <span key={sector}>{sector}</span>
             ))}
           </div>
