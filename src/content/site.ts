@@ -201,8 +201,8 @@ export const serviceAreas = [
       "Local business introductions",
     ],
     closing: "One point of contact. Local knowledge. Practical support.",
-    image: "/images/market-entry/market-entry-guided-arrival.webp",
-    alt: "Executive receiving coordinated arrival support for an African business visit",
+    image: "/images/services/business-concierge-executive-arrival.webp",
+    alt: "International business traveller carrying travel documents beside a private aircraft",
   },
 ] as const;
 

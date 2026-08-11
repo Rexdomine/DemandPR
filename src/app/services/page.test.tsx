@@ -114,10 +114,15 @@ describe("Services page", () => {
       "/images/home/trade-delegation-access.webp",
       "/images/about/context-made-practical.webp",
       "/images/market-entry/market-entry-partnership-in-practice.webp",
-      "/images/market-entry/market-entry-guided-arrival.webp",
+      "/images/services/business-concierge-executive-arrival.webp",
     ]) {
       expect(sources).toContain(source);
     }
+    expect(
+      screen.getByAltText(
+        "International business traveller carrying travel documents beside a private aircraft",
+      ),
+    ).toBeVisible();
     expect(sources).not.toMatch(
       /african-city-twilight|strategic-adviser|01-full|02-full|googleusercontent|https?:|data:/i,
     );
@@ -179,6 +184,11 @@ describe("Services page", () => {
         file: "retained-advisory-partnership.webp",
         dimensions: { width: 1254, height: 1254 },
         hash: "a7007723c971ebd2b7b5b4ba6cca3db27c7db7801bf8b52cb02fed9d8e845c2e",
+      },
+      {
+        file: "business-concierge-executive-arrival.webp",
+        dimensions: { width: 1254, height: 1254 },
+        hash: "093b7be428ac481f7508f5082d8e235ffc10fe35a6424893d6dcadcc8e28e1c8",
       },
     ] as const;
 

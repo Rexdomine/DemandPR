@@ -95,7 +95,7 @@ function ServiceAreaImage({
   }
   return (
     <Image
-      src="/images/market-entry/market-entry-guided-arrival.webp"
+      src="/images/services/business-concierge-executive-arrival.webp"
       {...sharedProps}
     />
   );
