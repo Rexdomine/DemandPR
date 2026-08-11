@@ -87,6 +87,19 @@ describe("Footer navigation", () => {
       expect(link).toHaveAttribute("rel", "noopener noreferrer");
       expect(link.querySelector("svg")).toHaveAttribute("aria-hidden", "true");
     });
+
+    const instagram = screen.getByRole("link", {
+      name: "Follow Demand PR on Instagram",
+    });
+    expect(
+      instagram.querySelector('[data-instagram-frame="true"]'),
+    ).toBeTruthy();
+    expect(
+      instagram.querySelector('[data-instagram-lens="true"]'),
+    ).toBeTruthy();
+    expect(
+      instagram.querySelector('[data-instagram-flash="true"]'),
+    ).toBeTruthy();
   });
 
   it("keeps the consultation destination and returns to the current page content", () => {

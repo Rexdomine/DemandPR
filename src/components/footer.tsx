@@ -20,6 +20,7 @@ const socialProfiles = [
     name: "Instagram",
     label: "Follow Demand PR on Instagram",
     href: "https://www.instagram.com/demandpruk?igsh=MWcxa3Y5d2Juejlseg==",
+    variant: "instagram",
     path: "M7.03.084C5.753.144 4.881.348 4.119.647 3.33.955 2.662 1.367 1.997 2.035.665 3.371.119 5.114.064 7.076.008 8.354-.005 8.765.001 12.023c.006 3.259.021 3.667.083 4.948.061 1.276.264 2.148.563 2.91.308.789.72 1.457 1.388 2.123.668.665 1.337 1.074 2.129 1.38.763.295 1.636.496 2.913.552 1.277.056 1.688.069 4.946.063 3.258-.006 3.668-.021 4.948-.081 1.28-.061 2.147-.266 2.91-.564.789-.308 1.458-.72 2.123-1.388.665-.668 1.074-1.338 1.379-2.128.296-.763.497-1.636.552-2.912.056-1.281.069-1.69.063-4.948-.006-3.258-.021-3.667-.082-4.947-.061-1.28-.264-2.149-.563-2.912-.308-.789-.72-1.457-1.388-2.123C21.298 1.33 20.628.921 19.838.617 19.074.321 18.202.12 16.924.065 15.647.009 15.236-.005 11.977.001 8.718.008 8.31.022 7.03.084Zm4.982 5.754a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324Zm0 10.162a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm6.378-11.856a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88Z",
   },
   {
@@ -112,7 +113,38 @@ export function Footer() {
                 aria-label={profile.label}
               >
                 <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                  <path d={profile.path} />
+                  {"variant" in profile && profile.variant === "instagram" ? (
+                    <>
+                      <rect
+                        data-instagram-frame="true"
+                        x="3"
+                        y="3"
+                        width="18"
+                        height="18"
+                        rx="5"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                      />
+                      <circle
+                        data-instagram-lens="true"
+                        cx="12"
+                        cy="12"
+                        r="4.25"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                      />
+                      <circle
+                        data-instagram-flash="true"
+                        cx="17.4"
+                        cy="6.6"
+                        r="1.15"
+                      />
+                    </>
+                  ) : (
+                    <path d={profile.path} />
+                  )}
                 </svg>
               </a>
             ))}
