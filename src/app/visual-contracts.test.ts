@@ -134,6 +134,20 @@ describe("site visual contracts", () => {
     );
   });
 
+  it("keeps footer social controls inline on desktop", () => {
+    const css = readFileSync(
+      join(process.cwd(), "src/app/globals.css"),
+      "utf8",
+    );
+
+    expect(css).toMatch(
+      /\.footer-grid\s*\{[^}]*grid-template-columns:\s*1\.4fr\s+0\.85fr\s+1fr\s+1\.25fr;/s,
+    );
+    expect(css).toMatch(
+      /\.footer-socials\s*\{[^}]*grid-template-columns:\s*repeat\(5,\s*44px\);/s,
+    );
+  });
+
   it("bundles the declared design fonts locally", () => {
     for (const file of [
       "inter-400.ttf",

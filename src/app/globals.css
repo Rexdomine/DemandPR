@@ -770,7 +770,7 @@ blockquote {
 .footer-grid {
   display: grid;
   gap: 3rem;
-  grid-template-columns: 1.5fr repeat(3, 1fr);
+  grid-template-columns: 1.4fr 0.85fr 1fr 1.25fr;
 }
 .footer-brand {
   display: inline-flex;
@@ -819,6 +819,43 @@ blockquote {
   justify-content: space-between;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   color: var(--brand-accent);
+}
+.footer-socials {
+  display: grid;
+  margin-top: 1.4rem;
+  gap: 0.65rem;
+  grid-template-columns: repeat(5, 44px);
+}
+.footer-social-link {
+  display: inline-flex;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(212, 177, 106, 0.58);
+  border-radius: 50%;
+  background: rgba(212, 177, 106, 0.08);
+  color: var(--brand-accent);
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+.footer-social-link svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+.site-footer .footer-social-link:hover {
+  border-color: var(--brand-accent);
+  background: var(--brand-accent);
+  color: var(--brand-primary-deep);
+  transform: translateY(-2px);
+}
+.footer-social-link:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 3px;
 }
 .footer-sector-link {
   display: inline-flex;
