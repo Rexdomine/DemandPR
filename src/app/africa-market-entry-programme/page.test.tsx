@@ -54,10 +54,10 @@ describe("Africa Market Entry Programme page", () => {
     expect(container.textContent).not.toMatch(prohibitedClaims);
     expect(container.querySelector('a[href="#"]')).not.toBeInTheDocument();
     expect(
-      within(hero!).getByRole("link", { name: "Explore Our Services" }),
-    ).toHaveAttribute("href", "/services");
+      within(hero!).getByRole("link", { name: "Book a Consultation" }),
+    ).toHaveAttribute("href", "/contact");
     expect(
-      within(hero!).queryByRole("link", { name: /strategy consultation/i }),
+      within(hero!).queryByRole("link", { name: "Explore Our Services" }),
     ).toBeNull();
     expect(
       within(finalCta!).getByRole("link", { name: /strategy consultation/i }),

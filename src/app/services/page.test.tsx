@@ -216,12 +216,10 @@ describe("Services page", () => {
       .closest("section");
 
     expect(
-      within(hero!).getByRole("link", { name: "Explore Our Services" }),
-    ).toHaveAttribute("href", "/services");
+      within(hero!).getByRole("link", { name: "Book a Consultation" }),
+    ).toHaveAttribute("href", "/contact");
     expect(
-      within(hero!).queryByRole("link", {
-        name: "Strategy Consultation Details",
-      }),
+      within(hero!).queryByRole("link", { name: "Explore Our Services" }),
     ).toBeNull();
     expect(
       within(finalCta!).getByRole("link", {
