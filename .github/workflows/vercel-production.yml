@@ -19,7 +19,6 @@ jobs:
     env:
       VERCEL_ORG_ID: team_M5iRNyEcNZHaREmgnyWgJgI1
       VERCEL_PROJECT_ID: prj_HggbtLdbdaJcuvDu89kGscjs5AlT
-      DEMANDPR_VERCEL_TOKEN: ${{ secrets.DEMANDPR_VERCEL_TOKEN }}
     steps:
       - name: Check out exact merged main commit
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
@@ -51,6 +50,8 @@ jobs:
           npm run verify:checkpoint
 
       - name: Pull dedicated Demand PR production settings
+        env:
+          DEMANDPR_VERCEL_TOKEN: ${{ secrets.DEMANDPR_VERCEL_TOKEN }}
         run: >-
           npx --yes vercel@55.0.0 pull
           --yes
@@ -71,6 +72,8 @@ jobs:
           NODE
 
       - name: Build exact production artifact
+        env:
+          DEMANDPR_VERCEL_TOKEN: ${{ secrets.DEMANDPR_VERCEL_TOKEN }}
         run: npx --yes vercel@55.0.0 build --prod --token "$DEMANDPR_VERCEL_TOKEN"
 
       - name: Refuse a superseded main commit
@@ -85,6 +88,8 @@ jobs:
 
       - name: Deploy and promote exact artifact to production
         id: deploy
+        env:
+          DEMANDPR_VERCEL_TOKEN: ${{ secrets.DEMANDPR_VERCEL_TOKEN }}
         run: |
           url="$(npx --yes vercel@55.0.0 deploy \
             --prebuilt \

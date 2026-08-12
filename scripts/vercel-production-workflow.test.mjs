@@ -43,16 +43,32 @@ describe("automatic Vercel production deployment", () => {
   });
 
   it("builds and promotes the production artifact without Git-author metadata", () => {
+    const buildIndex = workflow.indexOf("vercel@55.0.0 build --prod");
+    const removeGitIndex = workflow.indexOf("rm -rf .git");
+    const deployIndex = workflow.indexOf("vercel@55.0.0 deploy");
+
     expect(workflow).toContain("npm run audit:security");
     expect(workflow).toContain("npm run verify:checkpoint");
     expect(workflow).toContain("--environment=production");
-    expect(workflow).toMatch(/vercel@55\.0\.0 build --prod/);
-    expect(workflow).toMatch(/rm -rf \.git/);
+    expect(buildIndex).toBeGreaterThan(-1);
+    expect(removeGitIndex).toBeGreaterThan(buildIndex);
+    expect(deployIndex).toBeGreaterThan(removeGitIndex);
     expect(workflow).toMatch(
       /vercel@55\.0\.0 deploy[\s\S]*--prebuilt[\s\S]*--prod/,
     );
     expect(workflow).toContain("https://demandpr.vercel.app");
     expect(workflow).toMatch(/x-robots-tag[\s\S]*noindex/i);
+  });
+
+  it("exposes the production token only to Vercel CLI steps", () => {
+    const jobPrefix = workflow.slice(0, workflow.indexOf("steps:"));
+    const secretBinding =
+      "DEMANDPR_VERCEL_TOKEN: ${{ secrets.DEMANDPR_VERCEL_TOKEN }}";
+
+    expect(jobPrefix).not.toContain(secretBinding);
+    expect(
+      workflow.match(new RegExp(secretBinding.replace(/[${}]/g, "\\$&"), "g")),
+    ).toHaveLength(3);
   });
 
   it("documents merge-triggered production and protected retry semantics", () => {
