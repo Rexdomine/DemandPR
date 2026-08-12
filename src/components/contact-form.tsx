@@ -229,22 +229,27 @@ export function ContactForm({ submitter }: { submitter?: ContactSubmitter }) {
           {errorFor("country")}
         </Field>
         <Field label="Area of interest" name="interest" error={errors.interest}>
-          <select
-            id="interest"
-            name="interest"
-            defaultValue=""
-            aria-invalid={Boolean(errors.interest)}
-            aria-describedby={describedBy("interest")}
-          >
-            <option value="" disabled>
-              Select an area
-            </option>
-            {CONTACT_INTERESTS.map(([value, label]) => (
-              <option value={value} key={value}>
-                {label}
+          <span className="contact-select">
+            <select
+              id="interest"
+              name="interest"
+              defaultValue=""
+              aria-invalid={Boolean(errors.interest)}
+              aria-describedby={describedBy("interest")}
+            >
+              <option value="" disabled>
+                Select an area
               </option>
-            ))}
-          </select>
+              {CONTACT_INTERESTS.map(([value, label]) => (
+                <option value={value} key={value}>
+                  {label}
+                </option>
+              ))}
+            </select>
+            <svg aria-hidden="true" viewBox="0 0 20 20">
+              <path d="m5 7.5 5 5 5-5" />
+            </svg>
+          </span>
           {errorFor("interest")}
         </Field>
       </div>

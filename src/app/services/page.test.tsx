@@ -9,37 +9,25 @@ import { describe, expect, it } from "vitest";
 import ServicesPage, { metadata } from "./page";
 
 const sectionHeadings = [
-  "Strategic Support for Market Entry, Investment and Growth Across Africa",
-  "Service Pillars",
+  "One strategic partner. Six connected service areas.",
+  "Our Six Core Service Areas",
   "The Methodology",
   "The Power of Retained Advisory",
   "Our Sector Expertise",
   "Ready to Navigate the African Opportunity?",
 ] as const;
 
-const pillarGroups = [
-  "Market Entry & Intelligence",
-  "Representation & Relationships",
-  "Missions, Forums & Events",
-  "Executive & Corporate Support",
-] as const;
-
 const serviceNames = [
-  "Africa Market Entry",
-  "Market Intelligence",
-  "Investor Representation",
-  "Government Relations",
-  "PR & Stakeholder Engagement",
-  "Trade Missions",
-  "Investment Forums",
-  "Executive Events",
-  "Corporate Concierge",
-  "Strategic Introductions",
-  "Visa & Immigration",
+  "PR & Strategic Communications",
+  "Events & Conference Management",
+  "Trade Delegations & Market Entry",
+  "Leadership & Parliamentary Training",
+  "Investor Hub",
+  "Business Concierge",
 ] as const;
 
 const prohibitedClaims =
-  /Aerra|15\+|(?:regional )?(?:hub|office)s?|Nairobi|Lagos|Johannesburg|London|proprietary network|exclusive (?:or off-market )?deal flow|off-market|guaranteed|proven|profitable|accredit(?:ed|ation)|award(?:ed|s)|legal advice|legal presence|crisis management|strategy@|\+\d[\d\s()-]{7,}|WhatsApp|testimonial|credentials package/i;
+  /Aerra|15\+|regional (?:hub|office)s?|offices?|Nairobi|Lagos|Johannesburg|London|proprietary network|exclusive (?:or off-market )?deal flow|off-market|guaranteed|proven|profitable|accredit(?:ed|ation)|award(?:ed|s)|legal advice|legal presence|crisis management|strategy@|\+\d[\d\s()-]{7,}|WhatsApp|testimonial|credentials package/i;
 
 function webpContract(buffer: Buffer) {
   expect(buffer.subarray(0, 4).toString("ascii")).toBe("RIFF");
@@ -93,26 +81,20 @@ describe("Services page", () => {
     ).toHaveLength(6);
   });
 
-  it("presents all four pillar groups and all eleven approved service topics", () => {
+  it("presents the six client-approved image-led core services", () => {
     render(<ServicesPage />);
     const pillars = screen
-      .getByRole("heading", { name: "Service Pillars" })
+      .getByRole("heading", { name: "Our Six Core Service Areas" })
       .closest("section");
     expect(pillars).not.toBeNull();
     expect(pillars).toHaveAttribute("id", "service-pillars");
 
-    pillarGroups.forEach((name) =>
-      expect(within(pillars!).getByRole("heading", { name })).toBeVisible(),
-    );
     serviceNames.forEach((name) =>
       expect(within(pillars!).getByRole("heading", { name })).toBeVisible(),
     );
-    expect(within(pillars!).getAllByRole("article")).toHaveLength(11);
-    expect(
-      within(pillars!).getByRole("link", {
-        name: /Africa Market Entry programme details/i,
-      }),
-    ).toHaveAttribute("href", "/africa-market-entry-programme");
+    expect(within(pillars!).getAllByRole("article")).toHaveLength(6);
+    expect(pillars!.querySelectorAll("img")).toHaveLength(6);
+    expect(pillars!.querySelectorAll("[data-premium-icon]")).toHaveLength(0);
   });
 
   it("uses only approved local media with meaningful alternative text", () => {
@@ -122,22 +104,73 @@ describe("Services page", () => {
       images.map((image) => image.getAttribute("src")).join(" "),
     );
 
-    expect(images).toHaveLength(2);
+    expect(images).toHaveLength(8);
     expect(sources).toContain("/images/services/strategy-in-motion.webp");
     expect(sources).toContain(
       "/images/services/retained-advisory-partnership.webp",
     );
+    for (const source of [
+      "/images/home/investment-forum-orchestration.webp",
+      "/images/home/trade-delegation-access.webp",
+      "/images/about/context-made-practical.webp",
+      "/images/market-entry/market-entry-partnership-in-practice.webp",
+      "/images/services/business-concierge-executive-arrival.webp",
+    ]) {
+      expect(sources).toContain(source);
+    }
+    expect(
+      screen.getByAltText(
+        "International business traveller carrying travel documents beside a private aircraft",
+      ),
+    ).toBeVisible();
     expect(sources).not.toMatch(
       /african-city-twilight|strategic-adviser|01-full|02-full|googleusercontent|https?:|data:/i,
     );
-    expect(images[0]).toHaveAttribute(
-      "alt",
-      "African market adviser briefing business leaders at a logistics corridor",
+    expect(images.every((image) => Boolean(image.getAttribute("alt")))).toBe(
+      true,
     );
-    expect(images[1]).toHaveAttribute(
-      "alt",
-      "Senior African adviser leading a focused market planning discussion",
-    );
+  });
+
+  it("uses the client-approved Services hero headline and supporting copy", () => {
+    render(<ServicesPage />);
+
+    expect(
+      screen.getByRole("heading", {
+        level: 1,
+        name: "One strategic partner. Six connected service areas.",
+      }),
+    ).toBeVisible();
+    expect(
+      screen.getByText(
+        "Demand PR combines PR, events, market access, leadership, investment and executive business support to help organisations build visibility, enter markets, connect with decision-makers and turn opportunities into action.",
+      ),
+    ).toBeVisible();
+  });
+
+  it("publishes the client PDF descriptions, practical bullets and service anchors", () => {
+    const { container } = render(<ServicesPage />);
+
+    for (const id of [
+      "pr-strategic-communications",
+      "events-conference-management",
+      "trade-delegations-market-entry",
+      "leadership-parliamentary-training",
+      "investor-hub",
+      "business-concierge",
+    ]) {
+      expect(container.querySelector(`#${id}`)).toBeInTheDocument();
+    }
+    for (const item of [
+      "PR strategy and communications planning",
+      "Stakeholder and media engagement",
+      "Arrange B2B meetings and introductions",
+      "Media and interview preparation",
+      "Coordinate site visits and investment missions",
+      "Secure business visas and provide travel support",
+      "Airport arrival and departure protocols",
+    ]) {
+      expect(screen.getByText(item)).toBeVisible();
+    }
   });
 
   it("bundles the exact optimized Services media without metadata chunks", () => {
@@ -151,6 +184,11 @@ describe("Services page", () => {
         file: "retained-advisory-partnership.webp",
         dimensions: { width: 1254, height: 1254 },
         hash: "a7007723c971ebd2b7b5b4ba6cca3db27c7db7801bf8b52cb02fed9d8e845c2e",
+      },
+      {
+        file: "business-concierge-executive-arrival.webp",
+        dimensions: { width: 1254, height: 1254 },
+        hash: "093b7be428ac481f7508f5082d8e235ffc10fe35a6424893d6dcadcc8e28e1c8",
       },
     ] as const;
 
@@ -170,14 +208,26 @@ describe("Services page", () => {
 
   it("uses the required safe CTA destinations and no placeholder or fabricated links", () => {
     const { container } = render(<ServicesPage />);
+    const hero = screen.getByRole("heading", { level: 1 }).closest("section");
+    const finalCta = screen
+      .getByRole("heading", {
+        name: "Ready to Navigate the African Opportunity?",
+      })
+      .closest("section");
+
     expect(
-      screen.getAllByRole("link", { name: "Strategy Consultation Details" }),
-    ).toHaveLength(2);
-    screen
-      .getAllByRole("link", { name: "Strategy Consultation Details" })
-      .forEach((link) => expect(link).toHaveAttribute("href", "/contact"));
+      within(hero!).getByRole("link", { name: "Book a Consultation" }),
+    ).toHaveAttribute("href", "/contact");
     expect(
-      screen.getByRole("link", { name: "Explore Service Pillars" }),
+      within(hero!).queryByRole("link", { name: "Explore Our Services" }),
+    ).toBeNull();
+    expect(
+      within(finalCta!).getByRole("link", {
+        name: "Strategy Consultation Details",
+      }),
+    ).toHaveAttribute("href", "/contact");
+    expect(
+      screen.getByRole("link", { name: "Explore Core Services" }),
     ).toHaveAttribute("href", "/services#service-pillars");
     expect(
       screen.getByRole("link", { name: "Explore the Market Entry Programme" }),
@@ -196,14 +246,19 @@ describe("Services page", () => {
     expect(sectorSection).toHaveAttribute("id", "sector-expertise");
     expect(container.textContent).not.toMatch(prohibitedClaims);
     [
-      "Infrastructure",
-      "Financial Services",
-      "Energy",
-      "Agriculture",
-      "Technology",
+      "International Businesses",
+      "Investors & Private Equity",
+      "NGOs & Development Partners",
+      "Tourism Boards & Destinations",
+      "Chambers & Trade Associations",
+      "Universities & Institutions",
+      "Event Organisers",
     ].forEach((sector) =>
       expect(within(sectorSection!).getByText(sector)).toBeVisible(),
     );
+    expect(
+      within(sectorSection!).queryByText("Government Agencies"),
+    ).toBeNull();
     expect(within(sectorSection!).queryAllByRole("link")).toHaveLength(0);
   });
 

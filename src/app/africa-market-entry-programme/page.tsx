@@ -219,7 +219,7 @@ export default function AfricaMarketEntryProgramme() {
           </p>
           <div className="button-row">
             <Link className="button" href="/contact">
-              Strategy Consultation Details <span aria-hidden="true">→</span>
+              Book a Consultation <span aria-hidden="true">→</span>
             </Link>
             <Link
               className="button market-entry-outline-button"

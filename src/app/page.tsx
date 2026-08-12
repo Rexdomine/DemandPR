@@ -1,65 +1,102 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { PremiumIcon, type PremiumIconName } from "@/components/premium-icon";
+
 import {
   clientReasons,
   featuredServices,
-  retainerServices,
   site,
   successStories,
+  supportedIndustries,
 } from "@/content/site";
 
-const serviceIcons = ["◇", "▦", "⚖", "◎", "⌖", "□", "✦"] as const;
-const outcomeCards = [
+const serviceIcons = [
+  "communications",
+  "events",
+  "market-entry",
+  "leadership-training",
+  "investor-hub",
+  "concierge",
+] as const satisfies readonly PremiumIconName[];
+
+const industryIcons = [
+  "international-business",
+  "private-equity",
+  "development-partners",
+  "tourism",
+  "trade-associations",
+  "universities",
+  "event-organisers",
+] as const satisfies readonly PremiumIconName[];
+
+const featuredSolutions = [
   {
-    icon: "◴",
-    title: "Accelerated Market Entry",
-    text: "Practical support designed to reduce complexity and shorten the route from market assessment to informed action.",
+    title: "Trade Missions & Business Delegations",
+    text: "Focused planning and coordination that connects organisations with governments, investors and commercial opportunities.",
+    href: "/services",
+    image: {
+      label: "Trade and market access",
+    },
   },
   {
-    icon: "◇",
-    title: "Resilient Partnerships",
-    text: "Build durable, high-trust relationships with carefully assessed local organisations and stakeholders.",
+    title: "Investment Forums & Executive Events",
+    text: "Strategy and delivery support for investment summits, international exhibitions and executive networking programmes.",
+    href: "/services",
+    image: {
+      label: "Forums and events",
+    },
   },
   {
-    icon: "⬡",
-    title: "Enhanced Risk Mitigation",
-    text: "Surface political, reputational and operational considerations early enough to make better-informed decisions.",
-  },
-  {
-    icon: "◉",
-    title: "Stronger Stakeholder Positioning",
-    text: "Contribute constructively to sector dialogue through credible engagement and clear strategic communications.",
+    title: "Africa Market Entry Programme",
+    text: "An integrated route for international organisations establishing, investing and growing across African markets.",
+    href: "/africa-market-entry-programme",
+    image: {
+      label: "Market-entry advisory",
+    },
   },
 ] as const;
 
-const storyImages = [
-  {
-    src: "/images/home/trade-delegation-access.webp",
-    alt: "African adviser leading an international business delegation through a trade venue",
-    label: "Trade delegation capability",
-  },
-  {
-    src: "/images/home/investment-forum-orchestration.webp",
-    alt: "Communications producer coordinating an investment forum backstage",
-    label: "Investment forum capability",
-  },
-  {
-    src: "/images/home/sector-entry-field-advisory.webp",
-    alt: "Infrastructure adviser briefing an investor during an African site visit",
-    label: "Sector-entry capability",
-  },
-  {
-    src: "/images/home/regulatory-navigation-guidance.webp",
-    alt: "Policy adviser guiding an executive through a civic institution",
-    label: "Advisory capability",
-  },
-] as const;
+function FeaturedSolutionImage({ title }: { title: string }) {
+  if (title === "Trade Missions & Business Delegations") {
+    return (
+      <Image
+        src="/images/home/trade-delegation-access.webp"
+        alt="African adviser leading an international business delegation through a trade venue"
+        fill
+        sizes="(min-width: 960px) 33vw, (min-width: 640px) 50vw, 100vw"
+      />
+    );
+  }
 
-const storyCards = successStories.map((story, index) => ({
-  ...story,
-  image: storyImages[index]!,
-}));
+  if (title === "Investment Forums & Executive Events") {
+    return (
+      <Image
+        src="/images/home/investment-forum-orchestration.webp"
+        alt="Communications producer coordinating an investment forum backstage"
+        fill
+        sizes="(min-width: 960px) 33vw, (min-width: 640px) 50vw, 100vw"
+      />
+    );
+  }
+
+  return (
+    <Image
+      src="/images/home/sector-entry-field-advisory.webp"
+      alt="Infrastructure adviser briefing an investor during an African site visit"
+      fill
+      sizes="(min-width: 960px) 33vw, (min-width: 640px) 50vw, 100vw"
+    />
+  );
+}
+
+const recentProjectCapabilities = [
+  "Event management",
+  "B2B matchmaking",
+  "Strategic partnerships",
+  "Public relations",
+  "International business development and sponsorship",
+] as const;
 
 export default function Home() {
   return (
@@ -95,90 +132,80 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section philosophy" id="about">
-        <div className="shell philosophy-grid">
-          <div className="philosophy-copy">
-            <p className="eyebrow">Our philosophy</p>
-            <h2>The Sophisticated Navigator for African Markets</h2>
-            <p className="lead">
-              Market entry is not just about data; it requires nuance, cultural
-              intelligence and trusted relationships. Africa&apos;s landscape is
-              diverse, and a one-size-fits-all approach creates avoidable
-              friction.
-            </p>
-            <p>
-              Demand PR helps organisations navigate complex commercial and
-              stakeholder environments, identify credible opportunities and
-              build a practical route to sustainable growth.
-            </p>
-            <blockquote>
-              “We connect strategy with the relationships and local
-              understanding needed to move forward with confidence.”
-            </blockquote>
-          </div>
-          <div className="portrait-wrap">
-            <Image
-              src="/images/home/navigator-cultural-intelligence.webp"
-              alt="Senior African market adviser listening during a strategic briefing"
-              fill
-              sizes="(min-width: 960px) 42vw, 100vw"
-            />
-            <div className="portrait-note">
-              <strong>Relationship-led</strong>
-              <span>
-                Strategic support shaped around each organisation, sector and
-                market.
-              </span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="section services-section" id="services">
+      <section
+        className="section services-section"
+        id="services"
+        data-layout="three-by-two"
+      >
         <div className="shell">
           <div className="section-heading centred">
             <p className="eyebrow">Expertise</p>
-            <h2>Strategic Solutions for Seamless Entry</h2>
+            <h2>Our Core Services</h2>
+            <p>
+              Demand PR is your international business growth and market-entry
+              specialist—from PR and strategic communications, investment
+              summits and business visa support to investor and business
+              concierge services, trade delegations, partnerships and
+              international conferences.
+            </p>
           </div>
           <div className="service-grid">
             {featuredServices.map((service, index) => (
-              <article
-                className={
-                  service.featured ? "service-card featured" : "service-card"
-                }
-                id={service.featured ? "market-entry" : undefined}
-                key={service.title}
-              >
+              <article className="service-card" key={service.title}>
                 <span className="service-icon" aria-hidden="true">
-                  {serviceIcons[index]}
+                  <PremiumIcon name={serviceIcons[index]!} />
                 </span>
-                {service.featured ? (
-                  <span className="programme-label">Flagship programme</span>
-                ) : null}
                 <h3>{service.title}</h3>
                 <p>{service.description}</p>
-                {service.featured ? (
-                  <Link className="card-link" href={service.href}>
-                    Learn more <span aria-hidden="true">→</span>
-                  </Link>
-                ) : null}
+                <Link className="card-link" href={service.href}>
+                  Learn more <span aria-hidden="true">→</span>
+                </Link>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section advantage-section">
+      <section className="section outcomes-section" id="industries">
+        <div className="shell">
+          <div className="outcomes-heading">
+            <div>
+              <p className="eyebrow">Sector expertise</p>
+              <h2>Industries We Support</h2>
+              <p>
+                Sector-aware support shaped around each organisation’s
+                commercial priorities and market context.
+              </p>
+            </div>
+            <span aria-hidden="true" />
+          </div>
+          <div className="outcome-grid industry-grid">
+            {supportedIndustries.map((industry, index) => (
+              <article key={industry}>
+                <span className="outcome-icon" aria-hidden="true">
+                  <PremiumIcon name={industryIcons[index]!} />
+                </span>
+                <div>
+                  <h3>{industry}</h3>
+                  <p>Strategic market, stakeholder and partnership support.</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section advantage-section" id="why-demand-pr">
         <div className="shell advantage-grid">
           <div className="advantage-intro">
-            <p className="eyebrow">Why Demand PR</p>
-            <h2>The Competitive Advantage</h2>
+            <p className="eyebrow">Competitive Advantage</p>
+            <h2>Why Demand PR</h2>
             <p>
               Our relationship-led model combines international business
               standards with practical understanding of African markets.
             </p>
-            <Link className="button button-light" href="#capabilities">
-              Explore capabilities
+            <Link className="button button-light" href="#featured-solutions">
+              Explore featured solutions
             </Link>
           </div>
           <div className="reason-grid">
@@ -192,55 +219,64 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section outcomes-section">
+      <section className="section stories-section" id="featured-solutions">
         <div className="shell">
-          <div className="outcomes-heading">
+          <div className="stories-heading">
             <div>
-              <p className="eyebrow">Impact</p>
-              <h2>Delivering Tangible Commercial Outcomes</h2>
+              <p className="eyebrow">Priority capabilities</p>
+              <h2>Featured Solutions</h2>
             </div>
-            <span aria-hidden="true" />
+            <p>
+              Three practical routes into Demand PR’s wider advisory,
+              relationship and delivery capabilities.
+            </p>
           </div>
-          <div className="outcome-grid">
-            {outcomeCards.map((outcome) => (
-              <article key={outcome.title}>
-                <span className="outcome-icon" aria-hidden="true">
-                  {outcome.icon}
-                </span>
-                <div>
-                  <h3>{outcome.title}</h3>
-                  <p>{outcome.text}</p>
+          <div className="story-grid featured-solution-grid">
+            {featuredSolutions.map((solution) => (
+              <article key={solution.title}>
+                <div className="story-image">
+                  <FeaturedSolutionImage title={solution.title} />
                 </div>
+                <span className="story-label">{solution.image.label}</span>
+                <h3>{solution.title}</h3>
+                <p>{solution.text}</p>
+                <Link className="card-link" href={solution.href}>
+                  Learn more <span aria-hidden="true">→</span>
+                </Link>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section stories-section" id="capabilities">
-        <div className="shell">
-          <div className="stories-heading">
-            <div>
-              <p className="eyebrow">Illustrative capability</p>
-              <h2>Capabilities in Action</h2>
-            </div>
-            <p>
-              Representative service scenarios, not claims about named client
-              engagements.
-            </p>
+      <section className="section retainer-section" id="recent-projects">
+        <div className="shell retainer-content">
+          <p className="eyebrow">Demand PR success stories</p>
+          <h2>Recent Projects</h2>
+          <p className="recent-projects-intro">
+            Demand PR has supported international trade shows, business summits,
+            investment forums and industry exhibitions across the UK, Europe,
+            Africa and North America.
+          </p>
+          <div
+            className="retainer-pills"
+            aria-label="Recent project capabilities"
+          >
+            {recentProjectCapabilities.map((capability) => (
+              <span key={capability}>{capability}</span>
+            ))}
           </div>
-          <div className="story-grid">
-            {storyCards.map((story) => (
+          <div className="retainer-cards success-story-grid">
+            {successStories.map((story, index) => (
               <article key={story.title}>
-                <div className="story-image">
-                  <Image
-                    src={story.image.src}
-                    alt={story.image.alt}
-                    fill
-                    sizes="(min-width: 1100px) 25vw, (min-width: 640px) 50vw, 100vw"
-                  />
-                </div>
-                <span className="story-label">{story.image.label}</span>
+                <span aria-hidden="true">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                {story.delegationLeadership ? (
+                  <p className="success-story-label">
+                    International delegation leadership
+                  </p>
+                ) : null}
                 <h3>{story.title}</h3>
                 <p>{story.text}</p>
               </article>
@@ -249,39 +285,41 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section retainer-section" id="retainers">
-        <div className="shell retainer-content">
-          <p className="eyebrow">Ongoing representation</p>
-          <h2>Strategic Continuity Across African Markets</h2>
-          <div className="retainer-pills" aria-label="Retainer services">
-            {retainerServices.slice(0, 5).map((service) => (
-              <span key={service}>{service}</span>
-            ))}
+      <section className="section partners-section" id="partners">
+        <div className="shell partners-content">
+          <div className="section-heading centred partners-heading">
+            <p className="eyebrow">Shared purpose</p>
+            <h2>Our Partners</h2>
+            <p>
+              Selected relationships that reflect our commitment to purposeful,
+              people-centred impact.
+            </p>
           </div>
-          <div className="retainer-cards">
-            {[
-              [
-                "01",
-                "Strategic representation",
-                "Ongoing counsel and representation aligned with your leadership team and commercial priorities.",
-              ],
-              [
-                "02",
-                "Market intelligence",
-                "Regular briefings on relevant policy, stakeholder and commercial developments.",
-              ],
-              [
-                "03",
-                "Stakeholder engagement",
-                "Planned liaison and relationship support appropriate to your market-entry objectives.",
-              ],
-            ].map(([number, title, text]) => (
-              <article key={number}>
-                <span>{number}</span>
-                <h3>{title}</h3>
-                <p>{text}</p>
-              </article>
-            ))}
+          <div className="partner-grid">
+            <article className="partner-card">
+              <div className="partner-logo partner-logo-caremate">
+                <Image
+                  src="/images/partners/caremate-partner.svg"
+                  alt="CareMate"
+                  width={1103}
+                  height={285}
+                  sizes="(min-width: 640px) 13.5rem, 11.5rem"
+                  unoptimized
+                />
+              </div>
+            </article>
+            <article className="partner-card">
+              <div className="partner-logo partner-logo-wendoo">
+                <Image
+                  src="/images/partners/wendoo-partner.svg"
+                  alt="Wendoo School Breakfast Empowerment Initiative"
+                  width={738}
+                  height={345}
+                  sizes="(min-width: 640px) 11.75rem, 10.5rem"
+                  unoptimized
+                />
+              </div>
+            </article>
           </div>
         </div>
       </section>

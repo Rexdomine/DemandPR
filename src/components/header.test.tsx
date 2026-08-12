@@ -41,7 +41,7 @@ describe("Header mobile navigation", () => {
     const close = screen.getByRole("button", { name: "Close navigation" });
     const dialog = screen.getByRole("dialog", { name: "Site navigation" });
     const consultation = within(dialog).getByRole("link", {
-      name: "Strategy Consultation Details",
+      name: "Book a Consultation",
     });
 
     expect(document.body.style.overflow).toBe("hidden");
@@ -77,6 +77,15 @@ describe("Header mobile navigation", () => {
     const navigation = screen.getByRole("navigation", {
       name: "Primary navigation",
     });
+    expect(
+      Array.from(navigation.querySelectorAll("a"), (link) => link.textContent),
+    ).toEqual([
+      "Home",
+      "Services",
+      "Market Entry Programme",
+      "About",
+      "Contact",
+    ]);
     for (const link of navigation.querySelectorAll("a")) {
       expect(link.getAttribute("href")).toMatch(/^\/(?:#.*|[^#].*)?$/);
     }
@@ -115,13 +124,13 @@ describe("Header mobile navigation", () => {
   it("uses the central consultation destination on desktop and mobile", async () => {
     render(<Header />);
     expect(
-      screen.getByRole("link", { name: "Strategy Consultation Details" }),
+      screen.getByRole("link", { name: "Book a Consultation" }),
     ).toHaveAttribute("href", "/contact");
     await openMenu();
     expect(
       within(screen.getByRole("dialog", { name: "Site navigation" })).getByRole(
         "link",
-        { name: "Strategy Consultation Details" },
+        { name: "Book a Consultation" },
       ),
     ).toHaveAttribute("href", "/contact");
   });

@@ -6,19 +6,20 @@ import ContactPage, { metadata } from "./page";
 
 const headings = [
   "Let’s Discuss Your Africa Market Entry and Growth Objectives",
+  "Connect with Demand PR",
   "A Clear Route from Objectives to Next Steps",
   "What Helps Us Prepare",
   "Explore Before You Enquire",
 ] as const;
 
 const prohibited =
-  /For client review|within 24 hours|legal professional privilege|NDA|institutional-grade|London|Lagos|Nairobi|instant availability|scheduler|Client Login|newsletter|strategy@|WhatsApp us|\+\d[\d\s()-]{7,}/i;
+  /For client review|within 24 hours|legal professional privilege|NDA|institutional-grade|Lagos|Nairobi|instant availability|scheduler|Client Login|newsletter|strategy@|WhatsApp us/i;
 
 describe("Contact & Consultation page", () => {
-  it("renders the four-section visual narrative, one H1 and the complete form", () => {
+  it("renders the five-section visual narrative, one H1 and the complete form", () => {
     const { container } = render(<ContactPage />);
     expect(screen.getByRole("main")).toHaveAttribute("id", "main-content");
-    expect(container.querySelectorAll("main > section")).toHaveLength(4);
+    expect(container.querySelectorAll("main > section")).toHaveLength(5);
     expect(screen.getAllByRole("heading", { level: 1 })).toHaveLength(1);
     headings.forEach((name, index) =>
       expect(
@@ -28,6 +29,38 @@ describe("Contact & Consultation page", () => {
     expect(
       screen.getByRole("form", { name: /consultation enquiry/i }),
     ).toBeVisible();
+  });
+
+  it("presents the approved contact channels in a premium, actionable details panel", () => {
+    const { container } = render(<ContactPage />);
+    const section = screen
+      .getByRole("heading", { level: 2, name: "Connect with Demand PR" })
+      .closest("section");
+
+    expect(section).not.toBeNull();
+    expect(section).toHaveClass("contact-details");
+    expect(
+      within(section!).getByRole("link", {
+        name: /email customercare@demandpr\.org/i,
+      }),
+    ).toHaveAttribute("href", "mailto:customercare@demandpr.org");
+    expect(
+      within(section!).getByRole("link", { name: /call \+44 7971 201126/i }),
+    ).toHaveAttribute("href", "tel:+447****1126");
+
+    const address = within(section!)
+      .getByText("DEMAND PR LTD")
+      .closest("address");
+    expect(address).not.toBeNull();
+    expect(address).toHaveTextContent("Suite G04, 1 Quality Court");
+    expect(address).toHaveTextContent("Chancery Lane");
+    expect(address).toHaveTextContent("London");
+    expect(address).toHaveTextContent("WC2A 1HR");
+    expect(section!.querySelectorAll(".contact-detail-card")).toHaveLength(3);
+    expect(section!.querySelectorAll("svg[aria-hidden='true']")).toHaveLength(
+      3,
+    );
+    expect(container.textContent).not.toMatch(/open now|available 24\/7/i);
   });
 
   it("explains the truthful three-step process and connected delivery boundary", () => {

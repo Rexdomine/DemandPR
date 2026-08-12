@@ -2,90 +2,14 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
+import { serviceAreas, supportedIndustries } from "@/content/site";
+
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "Strategic advisory, representation and practical market support for organisations entering, investing and growing across African markets.",
+    "Six connected strategic service areas spanning communications, events, market access, leadership, investment and executive business support.",
   alternates: { canonical: "/services" },
 };
-
-const pillars = [
-  {
-    title: "Market Entry & Intelligence",
-    services: [
-      {
-        title: "Africa Market Entry",
-        text: "Tailored strategy, stakeholder mapping and practical coordination for organisations establishing or expanding their market presence.",
-        icon: "compass",
-      },
-      {
-        title: "Market Intelligence",
-        text: "Focused market and sector insight that supports informed priorities, positioning and risk-aware decisions.",
-        icon: "chart",
-      },
-    ],
-  },
-  {
-    title: "Representation & Relationships",
-    services: [
-      {
-        title: "Investor Representation",
-        text: "Strategic representation and ongoing market support aligned with investor objectives.",
-        icon: "briefcase",
-      },
-      {
-        title: "Government Relations",
-        text: "Constructive engagement with governments, regulators and relevant public stakeholders.",
-        icon: "columns",
-      },
-      {
-        title: "PR & Stakeholder Engagement",
-        text: "Clear communications and engagement strategies connecting organisational goals with relevant stakeholder context.",
-        icon: "people",
-      },
-    ],
-  },
-  {
-    title: "Missions, Forums & Events",
-    services: [
-      {
-        title: "Trade Missions",
-        text: "Planning and coordination for focused trade missions and business delegations.",
-        icon: "route",
-      },
-      {
-        title: "Investment Forums",
-        text: "Strategy and delivery support for investment-focused convening and stakeholder programmes.",
-        icon: "forum",
-      },
-      {
-        title: "Executive Events",
-        text: "Purpose-led executive programmes shaped around dialogue, relationships and commercial priorities.",
-        icon: "calendar",
-      },
-    ],
-  },
-  {
-    title: "Executive & Corporate Support",
-    services: [
-      {
-        title: "Corporate Concierge",
-        text: "Practical coordination for organisations and leadership teams undertaking market activity.",
-        icon: "concierge",
-      },
-      {
-        title: "Strategic Introductions",
-        text: "Carefully selected introductions to relevant decision-makers and potential commercial partners.",
-        icon: "link",
-      },
-      {
-        title: "Visa & Immigration",
-        text: "Coordination and practical mobility support, subject to applicable requirements and specialist guidance where needed.",
-        icon: "document",
-      },
-    ],
-  },
-] as const;
 
 const methodology = [
   [
@@ -125,38 +49,55 @@ const retainedThemes = [
   ],
 ] as const;
 
-function ServiceIcon({ type }: { type: string }) {
+function ServiceAreaImage({
+  id,
+  alt,
+}: {
+  id: (typeof serviceAreas)[number]["id"];
+  alt: string;
+}) {
+  const sharedProps = {
+    alt,
+    fill: true,
+    sizes: "(min-width: 961px) 42vw, 100vw",
+  } as const;
+
+  if (id === "pr-strategic-communications") {
+    return (
+      <Image src="/images/services/strategy-in-motion.webp" {...sharedProps} />
+    );
+  }
+  if (id === "events-conference-management") {
+    return (
+      <Image
+        src="/images/home/investment-forum-orchestration.webp"
+        {...sharedProps}
+      />
+    );
+  }
+  if (id === "trade-delegations-market-entry") {
+    return (
+      <Image src="/images/home/trade-delegation-access.webp" {...sharedProps} />
+    );
+  }
+  if (id === "leadership-parliamentary-training") {
+    return (
+      <Image src="/images/about/context-made-practical.webp" {...sharedProps} />
+    );
+  }
+  if (id === "investor-hub") {
+    return (
+      <Image
+        src="/images/market-entry/market-entry-partnership-in-practice.webp"
+        {...sharedProps}
+      />
+    );
+  }
   return (
-    <svg className="services-icon" viewBox="0 0 32 32" aria-hidden="true">
-      <rect x="5" y="5" width="22" height="22" rx="4" />
-      {type === "chart" ? <path d="M10 21v-5m6 5V11m6 10v-8" /> : null}
-      {type === "people" ? (
-        <path d="M10 21c1-4 11-4 12 0M13 12a3 3 0 1 0 6 0 3 3 0 0 0-6 0Z" />
-      ) : null}
-      {type === "columns" ? (
-        <path d="m9 12 7-4 7 4M10 14v7m6-7v7m6-7v7M8 23h16" />
-      ) : null}
-      {type === "calendar" ? (
-        <path d="M9 13h14M12 8v5m8-5v5m-8 5h3m3 0h2" />
-      ) : null}
-      {type === "link" ? (
-        <path d="m13 19-2 2a3 3 0 0 1-4-4l4-4a3 3 0 0 1 4 0m2 0 2-2a3 3 0 0 1 4 4l-4 4a3 3 0 0 1-4 0m-3-3h8" />
-      ) : null}
-      {type === "document" ? (
-        <path d="M11 8h7l4 4v12H11Zm7 0v5h4m-8 4h5m-5 3h5" />
-      ) : null}
-      {type === "route" ? (
-        <path d="M10 11a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM10 11c0 7 12 3 12 10" />
-      ) : null}
-      {type === "briefcase" ? (
-        <path d="M9 13h14v10H9Zm4 0v-3h6v3m-10 5h14" />
-      ) : null}
-      {type === "forum" ? <path d="M9 10h14v9H15l-4 3v-3H9Z" /> : null}
-      {type === "concierge" ? (
-        <path d="M8 21h16M10 21a6 6 0 0 1 12 0m-6-8v-2" />
-      ) : null}
-      {type === "compass" ? <path d="m20 11-2.5 6.5L11 20l2.5-6.5Z" /> : null}
-    </svg>
+    <Image
+      src="/images/services/business-concierge-executive-arrival.webp"
+      {...sharedProps}
+    />
   );
 }
 
@@ -176,23 +117,23 @@ export default function ServicesPage() {
         <div className="shell services-hero-content">
           <p className="eyebrow">Strategic Advisory</p>
           <h1 id="services-title">
-            Strategic Support for <span>Market Entry</span>, Investment and
-            Growth Across Africa
+            One strategic partner. <span>Six connected service areas.</span>
           </h1>
           <p>
-            Demand PR supports international organisations, investors and
-            institutions through strategic advisory, representation, stakeholder
-            engagement and practical market coordination.
+            Demand PR combines PR, events, market access, leadership, investment
+            and executive business support to help organisations build
+            visibility, enter markets, connect with decision-makers and turn
+            opportunities into action.
           </p>
           <div className="button-row">
             <Link className="button" href="/contact">
-              Strategy Consultation Details <span aria-hidden="true">→</span>
+              Book a Consultation <span aria-hidden="true">→</span>
             </Link>
             <Link
               className="button services-outline-button"
               href="/services#service-pillars"
             >
-              Explore Service Pillars
+              Explore Core Services
             </Link>
           </div>
         </div>
@@ -204,36 +145,43 @@ export default function ServicesPage() {
       >
         <div className="shell">
           <div className="services-heading">
-            <p className="eyebrow">Integrated capabilities</p>
-            <h2>Service Pillars</h2>
+            <p className="eyebrow">Demand PR — six service areas</p>
+            <h2>Our Six Core Service Areas</h2>
             <p>
-              Four connected areas of support, tailored to each organisation’s
-              objectives, sector and market context.
+              From strategic communications and corporate events to trade
+              delegations, market entry, investor connections and executive
+              support, we provide the relationships, access and practical
+              expertise needed to operate successfully across Africa and
+              international markets.
             </p>
           </div>
-          <div className="services-pillar-grid">
-            {pillars.map((pillar, pillarIndex) => (
-              <div className="services-pillar" key={pillar.title}>
-                <span className="services-pillar-number" aria-hidden="true">
-                  {String(pillarIndex + 1).padStart(2, "0")}
-                </span>
-                <h3>{pillar.title}</h3>
-                <div className="services-card-stack">
-                  {pillar.services.map((service) => (
-                    <article key={service.title}>
-                      <ServiceIcon type={service.icon} />
-                      <h4>{service.title}</h4>
-                      <p>{service.text}</p>
-                      {service.title === "Africa Market Entry" ? (
-                        <Link href="/africa-market-entry-programme">
-                          Africa Market Entry programme details{" "}
-                          <span aria-hidden="true">→</span>
-                        </Link>
-                      ) : null}
-                    </article>
-                  ))}
+          <div className="services-area-list">
+            {serviceAreas.map((service, index) => (
+              <article
+                className="services-area"
+                id={service.id}
+                key={service.id}
+              >
+                <div className="services-area-image">
+                  <ServiceAreaImage id={service.id} alt={service.alt} />
+                  <span aria-hidden="true">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
                 </div>
-              </div>
+                <div className="services-area-copy">
+                  <p className="services-area-group">{service.group}</p>
+                  <h3>{service.title}</h3>
+                  <p className="services-area-lead">{service.lead}</p>
+                  <p>{service.description}</p>
+                  <h4>What we do</h4>
+                  <ul>
+                    {service.bullets.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                  <p className="services-area-closing">{service.closing}</p>
+                </div>
+              </article>
             ))}
           </div>
         </div>
@@ -303,13 +251,7 @@ export default function ServicesPage() {
         <div className="shell services-sector-row">
           <h2>Our Sector Expertise</h2>
           <div className="services-sector-chips" aria-label="Supported sectors">
-            {[
-              "Infrastructure",
-              "Financial Services",
-              "Energy",
-              "Agriculture",
-              "Technology",
-            ].map((sector) => (
+            {supportedIndustries.map((sector) => (
               <span key={sector}>{sector}</span>
             ))}
           </div>
