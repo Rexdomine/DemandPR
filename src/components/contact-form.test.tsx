@@ -1,3 +1,6 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { axe } from "jest-axe";
@@ -6,6 +9,11 @@ import { describe, expect, it, vi } from "vitest";
 import type { ContactSubmitResult, ContactSubmitter } from "@/lib/contact-form";
 
 import { ContactForm } from "./contact-form";
+
+const globalCss = readFileSync(
+  join(process.cwd(), "src/app/globals.css"),
+  "utf8",
+);
 
 async function completeForm(user: ReturnType<typeof userEvent.setup>) {
   await user.type(screen.getByLabelText(/full name/i), "Ada Okafor");
@@ -31,6 +39,27 @@ async function completeForm(user: ReturnType<typeof userEvent.setup>) {
 }
 
 describe("ContactForm", () => {
+  it("uses a branded native select treatment without replacing select semantics", () => {
+    render(<ContactForm />);
+    const interest = screen.getByRole("combobox", {
+      name: /area of interest/i,
+    });
+    const treatment = interest.closest(".contact-select");
+
+    expect(interest.tagName).toBe("SELECT");
+    expect(treatment).toBeInTheDocument();
+    expect(treatment?.querySelector("svg")).toHaveAttribute(
+      "aria-hidden",
+      "true",
+    );
+    expect(globalCss).toMatch(
+      /\.contact-select select\s*\{[^}]*appearance:\s*none;[^}]*padding-right:\s*3rem/s,
+    );
+    expect(globalCss).toMatch(
+      /\.contact-select svg\s*\{[^}]*pointer-events:\s*none;[^}]*stroke:\s*var\(--brand-primary\)/s,
+    );
+  });
+
   it("associates labels, autocomplete and published length limits with every control", () => {
     const { container } = render(<ContactForm />);
     expect(screen.getByLabelText(/full name/i)).toHaveAttribute(
