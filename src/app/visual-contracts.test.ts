@@ -206,6 +206,21 @@ describe("site visual contracts", () => {
     expect(css).toContain("height: 56.25vw !important;");
   });
 
+  it("keeps the About hero image edge-to-edge across mobile screens", () => {
+    const css = readFileSync(
+      join(process.cwd(), "src/app/globals.css"),
+      "utf8",
+    );
+
+    expect(css).toContain(
+      `.about-hero {
+    padding-top: 12rem;
+    background-position: center top;
+    background-size: 100% auto;
+  }`,
+    );
+  });
+
   it("pins the publication-reviewed About and Contact WebP assets", () => {
     const assets = [
       {
