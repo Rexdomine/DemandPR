@@ -148,6 +148,20 @@ describe("site visual contracts", () => {
     );
   });
 
+  it("keeps partner cards inside the mobile shell", () => {
+    const css = readFileSync(
+      join(process.cwd(), "src/app/globals.css"),
+      "utf8",
+    );
+
+    expect(css).toMatch(
+      /@media \(max-width:\s*640px\)[\s\S]*?\.partner-card\s*\{[^}]*min-width:\s*0;[^}]*width:\s*100%;/s,
+    );
+    expect(css).toMatch(
+      /@media \(max-width:\s*640px\)[\s\S]*?\.partner-logo img\s*\{[^}]*max-width:\s*100%;/s,
+    );
+  });
+
   it("bundles the declared design fonts locally", () => {
     for (const file of [
       "inter-400.ttf",

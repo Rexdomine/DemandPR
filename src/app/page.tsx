@@ -285,6 +285,45 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="section partners-section" id="partners">
+        <div className="shell partners-content">
+          <div className="section-heading centred partners-heading">
+            <p className="eyebrow">Shared purpose</p>
+            <h2>Our Partners</h2>
+            <p>
+              Selected relationships that reflect our commitment to purposeful,
+              people-centred impact.
+            </p>
+          </div>
+          <div className="partner-grid">
+            <article className="partner-card">
+              <div className="partner-logo partner-logo-caremate">
+                <Image
+                  src="/images/partners/caremate-partner.jpg"
+                  alt="CareMate"
+                  width={1103}
+                  height={285}
+                  sizes="(min-width: 960px) 28rem, (min-width: 640px) 40vw, calc(100vw - 6rem)"
+                  unoptimized
+                />
+              </div>
+            </article>
+            <article className="partner-card">
+              <div className="partner-logo partner-logo-wendoo">
+                <Image
+                  src="/images/partners/wendoo-partner.jpg"
+                  alt="Wendoo School Breakfast Empowerment Initiative"
+                  width={800}
+                  height={325}
+                  sizes="(min-width: 960px) 24rem, (min-width: 640px) 36vw, calc(100vw - 6rem)"
+                  unoptimized
+                />
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
       <section className="section cta-section" id="consultation">
         <div className="shell cta-content">
           <h2>Ready to Expand into Africa?</h2>

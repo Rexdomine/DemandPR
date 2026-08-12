@@ -54,6 +54,7 @@ describe("homepage", () => {
       "Why Demand PR",
       "Featured Solutions",
       "Recent Projects",
+      "Our Partners",
       "Ready to Expand into Africa?",
     ]) {
       expect(screen.getByRole("heading", { level: 2, name })).toBeVisible();
@@ -67,9 +68,65 @@ describe("homepage", () => {
       "Why Demand PR",
       "Featured Solutions",
       "Recent Projects",
+      "Our Partners",
       "Ready to Expand into Africa?",
     ]);
-    expect(document.querySelectorAll("main > section")).toHaveLength(7);
+    expect(document.querySelectorAll("main > section")).toHaveLength(8);
+  });
+
+  it("places the two approved partner marks after Recent Projects and before consultation", () => {
+    render(<Home />);
+
+    const partnersHeading = screen.getByRole("heading", {
+      level: 2,
+      name: "Our Partners",
+    });
+    const partnersSection = partnersHeading.closest("section");
+    const sectionIds = Array.from(
+      document.querySelectorAll("main > section"),
+      (section) => section.id,
+    );
+
+    expect(sectionIds.indexOf("partners")).toBe(
+      sectionIds.indexOf("recent-projects") + 1,
+    );
+    expect(sectionIds.indexOf("consultation")).toBe(
+      sectionIds.indexOf("partners") + 1,
+    );
+    expect(
+      within(partnersSection!).getByRole("img", { name: "CareMate" }),
+    ).toHaveAttribute("src", expect.stringContaining("caremate-partner.jpg"));
+    expect(
+      within(partnersSection!).getByRole("img", {
+        name: "Wendoo School Breakfast Empowerment Initiative",
+      }),
+    ).toHaveAttribute("src", expect.stringContaining("wendoo-partner.jpg"));
+    expect(partnersSection?.querySelectorAll(".partner-card")).toHaveLength(2);
+  });
+
+  it("bundles the exact two client-supplied partner logo files", () => {
+    const approvedAssets = [
+      {
+        path: "public/images/partners/caremate-partner.jpg",
+        bytes: 16_880,
+        sha256:
+          "0d5370b09a419a4c918226a2bfe93c006e27e8fab23c137dae7bd44fec40660e",
+      },
+      {
+        path: "public/images/partners/wendoo-partner.jpg",
+        bytes: 28_739,
+        sha256:
+          "cab716eedacf975967b75834236bae9121f36d1e002a9add3278e41e34459691",
+      },
+    ];
+
+    for (const asset of approvedAssets) {
+      const image = readFileSync(join(process.cwd(), asset.path));
+      expect(image.byteLength).toBe(asset.bytes);
+      expect(createHash("sha256").update(image).digest("hex")).toBe(
+        asset.sha256,
+      );
+    }
   });
 
   it("uses a balanced desktop service grid and one semantic premium icon language", () => {
@@ -132,7 +189,7 @@ describe("homepage", () => {
     const { container } = render(<Home />);
     const images = Array.from(container.querySelectorAll("img"));
 
-    expect(images).toHaveLength(4);
+    expect(images).toHaveLength(6);
     expect(
       images.every((image) => image.getAttribute("src")?.startsWith("/")),
     ).toBe(true);
