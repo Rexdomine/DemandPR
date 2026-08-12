@@ -23,7 +23,7 @@
     "verify:release": "npm run audit:security && npm run verify:checkpoint && NEXT_TELEMETRY_DISABLED=1 NEXT_PUBLIC_SITE_URL=https://example.com SITE_INDEXABLE=false npm run build && npm run verify:diff"
   },
   "dependencies": {
-    "next": "15.5.22",
+    "next": "16.2.12",
     "react": "19.1.1",
     "react-dom": "19.1.1"
   },
