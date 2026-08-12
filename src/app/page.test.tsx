@@ -95,28 +95,28 @@ describe("homepage", () => {
     );
     expect(
       within(partnersSection!).getByRole("img", { name: "CareMate" }),
-    ).toHaveAttribute("src", expect.stringContaining("caremate-partner.jpg"));
+    ).toHaveAttribute("src", expect.stringContaining("caremate-partner.svg"));
     expect(
       within(partnersSection!).getByRole("img", {
         name: "Wendoo School Breakfast Empowerment Initiative",
       }),
-    ).toHaveAttribute("src", expect.stringContaining("wendoo-partner.jpg"));
+    ).toHaveAttribute("src", expect.stringContaining("wendoo-partner.svg"));
     expect(partnersSection?.querySelectorAll(".partner-card")).toHaveLength(2);
   });
 
-  it("bundles the exact two client-supplied partner logo files", () => {
+  it("bundles the exact two client-supplied transparent SVG logo files", () => {
     const approvedAssets = [
       {
-        path: "public/images/partners/caremate-partner.jpg",
-        bytes: 16_880,
+        path: "public/images/partners/caremate-partner.svg",
+        bytes: 212_227,
         sha256:
-          "0d5370b09a419a4c918226a2bfe93c006e27e8fab23c137dae7bd44fec40660e",
+          "e3d50b8641f126bbfe688709ff6382a123f95218572c13e601caf4640281ef83",
       },
       {
-        path: "public/images/partners/wendoo-partner.jpg",
-        bytes: 28_739,
+        path: "public/images/partners/wendoo-partner.svg",
+        bytes: 26_156,
         sha256:
-          "cab716eedacf975967b75834236bae9121f36d1e002a9add3278e41e34459691",
+          "eca75d5f544dca68ba75f26bf6d18ecca0b910ba95a71db51cd351035ec4e38b",
       },
     ];
 
@@ -127,6 +127,22 @@ describe("homepage", () => {
         asset.sha256,
       );
     }
+  });
+
+  it("keeps the approved partner marks intentionally compact", () => {
+    const css = readFileSync(
+      join(process.cwd(), "src/app/globals.css"),
+      "utf8",
+    );
+
+    expect(css).toContain("max-width: 46rem;");
+    expect(css).toContain("min-height: 9rem;");
+    expect(css).toContain("max-width: 13.5rem;");
+    expect(css).toContain("max-width: 11.75rem;");
+    expect(css).toContain("max-width: 11.5rem;");
+    expect(css).toContain("max-width: 10.5rem;");
+    expect(css).not.toContain("max-width: 21rem;");
+    expect(css).not.toContain("max-width: 19rem;");
   });
 
   it("uses a balanced desktop service grid and one semantic premium icon language", () => {

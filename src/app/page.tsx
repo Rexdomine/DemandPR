@@ -299,11 +299,11 @@ export default function Home() {
             <article className="partner-card">
               <div className="partner-logo partner-logo-caremate">
                 <Image
-                  src="/images/partners/caremate-partner.jpg"
+                  src="/images/partners/caremate-partner.svg"
                   alt="CareMate"
                   width={1103}
                   height={285}
-                  sizes="(min-width: 960px) 28rem, (min-width: 640px) 40vw, calc(100vw - 6rem)"
+                  sizes="(min-width: 640px) 13.5rem, 11.5rem"
                   unoptimized
                 />
               </div>
@@ -311,11 +311,11 @@ export default function Home() {
             <article className="partner-card">
               <div className="partner-logo partner-logo-wendoo">
                 <Image
-                  src="/images/partners/wendoo-partner.jpg"
+                  src="/images/partners/wendoo-partner.svg"
                   alt="Wendoo School Breakfast Empowerment Initiative"
-                  width={800}
-                  height={325}
-                  sizes="(min-width: 960px) 24rem, (min-width: 640px) 36vw, calc(100vw - 6rem)"
+                  width={738}
+                  height={345}
+                  sizes="(min-width: 640px) 11.75rem, 10.5rem"
                   unoptimized
                 />
               </div>
