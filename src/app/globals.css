@@ -2099,7 +2099,7 @@ blockquote {
   .about-hero {
     padding-top: 12rem;
     background-position: center top;
-    background-size: auto 13rem;
+    background-size: 100% auto;
   }
   .about-hero-overlay {
     height: 13rem;
