@@ -7,7 +7,7 @@ Demand PR is hosted only in the dedicated Vercel team `demandprltd-8340s-project
 - Team ID: `team_M5iRNyEcNZHaREmgnyWgJgI1`
 - Framework: Next.js
 - Runtime: Node.js 22.x
-- Production branch policy: `main` after Rex-approved merge; pull-request previews use the controlled GitHub Actions workflow described below
+- Production branch policy: merging a Rex-approved pull request into `main` triggers the controlled production workflow; pull-request previews use the separate workflow described below
 - Canonical custom domain: pending stakeholder approval
 
 ## Access and secret handling
@@ -76,7 +76,15 @@ npx vercel@55.0.0 deploy \
 printf 'Deployed commit: %s\n' "$DEPLOY_COMMIT"
 ```
 
-A production deployment additionally requires Rex's recorded approval, a clean `main` checkout at the approved merged commit, and the explicit `--prod` flag. Do not merge or issue a production deployment without that approval. Verify the deployment URL, `/robots.txt`, `/sitemap.xml`, response security headers, browser console, and responsive layout after every production-facing deployment.
+A manual production deployment additionally requires Rex's recorded approval, a clean `main` checkout at the approved merged commit, and the explicit `--prod` flag. Merging an approved pull request into `main` is the production authorization for that exact merged commit; do not issue a separate manual deployment unless recovering or retrying that same current `main` commit. Verify the deployment URL, `/robots.txt`, `/sitemap.xml`, response security headers, browser console, and responsive layout after every production-facing deployment.
+
+## Automatic production deployment
+
+Every push to `main`, including an approved pull-request merge, triggers `.github/workflows/vercel-production.yml`. The workflow checks out the exact merged commit from `github.sha`, verifies a clean source tree, runs the security audit plus complete checkpoint gate, verifies the dedicated Demand PR Vercel team/project IDs, pulls production settings, builds a prebuilt production artifact and deploys it with `--prod`. A failed gate prevents promotion.
+
+Production runs share one concurrency group and cancel superseded work. Immediately before promotion, the workflow fetches `origin/main` and refuses to deploy when `main` has advanced beyond the run's exact SHA. This prevents an older, slower build from replacing a newer merge. Git author metadata is removed only from the ephemeral runner artifact, preserving the controlled workaround for Vercel's unstable author-membership gate.
+
+After promotion, the workflow verifies that `https://demandpr.vercel.app` responds successfully and retains the required `X-Robots-Tag: noindex` guard. A failed or cancelled run does not authorize deploying a different commit: recover by rerunning the workflow only after confirming the target is still the current `main` SHA.
 
 ## Pull-request preview automation
 
@@ -90,7 +98,7 @@ The workflow:
 4. builds the preview while the exact Git head is still available, then removes `.git` only in the ephemeral runner so Vercel cannot reapply its unstable author-membership gate to the authorized prebuilt artifact;
 5. deploys the verified prebuilt output without `--prod` and publishes the resulting `demandpr-*.vercel.app` URL in the GitHub Actions job summary.
 
-The repository secret must contain only the dedicated Demand PR Vercel access token. Fork and Dependabot pull requests intentionally do not receive it. Production remains outside this workflow and requires Rex's explicit approval.
+The repository secret must contain only the dedicated Demand PR Vercel access token. Fork and Dependabot pull requests intentionally do not receive it. Preview automation never promotes production; production is owned by the exact-`main` workflow above after Rex approves and merges a pull request.
 
 The native Vercel Git integration is disabled through `vercel.json` (`git.deploymentEnabled: false`) so it cannot emit a second blocked deployment beside the controlled workflow. The authoritative preview readiness signal is the **Vercel Preview** GitHub Actions workflow plus a verified Ready deployment for the exact PR head.
 

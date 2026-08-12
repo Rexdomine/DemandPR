@@ -20,7 +20,7 @@
    Responsive browser and hosted-preview checks remain required when relevant. Do not repeatedly run the full release gate after minor edits; use focused regression checks and run it once after all review blockers are resolved. See `docs/development-workflow.md`.
 
 6. Use Conventional Commits, for example `feat: add market entry overview`.
-7. Complete the pull request checklist and obtain review. Do not merge, enable auto-merge, or issue a production deployment without Rex's recorded approval.
+7. Complete the pull request checklist and obtain review. Do not merge or enable auto-merge without Rex's recorded approval. Merging an approved pull request into `main` authorises the automatic production deployment of that exact merge commit; manual deployment or retry remains restricted to the current approved `main` SHA.
 
 ## Accessibility and content
 
