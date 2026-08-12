@@ -57,6 +57,28 @@ function ContactIcon({ index }: { index: number }) {
   );
 }
 
+function ContactDetailIcon({ type }: { type: "email" | "phone" | "location" }) {
+  return (
+    <svg viewBox="0 0 48 48" aria-hidden="true">
+      {type === "email" ? (
+        <>
+          <rect x="7" y="11" width="34" height="26" rx="3" />
+          <path d="m9 14 15 12 15-12" />
+        </>
+      ) : null}
+      {type === "phone" ? (
+        <path d="M14.2 8.5h6l3 9-4.1 2.8a27.6 27.6 0 0 0 8.6 8.6l2.8-4.1 9 3v6c0 3.2-2.6 5.8-5.8 5.7C20 39 9 28 8.5 14.3c-.1-3.2 2.5-5.8 5.7-5.8Z" />
+      ) : null}
+      {type === "location" ? (
+        <>
+          <path d="M38 20c0 10.5-14 20-14 20S10 30.5 10 20a14 14 0 1 1 28 0Z" />
+          <circle cx="24" cy="20" r="4.5" />
+        </>
+      ) : null}
+    </svg>
+  );
+}
+
 export default function ContactPage() {
   return (
     <main id="main-content" className="contact-page">
@@ -83,6 +105,60 @@ export default function ContactPage() {
           <a className="button" href="#enquiry-form">
             Review the enquiry form <span aria-hidden="true">↓</span>
           </a>
+        </div>
+      </section>
+
+      <section
+        className="contact-details"
+        aria-labelledby="contact-details-title"
+      >
+        <div className="shell">
+          <div className="contact-details-heading">
+            <div>
+              <p className="eyebrow">Direct contact</p>
+              <h2 id="contact-details-title">Connect with Demand PR</h2>
+            </div>
+            <p>
+              Reach our team directly or use the consultation form below to
+              share more context about your objectives.
+            </p>
+          </div>
+
+          <div className="contact-details-grid">
+            <article className="contact-detail-card">
+              <ContactDetailIcon type="email" />
+              <p>Email</p>
+              <h3>Start by email</h3>
+              <a
+                href="mailto:customercare@demandpr.org"
+                aria-label="Email customercare@demandpr.org"
+              >
+                customercare@demandpr.org
+              </a>
+            </article>
+
+            <article className="contact-detail-card">
+              <ContactDetailIcon type="phone" />
+              <p>Telephone</p>
+              <h3>Speak with our team</h3>
+              <a href="tel:+447****1126" aria-label="Call +44 7971 201126">
+                +44 7971 201126
+              </a>
+            </article>
+
+            <article className="contact-detail-card contact-detail-address">
+              <ContactDetailIcon type="location" />
+              <p>London office</p>
+              <h3>Our registered address</h3>
+              <address>
+                <strong>DEMAND PR LTD</strong>
+                <span>Suite G04, 1 Quality Court</span>
+                <span>Chancery Lane</span>
+                <span>London</span>
+                <span>WC2A 1HR</span>
+              </address>
+            </article>
+          </div>
         </div>
       </section>
 
