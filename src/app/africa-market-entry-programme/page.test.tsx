@@ -37,6 +37,12 @@ describe("Africa Market Entry Programme page", () => {
 
   it("uses approved assets, content boundaries and resolving CTA destinations", () => {
     const { container } = render(<MarketEntryPage />);
+    const hero = screen.getByRole("heading", { level: 1 }).closest("section");
+    const finalCta = screen
+      .getByRole("heading", {
+        name: "Ready to Navigate the African Opportunity?",
+      })
+      .closest("section");
     const sources = Array.from(container.querySelectorAll("img"), (image) =>
       image.getAttribute("src"),
     ).join(" ");
@@ -48,11 +54,14 @@ describe("Africa Market Entry Programme page", () => {
     expect(container.textContent).not.toMatch(prohibitedClaims);
     expect(container.querySelector('a[href="#"]')).not.toBeInTheDocument();
     expect(
-      screen.getAllByRole("link", { name: /strategy consultation/i }),
-    ).not.toHaveLength(0);
-    screen
-      .getAllByRole("link", { name: /strategy consultation/i })
-      .forEach((link) => expect(link).toHaveAttribute("href", "/contact"));
+      within(hero!).getByRole("link", { name: "Explore Our Services" }),
+    ).toHaveAttribute("href", "/services");
+    expect(
+      within(hero!).queryByRole("link", { name: /strategy consultation/i }),
+    ).toBeNull();
+    expect(
+      within(finalCta!).getByRole("link", { name: /strategy consultation/i }),
+    ).toHaveAttribute("href", "/contact");
     for (const link of screen.getAllByRole("link")) {
       expect(link.getAttribute("href")).toMatch(/^\/(?:[^#]|#.+)/);
     }

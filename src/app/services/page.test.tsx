@@ -208,12 +208,26 @@ describe("Services page", () => {
 
   it("uses the required safe CTA destinations and no placeholder or fabricated links", () => {
     const { container } = render(<ServicesPage />);
+    const hero = screen.getByRole("heading", { level: 1 }).closest("section");
+    const finalCta = screen
+      .getByRole("heading", {
+        name: "Ready to Navigate the African Opportunity?",
+      })
+      .closest("section");
+
     expect(
-      screen.getAllByRole("link", { name: "Strategy Consultation Details" }),
-    ).toHaveLength(2);
-    screen
-      .getAllByRole("link", { name: "Strategy Consultation Details" })
-      .forEach((link) => expect(link).toHaveAttribute("href", "/contact"));
+      within(hero!).getByRole("link", { name: "Explore Our Services" }),
+    ).toHaveAttribute("href", "/services");
+    expect(
+      within(hero!).queryByRole("link", {
+        name: "Strategy Consultation Details",
+      }),
+    ).toBeNull();
+    expect(
+      within(finalCta!).getByRole("link", {
+        name: "Strategy Consultation Details",
+      }),
+    ).toHaveAttribute("href", "/contact");
     expect(
       screen.getByRole("link", { name: "Explore Core Services" }),
     ).toHaveAttribute("href", "/services#service-pillars");
