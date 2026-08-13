@@ -284,13 +284,13 @@ describe("homepage", () => {
     }
 
     for (const description of [
-      "Market entry, local introductions and on-the-ground business development and stakeholder support.",
-      "Opportunity identification, local introductions and practical support for investment activity.",
-      "Partner identification, community and institutional access, local coordination and programme support.",
-      "Destination promotion, trade outreach and tourism partnerships connecting destinations with international markets.",
-      "Business matchmaking, trade delegations and member and stakeholder engagement supporting market expansion.",
-      "Partnerships, delegations and bespoke training delivered through expert trainer sourcing and end-to-end coordination.",
-      "Delegate recruitment, speaker and VIP coordination, promotion, sponsorship, registration, logistics and on-the-ground delivery.",
+      "Market entry support, local introductions, business development, stakeholder engagement and on-the-ground market access.",
+      "Identifying opportunities, facilitating introductions, conducting local engagement and supporting investment activities on the ground.",
+      "Partner identification, stakeholder engagement, local coordination, programme support and access to relevant communities and institutions.",
+      "Destination promotion, trade outreach, stakeholder introductions, tourism partnerships and connecting destinations with international markets.",
+      "Business matchmaking, trade delegations, member engagement, stakeholder introductions and practical support for market expansion.",
+      "Partnership development, delegation support and stakeholder engagement, connecting institutions with relevant organisations for bespoke training. We source and coordinate high-quality business management and leadership trainers and manage the training requirements from start to finish.",
+      "Delegate recruitment, speaker and VIP coordination, invitations and outreach, event promotion, stakeholder and sponsorship engagement, registration support, logistics and on-the-ground event management.",
     ]) {
       expect(within(industrySection!).getByText(description)).toBeVisible();
     }

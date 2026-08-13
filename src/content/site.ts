@@ -220,19 +220,19 @@ export const supportedIndustryDescriptions: Readonly<
   Record<(typeof supportedIndustries)[number], string>
 > = {
   "International Businesses":
-    "Market entry, local introductions and on-the-ground business development and stakeholder support.",
+    "Market entry support, local introductions, business development, stakeholder engagement and on-the-ground market access.",
   "Investors & Private Equity":
-    "Opportunity identification, local introductions and practical support for investment activity.",
+    "Identifying opportunities, facilitating introductions, conducting local engagement and supporting investment activities on the ground.",
   "NGOs & Development Partners":
-    "Partner identification, community and institutional access, local coordination and programme support.",
+    "Partner identification, stakeholder engagement, local coordination, programme support and access to relevant communities and institutions.",
   "Tourism Boards & Destinations":
-    "Destination promotion, trade outreach and tourism partnerships connecting destinations with international markets.",
+    "Destination promotion, trade outreach, stakeholder introductions, tourism partnerships and connecting destinations with international markets.",
   "Chambers & Trade Associations":
-    "Business matchmaking, trade delegations and member and stakeholder engagement supporting market expansion.",
+    "Business matchmaking, trade delegations, member engagement, stakeholder introductions and practical support for market expansion.",
   "Universities & Institutions":
-    "Partnerships, delegations and bespoke training delivered through expert trainer sourcing and end-to-end coordination.",
+    "Partnership development, delegation support and stakeholder engagement, connecting institutions with relevant organisations for bespoke training. We source and coordinate high-quality business management and leadership trainers and manage the training requirements from start to finish.",
   "Event Organisers":
-    "Delegate recruitment, speaker and VIP coordination, promotion, sponsorship, registration, logistics and on-the-ground delivery.",
+    "Delegate recruitment, speaker and VIP coordination, invitations and outreach, event promotion, stakeholder and sponsorship engagement, registration support, logistics and on-the-ground event management.",
 };
 
 export const clientReasons: readonly ContentBlock[] = [
