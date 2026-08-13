@@ -216,6 +216,25 @@ export const supportedIndustries = [
   "Event Organisers",
 ] as const;
 
+export const supportedIndustryDescriptions: Readonly<
+  Record<(typeof supportedIndustries)[number], string>
+> = {
+  "International Businesses":
+    "Market entry support, local introductions, business development, stakeholder engagement and on-the-ground market access.",
+  "Investors & Private Equity":
+    "Identifying opportunities, facilitating introductions, conducting local engagement and supporting investment activities on the ground.",
+  "NGOs & Development Partners":
+    "Partner identification, stakeholder engagement, local coordination, programme support and access to relevant communities and institutions.",
+  "Tourism Boards & Destinations":
+    "Destination promotion, trade outreach, stakeholder introductions, tourism partnerships and connecting destinations with international markets.",
+  "Chambers & Trade Associations":
+    "Business matchmaking, trade delegations, member engagement, stakeholder introductions and practical support for market expansion.",
+  "Universities & Institutions":
+    "Partnership development, delegation support and stakeholder engagement, connecting institutions with relevant organisations for bespoke training. We source and coordinate high-quality business management and leadership trainers and manage the training requirements from start to finish.",
+  "Event Organisers":
+    "Delegate recruitment, speaker and VIP coordination, invitations and outreach, event promotion, stakeholder and sponsorship engagement, registration support, logistics and on-the-ground event management.",
+};
+
 export const clientReasons: readonly ContentBlock[] = [
   {
     title: "Access to Influential Networks",

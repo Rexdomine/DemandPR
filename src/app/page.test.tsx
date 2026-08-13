@@ -265,6 +265,9 @@ describe("homepage", () => {
 
   it("uses approved existing sectors and client-supplied recent projects", () => {
     render(<Home />);
+    const industrySection = screen
+      .getByRole("heading", { name: "Industries We Support" })
+      .closest("section");
 
     for (const sector of [
       "International Businesses",
@@ -276,9 +279,27 @@ describe("homepage", () => {
       "Event Organisers",
     ]) {
       expect(
-        screen.getByRole("heading", { level: 3, name: sector }),
+        within(industrySection!).getByRole("heading", { name: sector }),
       ).toBeVisible();
     }
+
+    for (const description of [
+      "Market entry support, local introductions, business development, stakeholder engagement and on-the-ground market access.",
+      "Identifying opportunities, facilitating introductions, conducting local engagement and supporting investment activities on the ground.",
+      "Partner identification, stakeholder engagement, local coordination, programme support and access to relevant communities and institutions.",
+      "Destination promotion, trade outreach, stakeholder introductions, tourism partnerships and connecting destinations with international markets.",
+      "Business matchmaking, trade delegations, member engagement, stakeholder introductions and practical support for market expansion.",
+      "Partnership development, delegation support and stakeholder engagement, connecting institutions with relevant organisations for bespoke training. We source and coordinate high-quality business management and leadership trainers and manage the training requirements from start to finish.",
+      "Delegate recruitment, speaker and VIP coordination, invitations and outreach, event promotion, stakeholder and sponsorship engagement, registration support, logistics and on-the-ground event management.",
+    ]) {
+      expect(within(industrySection!).getByText(description)).toBeVisible();
+    }
+
+    expect(
+      within(industrySection!).queryByText(
+        "Strategic market, stakeholder and partnership support.",
+      ),
+    ).not.toBeInTheDocument();
     expect(
       screen.queryByRole("heading", { level: 3, name: "Government Agencies" }),
     ).not.toBeInTheDocument();
