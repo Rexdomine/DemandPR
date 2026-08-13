@@ -9,6 +9,7 @@ import {
   site,
   successStories,
   supportedIndustries,
+  supportedIndustryDescriptions,
 } from "@/content/site";
 
 const serviceIcons = [
@@ -187,7 +188,7 @@ export default function Home() {
                 </span>
                 <div>
                   <h3>{industry}</h3>
-                  <p>Strategic market, stakeholder and partnership support.</p>
+                  <p>{supportedIndustryDescriptions[industry]}</p>
                 </div>
               </article>
             ))}

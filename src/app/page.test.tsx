@@ -265,6 +265,9 @@ describe("homepage", () => {
 
   it("uses approved existing sectors and client-supplied recent projects", () => {
     render(<Home />);
+    const industrySection = screen
+      .getByRole("heading", { name: "Industries We Support" })
+      .closest("section");
 
     for (const sector of [
       "International Businesses",
@@ -276,9 +279,27 @@ describe("homepage", () => {
       "Event Organisers",
     ]) {
       expect(
-        screen.getByRole("heading", { level: 3, name: sector }),
+        within(industrySection!).getByRole("heading", { name: sector }),
       ).toBeVisible();
     }
+
+    for (const description of [
+      "Market entry, local introductions and on-the-ground business development and stakeholder support.",
+      "Opportunity identification, local introductions and practical support for investment activity.",
+      "Partner identification, community and institutional access, local coordination and programme support.",
+      "Destination promotion, trade outreach and tourism partnerships connecting destinations with international markets.",
+      "Business matchmaking, trade delegations and member and stakeholder engagement supporting market expansion.",
+      "Partnerships, delegations and bespoke training delivered through expert trainer sourcing and end-to-end coordination.",
+      "Delegate recruitment, speaker and VIP coordination, promotion, sponsorship, registration, logistics and on-the-ground delivery.",
+    ]) {
+      expect(within(industrySection!).getByText(description)).toBeVisible();
+    }
+
+    expect(
+      within(industrySection!).queryByText(
+        "Strategic market, stakeholder and partnership support.",
+      ),
+    ).not.toBeInTheDocument();
     expect(
       screen.queryByRole("heading", { level: 3, name: "Government Agencies" }),
     ).not.toBeInTheDocument();
